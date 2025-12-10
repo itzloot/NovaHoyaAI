@@ -2,237 +2,354 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>NovaH • NovaHoyaAI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0a001f" />
+  <title>NovaHoyaAI — Infinity Edge Intelligence</title>
+  <meta name="description" content="The world's fastest, most private edge AI engine." />
 
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Exo+2:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Icons & PWA -->
+  <link rel="icon" href="data:,">
+  <link rel="apple-touch-icon" href="https://nova.itzloot.com/logo192.png">
+  <manifest href="data:application/manifest+json,{
+    \"name\":\"NovaHoyaAI\",
+    \"short_name\":\"NovaHoya\",
+    \"start_url\":\".\",
+    \"display\":\"standalone\",
+    \"background_color\":\"#0a001f\",
+    \"theme_color\":\"#d600ff\",
+    \"icons\":[{\"src\":\"https://nova.itzloot.com/logo512.png\",\"sizes\":\"512x512\",\"type\":\"image/png\"}]
+  }"></manifest>
 
   <style>
     :root {
-      --neon-cyan: #00eeff;
-      --neon-purple: #d600ff;
-      --neon-pink: #ff00c8;
+      --cyan: #00eeff;
+      --purple: #d600ff;
+      --pink: #ff00c8;
       --bg: #0a001f;
     }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    
-    html, body {
-      height: 100%;
-      width: 100%;
-      overflow-x: hidden;
-      background: var(--bg);
+    *, *::before, *::after { box-sizing: border-box; }
+    body, html {
+      margin:0; padding:0; overflow-x:hidden;
+      height:100%; width:100%;
       font-family: 'Exo 2', sans-serif;
+      background: var(--bg);
       color: #e0d0ff;
     }
 
-    body {
-      background: linear-gradient(135deg, #0a001f 0%, #1a0033 50%, #000 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 5vh 5vw;
-    }
-
-    /* Full-screen Particle Background */
-    #particles {
+    /* Floating Neon Menu */
+    nav {
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 1;
-    }
-
-    .content {
-      position: relative;
-      z-index: 10;
-      width: 100%;
-      max-width: 480px;
-      margin: auto;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 10vh;
-    }
-
-    h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 13vw;
-      font-weight: 900;
-      letter-spacing: 8px;
-      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: 0 0 50px var(--neon-cyan), 0 0 80px var(--neon-purple);
-      animation: titleGlow 3s infinite alternate;
-    }
-
-    .tagline {
-      font-size: 5.5vw;
-      color: var(--neon-cyan);
-      text-shadow: 0 0 20px var(--neon-cyan);
-      letter-spacing: 4px;
-      margin-top: 10px;
-    }
-
-    .section {
-      margin-bottom: 12vh;
-    }
-
-    .title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 9vw;
-      background: linear-gradient(90deg, var(--neon-cyan), #00ffea);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 40px var(--neon-cyan);
-      margin-bottom: 6vh;
-      text-align: left;
-    }
-
-    .glass {
-      background: rgba(15, 10, 45, 0.45);
+      top: 0; left: 0; right: 0;
+      z-index: 9999;
+      padding: 5vw 6vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 7vw 8vw;
-      box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.6),
-        0 0 40px rgba(200, 0, 255, 0.4),
-        inset 0 0 30px rgba(0, 238, 255, 0.1);
+      background: rgba(10,0,31,0.4);
+      border-bottom: 1px solid rgba(214,0,255,0.2);
+    }
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 7vw;
+      font-weight: 900;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 3px;
+    }
+    .menu {
+      display: flex;
+      gap: 8vw;
+    }
+    .menu a {
+      color: var(--cyan);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 4.5vw;
+      text-shadow: 0 0 15px var(--cyan);
+      padding: 2vw 3vw;
+      border-radius: 50px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
       overflow: hidden;
     }
-
-    .glass::before {
+    .menu a::after {
       content: '';
       position: absolute;
       inset: 0;
-      border-radius: 24px;
-      padding: 3px;
-      background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink));
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s;
+    }
+    .menu a:hover::after { transform: translateX(100%); }
+    .menu a:hover {
+      transform: translateY(-10px) scale(1.1);
+      text-shadow: 0 0 30px var(--cyan);
+      background: rgba(0,238,255,0.15);
+      box-shadow: 0 0 40px rgba(0,238,255,0.4);
+    }
+
+    /* Hero */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+    .hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 15vw;
+      font-weight: 900;
+      letter-spacing: 10px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple), var(--pink), var(--cyan));
+      background-size: 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientFlow 8s linear infinite, titlePulse 4s infinite alternate;
+      text-shadow: 0 0 80px var(--purple);
+    }
+    .hero p {
+      font-size: 6vw;
+      margin-top: 4vh;
+      color: var(--cyan);
+      text-shadow: 0 0 30px var(--cyan);
+      letter-spacing: 5px;
+    }
+
+    /* Sections */
+    section {
+      min-height: 100vh;
+      padding: 20vh 8vw 10vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(100px);
+      transition: all 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    section.visible { opacity: 1; transform: translateY(0); }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 11vw;
+      background: linear-gradient(120deg, var(--cyan), #00ffea);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 50px var(--cyan);
+      margin-bottom: 10vh;
+    }
+
+    .glass-card {
+      background: rgba(15,10,45,0.5);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-radius: 32px;
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 10vw;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 80px rgba(214,0,255,0.4);
+      position: relative;
+      overflow: hidden;
+    }
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 32px;
+      padding: 4px;
+      background: linear-gradient(45deg, var(--cyan), var(--purple), var(--pink));
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
-      opacity: 0.7;
+      opacity: 0.8;
     }
 
-    ul {
-      list-style: none;
-      font-size: 5.2vw;
-      line-height: 1.9;
-      text-align: left;
-    }
-
+    ul { list-style: none; font-size: 5.5vw; line-height: 2.2; }
     ul li {
+      padding-left: 12vw;
       position: relative;
-      padding-left: 11vw;
-      margin: 5vw 0;
+      margin: 6vw 0;
       color: #e0e0ff;
-      text-shadow: 0 0 10px var(--neon-purple);
     }
-
     ul li::before {
       content: "◆";
-      color: var(--neon-cyan);
-      font-size: 6vw;
+      color: var(--cyan);
       position: absolute;
       left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      text-shadow: 0 0 15px var(--neon-cyan);
+      font-size: 7vw;
+      text-shadow: 0 0 20px var(--cyan);
     }
 
-    .vision-text {
-      font-size: 5.8vw;
-      line-height: 1.8;
-      text-align: center;
-      background: linear-gradient(90deg, #a0f0ff, #ff66ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      padding: 0 5vw;
+    /* Background Shader */
+    #shader-canvas {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -1;
+      pointer-events: none;
     }
 
-    @keyframes titleGlow {
-      from { filter: brightness(1) hue-rotate(0deg); }
-      to { filter: brightness(1.4) hue-rotate(20deg); }
-    }
+    @keyframes gradientFlow { 0% { background-position: 0% 50%; } 100% { background-position: 300% 50%; } }
+    @keyframes titlePulse { from { filter: brightness(1) hue-rotate(0deg); } to { filter: brightness(1.5) hue-rotate(15deg); } }
   </style>
 </head>
 <body>
 
-  <canvas id="particles"></canvas>
-
-  <div class="content">
-    <header>
-      <h1>NOVAHoyAAI</h1>
-      <div class="tagline">Hyperverse Edge Intelligence</div>
-    </header>
-
-    <div class="section">
-      <div class="title">Core Features</div>
-      <div class="glass">
-        <ul>
-          <li>Ultra-low latency inference @ < 3ms on mobile</li>
-          <li>100% offline local intelligence — zero cloud</li>
-          <li>Modular JSON pipelines + hot-reloading</li>
-          <li>Adaptive engine (CPU / NPU / GPU auto-switch)</li>
-          <li>iOS • Android • Raspberry Pi • Vision Pro • Wear OS</li>
-        </ul>
-      </div>
+  <!-- Floating Neon Nav -->
+  <nav>
+    <div class="logo">NOVAHOYAAI</div>
+    <div class="menu">
+      <a href="#features">Features</a>
+      <a href="#why">Why</a>
+      <a href="#tech">Tech</a>
+      <a href="#vision">Vision</a>
     </div>
+  </nav>
 
-    <div class="section">
-      <div class="title">Why NovaHoyaAI?</div>
-      <div class="glass">
-        <p style="font-size:5.5vw; text-align:center; color:#ccc;">
-          Cloud-grade AI.<br>Instant. Private. Everywhere.
-        </p>
-      </div>
-    </div>
+  <!-- Three.js Shader Background -->
+  <canvas id="shader-canvas"></canvas>
 
-    <div class="section">
-      <div class="title">Vision</div>
-      <div class="glass">
-        <p class="vision-text">
-          To power the silent heartbeat of tomorrow’s hyper-connected world — 
-          with intelligence that lives on the edge, not in the cloud.
-        </p>
-      </div>
-    </div>
+  <div class="hero">
+    <h1>NOVAHoyAAI</h1>
+    <p>Infinity Edge Intelligence Engine</p>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <section id="features">
+    <h2 class="section-title">Core Features</h2>
+    <div class="glass-card">
+      <ul>
+        <li>Ultra-low latency inference < 3ms on any phone</li>
+        <li>100% offline · zero cloud dependency</li>
+        <li>Hot-reloadable JSON pipelines</li>
+        <li>Auto CPU/NPU/GPU switching</li>
+        <li>Runs everywhere: iOS · Android · Vision Pro · Wearables</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="why">
+    <h2 class="section-title">Why NovaHoyaAI?</h2>
+    <div class="glass-card" style="text-align:center; font-size:6.5vw; line-height:2;">
+      Cloud-level reasoning.<br>
+      Instant response.<br>
+      Absolute privacy.<br>
+      <span style="background:linear-gradient(90deg,var(--cyan),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:8vw;">
+        All in your pocket.
+      </span>
+    </div>
+  </section>
+
+  <section id="tech">
+    <h2 class="section-title">Tech Stack</h2>
+    <div class="glass-card">
+      <ul>
+        <li>1.3B → 180MB quantized models</li>
+        <li>Rust + WASM runtime (<50MB)</li>
+        <li>Metal / Vulkan / WebGPU backends</li>
+        <li>Visual pipeline editor (coming Q1 2026)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="vision">
+    <h2 class="section-title">Vision</h2>
+    <div class="glass-card" style="text-align:center;">
+      <p style="font-size:7vw; background:linear-gradient(90deg,#a0f0ff,#ff66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+        To make intelligence so fast, so private, and so omnipresent<br>
+        that the edge becomes the new center of the universe.
+      </p>
+    </div>
+  </section>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Three.js + Custom Shader Background -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.167.1/build/three.min.js"></script>
   <script>
-    particlesJS("particles", {
-      particles: {
-        number: { value: 100 },
-        color: { value: ["#00eeff", "#d600ff", "#ff00c8"] },
-        shape: { type: "circle" },
-        opacity: { value: 0.6, random: true },
-        size: { value: 3, random: true },
-        line_linked: {
-          enable: true,
-          distance: 120,
-          color: "#d600ff",
-          opacity: 0.3,
-          width: 1
+    // Ultra-light neon plasma shader background
+    const vertexShader = `
+      varying vec2 vUv;
+      void main() {
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `;
+    const fragmentShader = `
+      uniform float u_time;
+      uniform vec2 u_resolution;
+      varying vec2 vUv;
+      void main() {
+        vec2 p = vUv * 2.0 - 1.0;
+        p.x *= 2.0;
+        float d = length(p);
+        float pulse = sin(d * 10.0 - u_time * 3.0) * 0.5 + 0.5;
+        vec3 color = vec3(0.0);
+        color += vec3(0.05, 0.0, 0.15);
+        color += pulse * vec3(0.0, 0.8, 1.0) * 0.4;
+        color += pow(1.0 - d, 8.0) * vec3(1.0, 0.0, 2.0);
+        gl_FragColor = vec4(color, 1.0);
+      }
+    `;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.OrthographicCamera(-1,1,1,-1,0,1);
+    const geometry = new THREE.PlaneGeometry(2,2);
+    const material = new THREE.ShaderMaterial({
+      vertexShader, fragmentShader,
+      uniforms: {
+        u_time: { value: 0 },
+        u_resolution: { value: new THREE.Vector2() }
+      }
+    });
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('shader-canvas'), alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    function animate() {
+      material.uniforms.u_time.value += 0.01;
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      material.uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
+    });
+
+    // Scroll animations
+    gsap.registerPlugin(ScrollTrigger);
+    document.querySelectorAll('section').forEach(sec => {
+      gsap.to(sec, {
+        scrollTrigger: {
+          trigger: sec,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
         },
-        move: {
-          enable: true,
-          speed: 3,
-          direction: "none",
-          out_mode: "out"
-        }
-      },
-      interactivity: {
-        events: {
-          onhover: { enable: true, mode: "grab" },
-          onclick: { enable: true, mode: "push" }
-        }
-      },
-      retina_detect: true
+        opacity: 1,
+        y: 0,
+        duration: 1.4,
+        ease: "power3.out"
+      });
+    });
+
+    // Smooth scroll for menu
+    document.querySelectorAll('.menu a').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
     });
   </script>
 </body>
