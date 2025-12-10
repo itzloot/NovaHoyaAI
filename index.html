@@ -1,83 +1,267 @@
-<!DOCTYPE html>  <html lang="en">  
-<head>  
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>NovaHoyaAI — Edge Intelligence Engine</title>  
-    <style>  
-        body {  
-            margin: 0;  
-            font-family: Arial, sans-serif;  
-            background: #0d0d0d;  
-            color: white;  
-            text-align: center;  
-        }  
-        header {  
-            padding: 40px 20px;  
-        }  
-        h1 {  
-            font-size: 32px;  
-            margin-bottom: 10px;  
-        }  
-        p {  
-            opacity: 0.8;  
-            font-size: 16px;  
-        }  
-        .section {  
-            padding: 30px 20px;  
-            border-top: 1px solid #222;  
-        }  
-        .title {  
-            font-size: 24px;  
-            margin-bottom: 10px;  
-        }  
-        ul {  
-            list-style: none;  
-            padding: 0;  
-        }  
-        ul li {  
-            margin: 8px 0;  
-            font-size: 17px;  
-        }  
-    </style>  
-</head>  
-<body>  <header>  
-    <h1>NovaHoyaAI</h1>  
-    <p>Next-generation edge-optimized intelligence engine.</p>  
-</header>  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NovaHoyaAI — Hyperverse Edge Intelligence</title>
 
-<div class="section">  
-    <div class="title">🚀 Core Features</div>  
-    <ul>  
-        <li>Ultra-low latency inference</li>  
-        <li>Offline local intelligence</li>  
-        <li>Modular JSON pipelines</li>  
-        <li>Adaptive compute engine</li>  
-        <li>Mobile + IoT optimized</li>  
-    </ul>  
-</div>  
+  <!-- Google Fonts: Orbitron + Exo 2 (Cyber Luxury) -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Exo+2:wght@300;400;600;800&display=swap" rel="stylesheet">
 
-<div class="section">  
-    <div class="title">🧠 Why NovaHoyaAI?</div>  
-    <p>It brings cloud-level AI to the edge — fast, secure, and reliable.</p>  
-</div>  
+  <style>
+    :root {
+      --neon-purple: #c800ff;
+      --neon-cyan: #00f0ff;
+      --neon-pink: #ff00aa;
+      --dark-bg: #0a0a1f;
+      --glass: rgba(15, 15, 45, 0.4);
+      --border-glow: 0 0 20px rgba(200, 0, 255, 0.6);
+    }
 
-<div class="section">  
-    <div class="title">🔧 Tech Stack</div>  
-    <ul>  
-        <li>Edge-Optimized AI Modules</li>  
-        <li>JSON-based configuration</li>  
-        <li>Lightweight runtime</li>  
-        <li>Mobile-first architecture</li>  
-    </ul>  
-</div>  
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: linear-gradient(135deg, #0a0a1f 0%, #1a0033 100%);
+      color: #e0e0ff;
+      font-family: 'Exo 2', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
 
-<div class="section">  
-    <div class="title">🌌 Vision</div>  
-    <p>  
-        To redefine edge intelligence with an engine so advanced it inspires    
-        innovators and future AI creators worldwide.  
-    </p>  
-</div>
+    /* Animated Background Particles */
+    #particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
 
-</body>  
+    header {
+      padding: 100px 20px 80px;
+      position: relative;
+      z-index: 10;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 5.5rem;
+      font-weight: 900;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 40px rgba(200, 0, 255, 0.7);
+      letter-spacing: 8px;
+      margin-bottom: 20px;
+      animation: glowPulse 4s infinite alternate;
+    }
+
+    .tagline {
+      font-size: 1.6rem;
+      opacity: 0.9;
+      letter-spacing: 3px;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 15px var(--neon-cyan);
+    }
+
+    .section {
+      padding: 100px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    .title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
+      margin-bottom: 40px;
+      background: linear-gradient(90deg, #00f0ff, #c800ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+      letter-spacing: 4px;
+    }
+
+    .glass-card {
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 20px;
+      border: 1px solid rgba(200, 0, 255, 0.3);
+      padding: 40px;
+      margin: 30px auto;
+      max-width: 900px;
+      box-shadow: var(--border-glow), inset 0 0 20px rgba(0, 0, 0, 0.3);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .glass-card:hover {
+      animation: float 8s ease-in-out infinite;
+    }
+
+    ul {
+      list-style: none;
+      text-align: left;
+      font-size: 1.4rem;
+      line-height: 2.4;
+    }
+
+    ul li {
+      position: relative;
+      padding-left: 40px;
+      color: #d0d0ff;
+      text-shadow: 0 0 10px rgba(200, 0, 255, 0.4);
+    }
+
+    ul li::before {
+      content: "▹";
+      color: var(--neon-cyan);
+      font-size: 1.8rem;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      text-shadow: 0 0 15px var(--neon-cyan);
+    }
+
+    p {
+      font-size: 1.5rem;
+      line-height: 1.8;
+      opacity: 0.9;
+      color: #cccccc;
+    }
+
+    .vision {
+      font-size: 2rem;
+      font-weight: 300;
+      background: linear-gradient(90deg, #a0f0ff, #ff66ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      padding: 0 100px;
+    }
+
+    /* Animations */
+    @keyframes glowPulse {
+      from { text-shadow: 0 0 40px rgba(200, 0, 255, 0.7); }
+      to { text-shadow: 0 0 60px rgba(0, 240, 255, 0.9), 0 0 80px rgba(200, 0, 255, 0.5); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    /* Neon Border Accent */
+    .neon-border {
+      position: relative;
+    }
+    .neon-border::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      padding: 4px;
+      background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="particles"></canvas>
+
+  <header>
+    <h1>NOVAHoyAAI</h1>
+    <div class="tagline">Hyperverse Edge Intelligence Engine</div>
+  </header>
+
+  <div class="section">
+    <div class="title">Core Features</div>
+    <div class="glass-card neon-border">
+      <ul>
+        <li>Ultra-low latency inference @ < 3ms on mobile</li>
+        <li>100% offline local intelligence — zero cloud dependency</li>
+        <li>Modular JSON pipelines with hot-reloading</li>
+        <li>Adaptive compute engine (CPU / NPU / GPU auto-switch)</li>
+        <li>Optimized for iOS • Android • Raspberry Pi • Vision Pro • Wearables</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="title">Why NovaHoyaAI?</div>
+    <div class="glass-card neon-border">
+      <p>
+        It doesn't just run AI on the edge — it <strong>redefines</strong> the edge.<br>
+        Cloud-level reasoning. Instant response. Ironclad privacy. All in your pocket.
+      </p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="title">Tech Stack</div>
+    <div class="glass-card neon-border">
+      <ul>
+        <li>Next-gen quantized neural modules (1.3B → 180MB)</li>
+        <li>JSON-defined inference graphs with visual editor</li>
+        <li>Sub-50MB lightweight runtime (Rust + WASM)</li>
+        <li>Mobile-first architecture with metal / Vulkan / NNAPI backends</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="title">Vision</div>
+    <div class="glass-card neon-border">
+      <p class="vision">
+        To birth an intelligence engine so elegant, so powerful, and so omnipresent on the edge<br>
+        that it becomes the silent heartbeat of tomorrow's hyper-connected world.
+      </p>
+    </div>
+  </div>
+
+  <!-- Particle.js Minimal Integration (Cyber Grid) -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles", {
+      "particles": {
+        "number": { "value": 80 },
+        "color": { "value": ["#00f0ff", "#c800ff", "#ff00aa"] },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.5, "random": true },
+        "size": { "value": 3, "random": true },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#c800ff",
+          "opacity": 0.2,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 2,
+          "direction": "none",
+          "random": false,
+          "straight": false,
+          "out_mode": "out"
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": { "enable": true, "mode": "grab" },
+          "onclick": { "enable": true, "mode": "push" },
+          "resize": true
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
+</body>
 </html>
