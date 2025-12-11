@@ -1,102 +1,70 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NovaHoyaAI</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NovaHoyaAI — Edge Intelligence Engine</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-  <!-- NAVBAR -->
-  <header class="nav">
-    <div class="logo">NovaHoya<span>AI</span></div>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#features">Features</a>
-      <a href="#pipeline">Pipelines</a>
-      <a href="#footer">Contact</a>
-    </nav>
-  </header>
+    <!-- Cosmic Background Layers -->
+    <canvas id="stars"></canvas>
+    <div class="nebula"></div>
+    <div class="grid"></div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1 class="title">Ultra-Low-Latency Edge AI Engine</h1>
-      <p class="subtitle">Built for next-gen mobile & IoT devices. Local processing. Zero cloud. Pure speed.</p>
-      <a href="#" class="btn">Download SDK</a>
+    <!-- Main Container -->
+    <div class="content">
+
+        <header class="glass">
+            <h1 class="title">NovaHoyaAI</h1>
+            <p class="subtitle">Edge-Optimized Intelligence Engine powering the next era of local AI.</p>
+        </header>
+
+        <!-- Features -->
+        <section class="glass section">
+            <h2>🚀 Core Features</h2>
+            <ul>
+                <li>Ultra-low latency inference</li>
+                <li>Offline local intelligence</li>
+                <li>Modular JSON pipelines</li>
+                <li>Adaptive compute engine</li>
+                <li>Mobile + IoT optimized</li>
+            </ul>
+        </section>
+
+        <!-- Why -->
+        <section class="glass section">
+            <h2>🧠 Why NovaHoyaAI?</h2>
+            <p>Delivering cloud-level intelligence directly to edge devices with unmatched speed, privacy, and reliability.</p>
+        </section>
+
+        <!-- Tech Stack -->
+        <section class="glass section">
+            <h2>🔧 Tech Stack</h2>
+            <ul>
+                <li>Edge-Optimized AI Modules</li>
+                <li>JSON-based configuration</li>
+                <li>Lightweight runtime</li>
+                <li>Mobile-first architecture</li>
+            </ul>
+        </section>
+
+        <!-- Pipeline Viewer -->
+        <section class="glass section">
+            <h2>📦 Pipeline Architecture</h2>
+            <button id="showPipeline" class="btn">Show Pipeline JSON</button>
+            <pre id="pipelineBox" class="hidden"></pre>
+        </section>
+
+        <!-- Vision -->
+        <section class="glass section">
+            <h2>🌌 Vision</h2>
+            <p>To build an intelligence engine so advanced it inspires the next generation of innovators and AI creators worldwide.</p>
+        </section>
+
     </div>
-    <div class="hero-bg"></div>
-  </section>
 
-  <!-- ABOUT -->
-  <section id="about" class="about section">
-    <h2 class="section-title">What is NovaHoyaAI?</h2>
-    <p class="section-subtitle">
-      NovaHoyaAI is an advanced edge-computing intelligence engine designed for
-      real-time inference, modular JSON pipelines, on-device deep learning
-      execution, and ultra-secure local data processing.
-    </p>
-  </section>
-
-  <!-- FEATURES -->
-  <section id="features" class="features section">
-    <h2 class="section-title">Core Features</h2>
-
-    <div class="grid">
-      <div class="card">
-        <i class="fa-solid fa-bolt"></i>
-        <h3>Ultra Low Latency</h3>
-        <p>Runs inference locally with micro-second response time.</p>
-      </div>
-
-      <div class="card">
-        <i class="fa-solid fa-robot"></i>
-        <h3>Modular AI Pipelines</h3>
-        <p>Supports customizable JSON-based AI task pipelines.</p>
-      </div>
-
-      <div class="card">
-        <i class="fa-solid fa-shield-halved"></i>
-        <h3>Local Data Privacy</h3>
-        <p>Nothing sent to cloud. All processing happens on-device.</p>
-      </div>
-
-      <div class="card">
-        <i class="fa-solid fa-mobile-screen"></i>
-        <h3>Edge-Optimized</h3>
-        <p>Built for low-power mobile and IoT systems.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- PIPELINE -->
-  <section id="pipeline" class="pipelines section">
-    <h2 class="section-title">Pipeline Architecture</h2>
-
-    <div class="pipeline-box">
-      <pre>
-{
-  "pipeline": {
-    "capture": "sensor",
-    "preprocess": "normalize",
-    "model": "edge-transformer-v3",
-    "postprocess": "classify"
-  }
-}
-      </pre>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer id="footer">
-    <h3>NovaHoyaAI © 2025</h3>
-    <p>Repo by itzloot</p>
-  </footer>
-
+    <script src="script.js"></script>
 </body>
 </html>
