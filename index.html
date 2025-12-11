@@ -1,214 +1,88 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NovaHoyaAI</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaHoyaAI — Electric Blue Edition</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- NAVBAR -->
-  <header class="nav">
-    <div class="logo">NovaHoya<span>AI</span></div>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#features">Features</a>
-      <a href="#pipeline">Pipelines</a>
-      <a href="#footer">Contact</a>
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <div class="logo">NovaHoya<span>AI</span></div>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pipeline">Pipeline</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
     </nav>
-  </header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1 class="title">Ultra-Low-Latency Edge AI Engine</h1>
-      <p class="subtitle">Built for next-gen mobile & IoT devices. Local processing. Zero cloud. Pure speed.</p>
-      <a href="#" class="btn">Download SDK</a>
-    </div>
-    <div class="hero-bg"></div>
-  </section>
+    <!-- HEADER / HERO -->
+    <section class="hero">
+        <h1>What is NovaHoyaAI?</h1>
+        <p>
+            NovaHoyaAI is an advanced edge-computing intelligence engine designed for
+            real-time inference, modular JSON pipelines, on-device deep learning execution,
+            and ultra-secure local data processing.
+        </p>
+    </section>
 
-  <!-- ABOUT -->
-  <section id="about" class="about section">
-    <h2 class="section-title">What is NovaHoyaAI?</h2>
-    <p class="section-subtitle">
-      NovaHoyaAI is an advanced edge-computing intelligence engine designed for
-      real-time inference, modular JSON pipelines, on-device deep learning
-      execution, and ultra-secure local data processing.
-    </p>
-  </section>
+    <!-- FEATURES -->
+    <section id="features" class="features">
+        <h2>Core Features</h2>
 
-  <!-- FEATURES -->
-  <section id="features" class="features section">
-    <h2 class="section-title">Core Features</h2>
+        <div class="feature-grid">
 
-    <div class="grid">
-      <div class="card">
-        <i class="fa-solid fa-bolt"></i>
-        <h3>Ultra Low Latency</h3>
-        <p>Runs inference locally with micro-second response time.</p>
-      </div>
+            <div class="feature-box">
+                <div class="icon">⚡</div>
+                <h3>Ultra Low Latency</h3>
+                <p>Runs inference locally with micro-second response time.</p>
+            </div>
 
-      <div class="card">
-        <i class="fa-solid fa-robot"></i>
-        <h3>Modular AI Pipelines</h3>
-        <p>Supports customizable JSON-based AI task pipelines.</p>
-      </div>
+            <div class="feature-box">
+                <div class="icon">🤖</div>
+                <h3>Modular AI Pipelines</h3>
+                <p>Supports customizable JSON-based AI task pipelines.</p>
+            </div>
 
-      <div class="card">
-        <i class="fa-solid fa-shield-halved"></i>
-        <h3>Local Data Privacy</h3>
-        <p>Nothing sent to cloud. All processing happens on-device.</p>
-      </div>
+            <div class="feature-box">
+                <div class="icon">🛡️</div>
+                <h3>Local Data Privacy</h3>
+                <p>Nothing sent to cloud. All processing happens on-device.</p>
+            </div>
 
-      <div class="card">
-        <i class="fa-solid fa-mobile-screen"></i>
-        <h3>Edge-Optimized</h3>
-        <p>Built for low-power mobile and IoT systems.</p>
-      </div>
-    </div>
-  </section>
+            <div class="feature-box">
+                <div class="icon">📱</div>
+                <h3>Edge-Optimized</h3>
+                <p>Built for low-power mobile + IoT systems.</p>
+            </div>
 
-  <!-- PIPELINE -->
-  <section id="pipeline" class="pipelines section">
-    <h2 class="section-title">Pipeline Architecture</h2>
+        </div>
+    </section>
 
-    <div class="pipeline-box">
-      <pre>
-{
+    <!-- PIPELINE -->
+    <section id="pipeline" class="pipeline">
+        <h2>Pipeline Architecture</h2>
+
+        <div class="code-box">
+<pre>{
   "pipeline": {
     "capture": "sensor",
     "preprocess": "normalize",
     "model": "edge-transformer-v3",
     "postprocess": "classify"
   }
-}
-      </pre>
-    </div>
-  </section>
+}</pre>
+        </div>
+    </section>
 
-  <!-- FOOTER -->
-  <footer id="footer">
-    <h3>NovaHoyaAI © 2025</h3>
-    <p>Repo by itzloot</p>
-  </footer>
+    <!-- FOOTER -->
+    <footer>
+        NovaHoyaAI © 2025 • Repo by itzloot
+    </footer>
 
 </body>
-</html>/* Global */
-body {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    font-family: 'Inter', sans-serif;
-    background: #000;
-    color: white;
-}
-
-/* Cosmic Starfield Canvas */
-#stars {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    z-index: -3;
-}
-
-/* Cosmic Nebula */
-.nebula {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 30% 50%, #ff4b1f44, transparent),
-                radial-gradient(circle at 70% 60%, #6a00ff33, transparent),
-                radial-gradient(circle at 50% 80%, #00c3ff44, transparent);
-    z-index: -2;
-    filter: blur(80px);
-}
-
-/* Neon Grid */
-.grid {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        linear-gradient(#ffffff08 1px, transparent 1px),
-        linear-gradient(90deg, #ffffff08 1px, transparent 1px);
-    background-size: 40px 40px;
-    z-index: -1;
-    animation: gridMove 20s linear infinite;
-}
-@keyframes gridMove {
-    from { transform: translateY(0); }
-    to { transform: translateY(40px); }
-}
-
-/* Content */
-.content {
-    padding: 40px 20px;
-    max-width: 900px;
-    margin: auto;
-}
-
-/* Glassmorphism */
-.glass {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255,255,255,0.15);
-    padding: 25px;
-    border-radius: 18px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 0 20px #ffffff0d;
-    margin-bottom: 25px;
-    animation: fadeIn 1.2s;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(15px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Text */
-.title {
-    font-size: 42px;
-    font-weight: 800;
-    letter-spacing: -1px;
-}
-
-.subtitle {
-    opacity: 0.8;
-    font-size: 18px;
-}
-
-/* Buttons */
-.btn {
-    padding: 12px 22px;
-    font-size: 16px;
-    background: #ffffff22;
-    border: 1px solid #ffffff33;
-    color: white;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.btn:hover {
-    background: #ffffff33;
-}
-
-/* Pipeline Box */
-#pipelineBox {
-    text-align: left;
-    margin-top: 20px;
-    padding: 20px;
-    background: #000000aa;
-    border-radius: 12px;
-    border: 1px solid #ffffff22;
-    white-space: pre-wrap;
-}
-
-.hidden {
-    display: none;
-}
+</html>
