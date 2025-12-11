@@ -6,116 +6,103 @@
     <title>NovaHoyaAI — Edge Intelligence Engine</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<header>
-    <div class="logo">NovaHoya<span>AI</span></div>
-
-    <nav class="nav-links">
-        <a href="#about">About</a>
-        <a href="#features">Features</a>
-        <a href="#pipeline">Pipeline</a>
-        <a href="#support">Support</a>
-    </nav>
-
-    <div class="menu-btn" onclick="toggleMenu()">
-        <div></div><div></div><div></div>
-    </div>
-</header>
-
-<div id="mobileMenu" class="mobile-menu">
-    <a onclick="toggleMenu()" href="#about">About</a>
-    <a onclick="toggleMenu()" href="#features">Features</a>
-    <a onclick="toggleMenu()" href="#pipeline">Pipeline</a>
-    <a onclick="toggleMenu()" href="#support">Support</a>
+<!-- Loading Overlay -->
+<div class="loader">
+    <div class="loader-glow"></div>
+    <p>Initializing NovaHoyaAI...</p>
 </div>
 
-<section class="hero">
-    <h1 class="title-glow">Ultra-Low-Latency Edge AI Engine</h1>
-    <p>
-        NovaHoyaAI delivers next-generation on-device intelligence with micro-second inference,
-        modular AI pipelines, and uncompromising device-level data privacy.
-    </p>
-</section>
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="logo">NovaHoyaAI</div>
+    <div class="menu-icon" onclick="toggleMenu()">
+        <div></div><div></div><div></div>
+    </div>
+    <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pipeline">Pipeline</a></li>
+        <li><a href="#tech">Tech Stack</a></li>
+        <li><a href="#vision">Vision</a></li>
+        <li>
+            <a href="https://discord.gg/eAj9WdTGcc" target="_blank" class="discord-link">
+                <!-- Discord SVG Icon -->
+                <svg viewBox="0 0 127.14 96.36" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M107.7 8.07A105.15 105.15 0 0081.5 0l-2.5 4.8a97.35 97.35 0 00-30 0L46.5 0A105.15 105.15 0 0020.3 8.07 110.3 110.3 0 000 80.2a105.15 105.15 0 0033.6 16.16l5-10.6a68.1 68.1 0 01-12.3-6.2l2-8.3a90.35 90.35 0 0078.5 0l2 8.3a68.1 68.1 0 01-12.3 6.2l5 10.6A105.15 105.15 0 00127 80.2a110.3 110.3 0 00-19.3-72.13zM42.4 65c-6.3 0-11.4-5.9-11.4-13.2s5-13.2 11.4-13.2S53.8 44.5 53.8 51.8 48.8 65 42.4 65zm42.3 0c-6.3 0-11.4-5.9-11.4-13.2S78.4 38.6 84.7 38.6 96.1 44.5 96.1 51.8 91.1 65 84.7 65z"/>
+                </svg>
+            </a>
+        </li>
+    </ul>
+</nav>
 
-<section id="about" class="section">
-    <h2 class="section-title">What is NovaHoyaAI?</h2>
-    <p class="section-desc">
-        NovaHoyaAI is an advanced edge-computing intelligence framework engineered for 
-        high-speed, real-time deep-learning execution on mobile and IoT devices.  
-        It uses modular JSON pipelines, optimized hardware acceleration, and pure device-local inference.
-    </p>
-</section>
+<!-- Hero -->
+<header class="hero">
+    <h1 class="title">Edge-Optimized Intelligence Engine</h1>
+    <p class="subtitle">Ultra-low latency • Local inference • Adaptive compute</p>
+</header>
 
+<!-- Features -->
 <section id="features" class="section">
     <h2 class="section-title">Core Features</h2>
-
-    <div class="feature-grid">
-
-        <div class="feature-card">
-            <h3>Ultra Low Latency</h3>
-            <p>
-                Optimized runtime delivers micro-second inference for real-time decisions.
-            </p>
-        </div>
-
-        <div class="feature-card">
-            <h3>Modular AI Pipelines</h3>
-            <p>
-                Supports structured JSON workflows for flexible AI task chaining.
-            </p>
-        </div>
-
-        <div class="feature-card">
-            <h3>Local Data Privacy</h3>
-            <p>
-                All computation runs on-device. Zero cloud usage. Zero data leakage.
-            </p>
-        </div>
-
-        <div class="feature-card">
-            <h3>Edge-Optimized</h3>
-            <p>
-                Built specifically for low-power chips without sacrificing AI performance.
-            </p>
-        </div>
-
+    <div class="grid">
+        <div class="card">Ultra-low latency inference</div>
+        <div class="card">Offline local intelligence</div>
+        <div class="card">Modular JSON pipelines</div>
+        <div class="card">Adaptive compute engine</div>
+        <div class="card">Mobile + IoT optimization</div>
     </div>
 </section>
 
+<!-- Animated Pipeline -->
 <section id="pipeline" class="section">
     <h2 class="section-title">Pipeline Architecture</h2>
-
-    <div class="code-box">
-<pre>
-{
-    "pipeline": {
-        "capture": "sensor",
-        "preprocess": "normalize",
-        "model": "edge-transformer-v3",
-        "postprocess": "classify"
-    }
-}
-</pre>
+    <div class="pipeline">
+        <div class="node">Input Layer</div>
+        <div class="line"></div>
+        <div class="node">Vector Embedding</div>
+        <div class="line"></div>
+        <div class="node">Inference Engine</div>
+        <div class="line"></div>
+        <div class="node">Optimizer</div>
+        <div class="line"></div>
+        <div class="node">Output Layer</div>
     </div>
 </section>
 
-<section id="support" class="section">
-    <h2 class="section-title">Support Us</h2>
-    <p class="section-desc">Join our developer community on Discord.</p>
-
-    <a href="https://discord.gg/eAj9WdTGcc" target="_blank" class="discord-icon">
-        <svg height="60" width="60" viewBox="0 0 24 24" fill="#7289da">
-            <path d="M20.317 4.369...Z" />
-        </svg>
-    </a>
+<!-- Tech Stack -->
+<section id="tech" class="section">
+    <h2 class="section-title">Tech Stack</h2>
+    <div class="grid">
+        <div class="card">Edge-Optimized Modules</div>
+        <div class="card">JSON Configuration</div>
+        <div class="card">Lightweight Runtime</div>
+        <div class="card">Mobile-First Architecture</div>
+    </div>
 </section>
 
+<!-- Vision -->
+<section id="vision" class="section">
+    <h2 class="section-title">Vision</h2>
+    <p class="vision-text">
+        To redefine edge intelligence with an advanced engine that empowers  
+        developers, innovators, and future AI creators worldwide.
+    </p>
+</section>
+
+<footer>
+    © 2025 NovaHoyaAI. All rights reserved.
+</footer>
+
 <script>
-function toggleMenu() {
-    document.getElementById("mobileMenu").classList.toggle("active");
-}
+    // Loader fade-out
+    window.onload = () => {
+        document.querySelector(".loader").classList.add("hide");
+    };
+
+    function toggleMenu() {
+        document.querySelector(".nav-links").classList.toggle("active");
+    }
 </script>
 
 </body>
