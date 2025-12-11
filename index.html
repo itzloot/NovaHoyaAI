@@ -3,86 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NovaHoyaAI — Electric Blue Edition</title>
+    <title>NovaHoyaAI</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <!-- NAVIGATION -->
-    <nav class="navbar">
-        <div class="logo">NovaHoya<span>AI</span></div>
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#pipeline">Pipeline</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+<!-- NAVBAR -->
+<nav class="nav">
+    <a class="logo">NovaHoyaAI</a>
 
-    <!-- HEADER / HERO -->
-    <section class="hero">
-        <h1>What is NovaHoyaAI?</h1>
-        <p>
-            NovaHoyaAI is an advanced edge-computing intelligence engine designed for
-            real-time inference, modular JSON pipelines, on-device deep learning execution,
-            and ultra-secure local data processing.
-        </p>
-    </section>
+    <!-- Desktop Links -->
+    <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#pipeline">Pipelines</a>
+        <a href="#support">Support</a>
+    </div>
 
-    <!-- FEATURES -->
-    <section id="features" class="features">
-        <h2>Core Features</h2>
+    <!-- Hamburger -->
+    <div class="menu-btn" onclick="toggleMenu()">
+        <div></div><div></div><div></div>
+    </div>
+</nav>
 
-        <div class="feature-grid">
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="mobile-menu">
+    <a href="#about">About</a>
+    <a href="#features">Features</a>
+    <a href="#pipeline">Pipeline</a>
+    <a href="#support">Support</a>
+</div>
 
-            <div class="feature-box">
-                <div class="icon">⚡</div>
-                <h3>Ultra Low Latency</h3>
-                <p>Runs inference locally with micro-second response time.</p>
-            </div>
+<!-- HERO -->
+<header class="hero">
+    <h1 class="glow-title">Ultra-Low-Latency Edge AI Engine</h1>
+    <p class="hero-subtext">
+        NovaHoyaAI delivers next-generation on-device intelligence with lightning-fast inference,
+        modular AI pipelines, and uncompromising local-data security.
+    </p>
+    <a href="#" class="btn">Download SDK</a>
+</header>
 
-            <div class="feature-box">
-                <div class="icon">🤖</div>
-                <h3>Modular AI Pipelines</h3>
-                <p>Supports customizable JSON-based AI task pipelines.</p>
-            </div>
+<!-- ABOUT -->
+<section id="about" class="section">
+    <h2>What is NovaHoyaAI?</h2>
+    <p>
+        NovaHoyaAI is a fully optimized edge-computing intelligence engine engineered for real-time
+        deep-learning execution on mobile and IoT devices. It uses modular JSON pipelines,
+        ultra-low-latency inference models, and pure on-device processing to achieve maximum performance
+        without relying on cloud computation.
+    </p>
+</section>
 
-            <div class="feature-box">
-                <div class="icon">🛡️</div>
-                <h3>Local Data Privacy</h3>
-                <p>Nothing sent to cloud. All processing happens on-device.</p>
-            </div>
+<!-- FEATURES -->
+<section id="features" class="section">
+    <h2>Core Features</h2>
 
-            <div class="feature-box">
-                <div class="icon">📱</div>
-                <h3>Edge-Optimized</h3>
-                <p>Built for low-power mobile + IoT systems.</p>
-            </div>
+    <div class="features">
 
+        <div class="feature">
+            <img src="https://cdn.jsdelivr.net/gh/tabler/tabler-icons/icons/bolt.svg" class="icon-svg">
+            <h3>Ultra Low Latency</h3>
+            <p>Optimized runtime delivers micro-second processing for real-time on-device decisions.</p>
         </div>
-    </section>
 
-    <!-- PIPELINE -->
-    <section id="pipeline" class="pipeline">
-        <h2>Pipeline Architecture</h2>
+        <div class="feature">
+            <img src="https://cdn.jsdelivr.net/gh/tabler/tabler-icons/icons/brand-stackshare.svg" class="icon-svg">
+            <h3>Modular AI Pipelines</h3>
+            <p>Pipeline engine supports structured JSON workflows for flexible AI task chaining.</p>
+        </div>
 
-        <div class="code-box">
-<pre>{
+        <div class="feature">
+            <img src="https://cdn.jsdelivr.net/gh/tabler/tabler-icons/icons/shield-lock.svg" class="icon-svg">
+            <h3>Local Data Privacy</h3>
+            <p>All computation occurs locally. Zero cloud dependency. Zero data leakage.</p>
+        </div>
+
+        <div class="feature">
+            <img src="https://cdn.jsdelivr.net/gh/tabler/tabler-icons/icons/device-mobile.svg" class="icon-svg">
+            <h3>Edge-Optimized</h3>
+            <p>Built specifically for low-power devices without sacrificing AI performance.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- PIPELINE -->
+<section id="pipeline" class="section">
+    <h2>Pipeline Architecture</h2>
+    <pre class="code-block">
+{
   "pipeline": {
     "capture": "sensor",
     "preprocess": "normalize",
     "model": "edge-transformer-v3",
     "postprocess": "classify"
   }
-}</pre>
-        </div>
-    </section>
+}
+    </pre>
+</section>
 
-    <!-- FOOTER -->
-    <footer>
-        NovaHoyaAI © 2025 • Repo by itzloot
-    </footer>
+<!-- SUPPORT -->
+<section id="support" class="section">
+    <h2>Support Us</h2>
+    <p>Join our developer community on Discord.</p>
+
+    <a href="https://discord.gg/eAj9WdTGcc" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg" class="discord-icon">
+    </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p>NovaHoyaAI © 2025 · Repo by itzloot</p>
+</footer>
+
+<script>
+function toggleMenu() {
+    document.getElementById("mobileMenu").classList.toggle("open");
+}
+</script>
 
 </body>
 </html>
