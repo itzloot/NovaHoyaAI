@@ -1,163 +1,102 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0a001a"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NovaHoyaAI</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root{--c:#00eeff;--p:#c300ff;--pk:#ff0099;--bg:#0a001a}
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{
-      background:var(--bg);
-      color:#e0d0ff;
-      font-family:'Exo 2',sans-serif;
-      min-height:100vh;
-      overflow-x:hidden;
-      line-height:1.7;
-    }
-    nav{
-      position:fixed;top:0;left:0;right:0;
-      padding:4vw 6vw;
-      display:flex;justify-content:space-between;align-items:center;
-      background:rgba(10,0,26,0.6);
-      backdrop-filter:blur(12px);
-      z-index:100;
-      border-bottom:1px solid rgba(195,0,255,0.3);
-    }
-    .logo{
-      font:900 7.5vw 'Orbitron';
-      background:linear-gradient(90deg,var(--c),var(--p));
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-    }
-    .nav-links a{
-      color:var(--c);text-decoration:none;
-      margin-left:6vw;font-size:4.5vw;font-weight:600;
-      text-shadow:0 0 10px var(--c);
-    }
-    main{padding-top:18vh}
-    section{padding:15vh 6vw 10vh}
-    h1{
-      font:900 14vw 'Orbitron';
-      text-align:center;
-      background:linear-gradient(90deg,var(--c),var(--p),var(--pk));
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      text-shadow:0 0 40px var(--p);
-      margin-bottom:8vh;
-    }
-    .tagline{
-      text-align:center;font-size:5.5vw;color:var(--c);
-      text-shadow:0 0 20px var(--c);letter-spacing:4px;
-    }
-    .card{
-      background:rgba(20,10,50,0.5);
-      backdrop-filter:blur(16px);
-      border-radius:24px;
-      padding:8vw;
-      border:1px solid rgba(200,0,255,0.3);
-      box-shadow:0 10px 40px rgba(0,0,0,0.6),0 0 40px rgba(195,0,255,0.3);
-      margin:8vh 0;
-    }
-    h2{
-      font:900 9vw 'Orbitron';
-      background:linear-gradient(120deg,var(--c),#00ffff);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      margin-bottom:6vh;
-    }
-    ul{list-style:none;font-size:5.3vw}
-    li{
-      padding-left:10vw;position:relative;margin:5vw 0;
-      text-shadow:0 0 8px var(--p);
-    }
-    li::before{
-      content:"◆";color:var(--c);position:absolute;left:0;
-      text-shadow:0 0 15px var(--c);
-    }
-    .vision{
-      font-size:6vw;text-align:center;
-      background:linear-gradient(90deg,#88f,#f8f);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-    }
-    /* Tiny particle effect */
-    #bg{
-      position:fixed;inset:0;z-index:-1;opacity:0.4;
-      background:radial-gradient(circle at 20% 80%,#c300ff22 0%,transparent 50%),
-                 radial-gradient(circle at 80% 20%,#00eeff22 0%,transparent 50%);
-      animation:move 25s infinite linear;
-    }
-    @keyframes move{
-      0%,100%{background-position:0% 0%,100% 100%}
-      50%{background-position:100% 100%,0% 0%}
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
+
 <body>
 
-  <div id="bg"></div>
-
-  <nav>
-    <div class="logo">NOVAHoyAAI</div>
-    <div class="nav-links">
+  <!-- NAVBAR -->
+  <header class="nav">
+    <div class="logo">NovaHoya<span>AI</span></div>
+    <nav>
+      <a href="#about">About</a>
       <a href="#features">Features</a>
-      <a href="#why">Why</a>
-      <a href="#vision">Vision</a>
+      <a href="#pipeline">Pipelines</a>
+      <a href="#footer">Contact</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="title">Ultra-Low-Latency Edge AI Engine</h1>
+      <p class="subtitle">Built for next-gen mobile & IoT devices. Local processing. Zero cloud. Pure speed.</p>
+      <a href="#" class="btn">Download SDK</a>
     </div>
-  </nav>
+    <div class="hero-bg"></div>
+  </section>
 
-  <main>
-    <section style="text-align:center">
-      <h1>NOVAHoyAAI</h1>
-      <p class="tagline">Edge Intelligence Engine</p>
-    </section>
+  <!-- ABOUT -->
+  <section id="about" class="about section">
+    <h2 class="section-title">What is NovaHoyaAI?</h2>
+    <p class="section-subtitle">
+      NovaHoyaAI is an advanced edge-computing intelligence engine designed for
+      real-time inference, modular JSON pipelines, on-device deep learning
+      execution, and ultra-secure local data processing.
+    </p>
+  </section>
 
-    <section id="features">
-      <h2>Core Features</h2>
+  <!-- FEATURES -->
+  <section id="features" class="features section">
+    <h2 class="section-title">Core Features</h2>
+
+    <div class="grid">
       <div class="card">
-        <ul>
-          <li>Ultra-low latency (< 3 ms on mobile)</li>
-          <li>100% offline · zero cloud</li>
-          <li>JSON pipelines + hot reload</li>
-          <li>Auto CPU / NPU / GPU switching</li>
-          <li>iOS · Android · Vision Pro · Wearables</li>
-        </ul>
+        <i class="fa-solid fa-bolt"></i>
+        <h3>Ultra Low Latency</h3>
+        <p>Runs inference locally with micro-second response time.</p>
       </div>
-    </section>
 
-    <section id="why">
-      <h2>Why NovaHoyaAI?</h2>
-      <div class="card" style="text-align:center;font-size:6vw">
-        Cloud-level AI.<br>Instant. Private.<br>
-        <strong style="background:linear-gradient(90deg,var(--c),var(--pk));-webkit-background-clip:text;-webkit-text-fill-color:transparent">
-          Runs in your pocket.
-        </strong>
-      </div>
-    </section>
-
-    <section id="vision">
-      <h2>Vision</h2>
       <div class="card">
-        <p class="vision">
-          To bring true intelligence to the edge — fast, secure, and everywhere.
-        </p>
+        <i class="fa-solid fa-robot"></i>
+        <h3>Modular AI Pipelines</h3>
+        <p>Supports customizable JSON-based AI task pipelines.</p>
       </div>
-    </section>
-  </main>
 
-  <script>
-    // Smooth scroll for menu
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.onclick = e => {
-        e.preventDefault();
-        document.querySelector(a.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
-      };
-    });
-  </script>
+      <div class="card">
+        <i class="fa-solid fa-shield-halved"></i>
+        <h3>Local Data Privacy</h3>
+        <p>Nothing sent to cloud. All processing happens on-device.</p>
+      </div>
+
+      <div class="card">
+        <i class="fa-solid fa-mobile-screen"></i>
+        <h3>Edge-Optimized</h3>
+        <p>Built for low-power mobile and IoT systems.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PIPELINE -->
+  <section id="pipeline" class="pipelines section">
+    <h2 class="section-title">Pipeline Architecture</h2>
+
+    <div class="pipeline-box">
+      <pre>
+{
+  "pipeline": {
+    "capture": "sensor",
+    "preprocess": "normalize",
+    "model": "edge-transformer-v3",
+    "postprocess": "classify"
+  }
+}
+      </pre>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <h3>NovaHoyaAI © 2025</h3>
+    <p>Repo by itzloot</p>
+  </footer>
+
 </body>
 </html>
