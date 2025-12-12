@@ -1,211 +1,117 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
-}
+/* ===================== */
+/*   Itzloot on top   */
+/* ===================== */
 
 body {
-    background: radial-gradient(circle at center, #020611, #000000 80%);
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: radial-gradient(circle at top, #1a0000 0%, #000000 70%);
     color: #fff;
     overflow-x: hidden;
 }
 
-/* ---------------- NAVBAR ---------------- */
-
-.navbar {
-    width: 100%;
-    height: 70px;
-    background: rgba(0,0,0,0.55);
-    backdrop-filter: blur(10px);
+/* NAVBAR */
+nav {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 0 25px;
-    position: fixed;
-    top: 0;
-    z-index: 999;
+    padding: 20px 8%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255, 30, 30, 0.2);
 }
 
-.logo {
-    font-size: 1.4rem;
-    font-weight: 650;
-    color: #4dc9ff;
-}
-
-.hamburger {
-    width: 30px;
-    cursor: pointer;
-    display: none;
-}
-
-.hamburger span {
-    display: block;
-    height: 3px;
-    background: #4dc9ff;
-    margin: 6px 0;
-    border-radius: 4px;
-}
-
-.nav-links a {
-    margin-left: 25px;
+nav a {
+    color: #ff4545;
+    margin-left: 24px;
     text-decoration: none;
-    color: #d8eaff;
     font-weight: 500;
-    transition: 0.3s;
+    transition: 0.2s ease;
 }
 
-.nav-links a:hover {
-    color: #4dc9ff;
+nav a:hover {
+    color: #ff2b2b;
 }
 
-/* Mobile Menu */
-
-@media (max-width: 850px) {
-    .hamburger { display: block; }
-
-    .nav-links {
-        position: absolute;
-        top: 70px;
-        right: -200px;
-        background: rgba(0,0,0,0.7);
-        width: 160px;
-        transition: 0.4s;
-        padding: 10px;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .nav-links.open { right: 0; }
-
-    .nav-links a {
-        margin: 12px 0;
-    }
-}
-
-/* ---------------- HERO ---------------- */
-
-.hero {
-    text-align: center;
-    padding: 180px 20px 100px;
-}
-
-.title {
-    font-size: 2.3rem;
+/* HERO */
+.hero-title {
+    font-size: 36px;
     font-weight: 800;
-    text-shadow: 0 0 20px #4dc9ff;
-}
-
-.subtitle {
-    margin-top: 15px;
-    font-size: 1.1rem;
-    opacity: 0.85;
-}
-
-.cta-btn {
-    margin-top: 35px;
-    background: #4dc9ff;
-    border: none;
-    padding: 12px 26px;
-    font-weight: 700;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.cta-btn:hover {
-    background: #86e0ff;
-    box-shadow: 0 0 15px #4dc9ff;
-}
-
-/* ---------------- SECTIONS ---------------- */
-
-.section {
-    padding: 100px 20px;
     text-align: center;
+    padding-top: 80px;
+    color: #ffffff;
+    text-shadow: 0 0 18px #ff1a1a;
 }
 
-.desc {
-    max-width: 700px;
-    margin: auto;
-    opacity: 0.88;
-    line-height: 1.6;
+.hero-sub {
+    text-align: center;
+    opacity: 0.9;
+    margin-top: 8px;
+    color: #ffa5a5;
 }
 
-/* ---------------- FEATURES ---------------- */
-
-.features-grid {
-    margin-top: 45px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 25px;
-    padding: 0 20px;
-}
-
-.feature-card {
-    padding: 25px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.08);
-    backdrop-filter: blur(12px);
-    transition: 0.35s;
-}
-
-.feature-card:hover {
-    border-color: #4dc9ff;
-    transform: translateY(-6px);
-    box-shadow: 0 0 30px rgba(77,201,255,0.25);
-}
-
-/* ---------------- PIPELINE ---------------- */
-
-.pipeline-box {
-    background: rgba(0,0,0,0.6);
-    padding: 25px;
-    max-width: 600px;
-    margin: 35px auto;
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-/* ---------------- DISCORD ---------------- */
-
-.discord-btn {
-    margin-top: 25px;
-    display: inline-flex;
-    align-items: center;
-    padding: 12px 20px;
-    background: rgba(77,201,255,0.15);
-    border-radius: 10px;
-    text-decoration: none;
-    color: #4dc9ff;
+/* BUTTON */
+button {
+    display: block;
+    margin: 30px auto;
+    padding: 12px 30px;
+    font-size: 17px;
     font-weight: 600;
-    gap: 10px;
-    transition: 0.3s;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: linear-gradient(90deg, #ff0000, #ff4d4d);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(255, 20, 20, 0.6);
+    transition: 0.25s;
 }
 
-.discord-btn:hover {
-    background: #4dc9ff;
-    color: #000;
-    box-shadow: 0 0 20px #4dc9ff;
+button:hover {
+    transform: scale(1.06);
+    box-shadow: 0 0 28px rgba(255, 0, 0, 0.9);
 }
 
-/* ---------------- FOOTER ---------------- */
+/* FEATURES GRID */
+.features {
+    width: 80%;
+    margin: auto;
+    margin-top: 80px;
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
 
-.footer {
-    padding: 40px;
+.feature-box {
+    background: rgba(255, 0, 0, 0.05);
+    border: 1px solid rgba(255, 0, 0, 0.2);
+    padding: 28px;
+    border-radius: 16px;
     text-align: center;
-    opacity: 0.65;
-    font-size: 0.9rem;
+    transition: 0.3s ease;
 }
 
-/* ---------------- ANIMATIONS ---------------- */
-
-.fade {
-    animation: fadeIn 1.2s ease forwards;
+.feature-box:hover {
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+    transform: translateY(-4px);
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(25px); }
-    to { opacity: 1; transform: translateY(0); }
+/* SVG ICONS (RED GLOW) */
+.feature-box svg {
+    width: 42px;
+    height: 42px;
+    fill: #ff3b3b;
+    filter: drop-shadow(0 0 8px rgba(255, 60, 60, 0.8));
+    margin-bottom: 10px;
+}
+
+/* PIPELINE BOX */
+.pipeline-box {
+    width: 70%;
+    margin: 100px auto;
+    padding: 40px;
+    background: rgba(255, 0, 0, 0.04);
+    border: 1px solid rgba(255, 0, 0, 0.2);
+    border-radius: 16px;
+    font-family: "JetBrains Mono", monospace;
+    color: #ffbcbc;
+    white-space: pre-wrap;
 }
