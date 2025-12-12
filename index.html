@@ -5,260 +5,84 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NovaHoyaAI</title>
   <link rel="stylesheet" href="style.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
-  <style>
-/* ===== TRY NOW BUTTON ===== */
-.try-now-btn {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background: linear-gradient(135deg, #ff3b3b, #ff9b2f);
-  color: #fff;
-  padding: 14px 30px;
-  border-radius: 16px;
-  font-size: 1.15rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  transition: .35s;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(40px);
-  box-shadow: 0 0 25px #ff3b3bbb;
-  z-index: 3000;
-  animation: pulseGlow 2.5s infinite ease-in-out;
-}
-
-.try-now-btn svg {
-  filter: drop-shadow(0 0 4px #ff9b2f);
-}
-
-.try-now-btn:hover {
-  transform: translateY(-4px) scale(1.04);
-  box-shadow: 0 0 35px #ff6b3b;
-}
-
-@keyframes pulseGlow {
-  0% { box-shadow: 0 0 16px #ff3b3b80; }
-  50% { box-shadow: 0 0 28px #ff8a3baf; }
-  100% { box-shadow: 0 0 16px #ff3b3b80; }
-}
-
-/* ===== POPUP ===== */
-.try-popup {
-  position: fixed;
-  inset: 0;
-  background: #000000a9;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 5000;
-  backdrop-filter: blur(5px);
-}
-
-.try-popup-box {
-  background: #111;
-  padding: 35px;
-  width: 90%;
-  max-width: 420px;
-  text-align: center;
-  border-radius: 16px;
-  border: 1px solid #ff5b3b60;
-  box-shadow: 0 0 40px #ff3b3b70;
-  transform: scale(0.75);
-  opacity: 0;
-  animation: popupScale .35s ease forwards;
-}
-
-@keyframes popupScale {
-  from { transform: scale(0.75); opacity: 0; }
-  to   { transform: scale(1); opacity: 1; }
-}
-
-.try-popup-box h2 {
-  color: #ff6b3b;
-  margin-bottom: 15px;
-  font-size: 1.6rem;
-}
-
-.try-popup-box p {
-  color: #ddd;
-  line-height: 1.6;
-  margin-bottom: 22px;
-}
-
-.close-popup {
-  padding: 12px 25px;
-  background: linear-gradient(135deg, #ff3b3b, #ff9b2f);
-  border: none;
-  border-radius: 14px;
-  color: #fff;
-  font-weight: 700;
-  cursor: pointer;
-  width: 100%;
-  transition: .3s;
-}
-
-.close-popup:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 20px #ff5b3b;
-}
-
-/* ===== CONTACT DEV BUTTON ===== */
-.contact-dev {
-  margin-top: 25px;
-  padding: 12px 28px;
-  background: linear-gradient(to right, #feca21, #ff3b3b);
-  color: black;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 600;
-  display: inline-block;
-  animation: fadeUp 1.7s ease forwards 0.5s;
-}
-  </style>
-
 </head>
 
 <body>
 
   <!-- NAVBAR -->
-  <header class="nav">
-    <div class="logo">NovaHoya<span>AI</span></div>
-    <nav>
+  <nav class="navbar">
+    <h1 class="logo">NovaHoyaAI</h1>
+    <div class="nav-links">
       <a href="#about">About</a>
-      <a href="#features">Features</a>
-      <a href="#pipeline">Pipelines</a>
-      <a href="#footer">Contact</a>
-    </nav>
-  </header>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#contactdev">Dev</a>
+    </div>
+  </nav>
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-content">
-      <h1 class="title">Ultra-Low-Latency Edge AI Engine</h1>
-      <p class="subtitle">Built for next-gen mobile & IoT devices. Local processing. Zero cloud. Pure speed.</p>
-      <a href="#" class="btn">Download SDK</a>
-      <a href="https://discord.com/users/1433020695561896006" 
-         class="contact-dev">Contact Dev</a>
-    </div>
-    <div class="hero-bg"></div>
+    <h1 class="big-title">Welcome to NovaHoyaAI</h1>
+    <p class="subtitle">Next Gen Edge Intelligence</p>
   </section>
 
   <!-- ABOUT -->
-  <section id="about" class="about section">
-    <h2 class="section-title">What is NovaHoyaAI?</h2>
-    <p class="section-subtitle">
-      NovaHoyaAI is an advanced edge-computing intelligence engine designed for
-      real-time inference, modular JSON pipelines, on-device deep learning
-      execution, and ultra-secure local data processing.
-    </p>
-  </section>
-
-  <!-- FEATURES -->
-  <section id="features" class="features section">
-    <h2 class="section-title">Core Features</h2>
-
-    <div class="grid">
-      <div class="card">
-        <i class="fa-solid fa-bolt"></i>
-        <h3>Ultra Low Latency</h3>
-        <p>Runs inference locally with micro-second response time.</p>
-      </div>
-
-      <div class="card">
-        <i class="fa-solid fa-robot"></i>
-        <h3>Modular AI Pipelines</h3>
-        <p>Supports customizable JSON-based AI task pipelines.</p>
-      </div>
-
-      <div class="card">
-        <i class="fa-solid fa-shield-halved"></i>
-        <h3>Local Data Privacy</h3>
-        <p>Nothing sent to cloud. All processing happens on-device.</p>
-      </div>
-
-      <div class="card">
-        <i class="fa-solid fa-mobile-screen"></i>
-        <h3>Edge-Optimized</h3>
-        <p>Built for low-power mobile and IoT systems.</p>
-      </div>
-    </div>
+  <section id="about" class="section">
+    <h2 class="section-title">About NovaHoyaAI</h2>
+    <p class="section-text">NovaHoyaAI is built for speed, precision and efficiency across devices.</p>
   </section>
 
   <!-- PIPELINE -->
-  <section id="pipeline" class="pipelines section">
+  <section id="pipeline" class="section">
     <h2 class="section-title">Pipeline Architecture</h2>
 
-    <div class="pipeline-box">
-      <pre>
+    <div class="code-card">
+<pre>
 {
   "pipeline": {
     "capture": "sensor",
     "preprocess": "normalize",
-    "model": "edge-transformer-v3",
+    "model": "edge-transformer",
     "postprocess": "classify"
   }
 }
-      </pre>
+</pre>
     </div>
   </section>
 
+  <!-- CONTACT DEV -->
+  <section id="contactdev" class="section">
+    <h2 class="section-title">Contact Developer</h2>
+    <p class="section-text">
+      Need help or collaboration? Contact directly on Discord.
+    </p>
+
+    <a href="https://discord.com/users/1433020695561896006" class="contact-btn" target="_blank">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+        <path d="M20 0H4C1.79 0 0 1.79 0 4v12c0 2.21 1.79 4 4 4h12l4 4V4c0-2.21-1.79-4-4-4z"/>
+      </svg>
+      Contact Dev
+    </a>
+  </section>
+
   <!-- FOOTER -->
-  <footer id="footer">
-    <h3>NovaHoyaAI © 2025</h3>
-    <p>Repo by itzloot</p>
+  <footer>
+    NovaHoyaAI © 2025 • Repo by itzloot
   </footer>
 
-  <!-- ===== TRY NOW FLOATING BUTTON ===== -->
-  <div id="tryNowBtn" class="try-now-btn">
-    <svg width="22" height="22" fill="#fff" viewBox="0 0 24 24">
-      <path d="M12 2L3 6v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V6l-9-4zm0 2.18l7 3.11v4.94c0 4.49-3.1 8.79-7 9.95-3.9-1.16-7-5.46-7-9.95V7.29l7-3.11zM11 10h2v5h-2v-5zm0 6h2v2h-2v-2z"/>
+  <!-- PREMIUM TRY NOW BUTTON -->
+  <a class="try-now-btn" id="tryNowBtn">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      <circle cx="12" cy="10" r="2"/>
     </svg>
     Try Now
-  </div>
+  </a>
 
-  <!-- ===== POPUP ===== -->
-  <div id="tryPopup" class="try-popup">
-    <div class="try-popup-box">
-      <h2>🚧 Under Development</h2>
-      <p>This feature is still being built.<br>New update coming soon — stay tuned! 🔥</p>
-      <button id="closePopup" class="close-popup">Okay!</button>
-    </div>
-  </div>
-
-  <!-- ===== JAVASCRIPT ===== -->
   <script>
-    const tryBtn = document.getElementById("tryNowBtn");
-    const popup = document.getElementById("tryPopup");
-    const closePopup = document.getElementById("closePopup");
-    const footer = document.getElementById("footer");
-
-    // Show Try Now button when at last section
-    window.addEventListener("scroll", () => {
-      const footerPos = footer.getBoundingClientRect().top;
-      const screenHeight = window.innerHeight;
-
-      if (footerPos < screenHeight - 120) {
-        tryBtn.style.opacity = "1";
-        tryBtn.style.pointerEvents = "auto";
-        tryBtn.style.transform = "translateY(0)";
-      }
+    document.getElementById("tryNowBtn").addEventListener("click", function(e) {
+      e.preventDefault();
+      alert("🚧 Try Now is under development!\nReleasing soon — Stay tuned!");
     });
-
-    // Open popup
-    tryBtn.addEventListener("click", () => {
-      popup.style.display = "flex";
-    });
-
-    // Close popup
-    closePopup.addEventListener("click", () => {
-      popup.style.display = "none";
-    });
-
   </script>
 
 </body>
