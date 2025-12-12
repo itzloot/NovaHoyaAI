@@ -95,7 +95,7 @@
   <section id="contactdev" class="contactdev section">
     <h2 class="section-title">Contact Developer</h2>
     <p class="section-subtitle">
-      Need support, collaboration, or reporting issues?  
+      Need support, collaboration, or reporting issues?
       Contact the Developer directly on Discord.
     </p>
 
@@ -109,6 +109,53 @@
     <h3>NovaHoyaAI © 2025</h3>
     <p>Repo by itzloot</p>
   </footer>
+
+  <!-- TRY NOW FLOAT BUTTON -->
+  <div id="tryNowBtn" class="try-now-btn">
+    <svg width="22" height="22" fill="#fff" viewBox="0 0 24 24">
+      <path d="M12 2L3 6v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V6l-9-4zm0 2.18l7 3.11v4.94c0 4.49-3.1 8.79-7 9.95-3.9-1.16-7-5.46-7-9.95V7.29l7-3.11zM11 10h2v5h-2v-5zm0 6h2v2h-2v-2z"/>
+    </svg>
+    Try Now
+  </div>
+
+  <!-- POPUP -->
+  <div id="tryPopup" class="try-popup">
+    <div class="try-popup-box">
+      <h2>🚧 Under Development</h2>
+      <p>This feature is still being built.<br>New update coming soon — stay tuned! 🔥</p>
+      <button id="closePopup" class="close-popup">Okay!</button>
+    </div>
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+    const tryBtn = document.getElementById("tryNowBtn");
+    const popup = document.getElementById("tryPopup");
+    const closePopup = document.getElementById("closePopup");
+    const footer = document.getElementById("footer");
+
+    // Show button when reaching last section
+    window.addEventListener("scroll", () => {
+      const footerPos = footer.getBoundingClientRect().top;
+      const screenHeight = window.innerHeight;
+
+      if (footerPos < screenHeight - 100) {
+        tryBtn.style.opacity = "1";
+        tryBtn.style.pointerEvents = "auto";
+        tryBtn.style.transform = "translateY(0)";
+      }
+    });
+
+    // Popup open
+    tryBtn.addEventListener("click", () => {
+      popup.style.display = "flex";
+    });
+
+    // Popup close
+    closePopup.addEventListener("click", () => {
+      popup.style.display = "none";
+    });
+  </script>
 
 </body>
 </html>
