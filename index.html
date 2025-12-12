@@ -6,6 +6,121 @@
   <title>NovaHoyaAI</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+/* ===== TRY NOW BUTTON ===== */
+.try-now-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: linear-gradient(135deg, #ff3b3b, #ff9b2f);
+  color: #fff;
+  padding: 14px 30px;
+  border-radius: 16px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: .35s;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(40px);
+  box-shadow: 0 0 25px #ff3b3bbb;
+  z-index: 3000;
+  animation: pulseGlow 2.5s infinite ease-in-out;
+}
+
+.try-now-btn svg {
+  filter: drop-shadow(0 0 4px #ff9b2f);
+}
+
+.try-now-btn:hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 0 35px #ff6b3b;
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 16px #ff3b3b80; }
+  50% { box-shadow: 0 0 28px #ff8a3baf; }
+  100% { box-shadow: 0 0 16px #ff3b3b80; }
+}
+
+/* ===== POPUP ===== */
+.try-popup {
+  position: fixed;
+  inset: 0;
+  background: #000000a9;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000;
+  backdrop-filter: blur(5px);
+}
+
+.try-popup-box {
+  background: #111;
+  padding: 35px;
+  width: 90%;
+  max-width: 420px;
+  text-align: center;
+  border-radius: 16px;
+  border: 1px solid #ff5b3b60;
+  box-shadow: 0 0 40px #ff3b3b70;
+  transform: scale(0.75);
+  opacity: 0;
+  animation: popupScale .35s ease forwards;
+}
+
+@keyframes popupScale {
+  from { transform: scale(0.75); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.try-popup-box h2 {
+  color: #ff6b3b;
+  margin-bottom: 15px;
+  font-size: 1.6rem;
+}
+
+.try-popup-box p {
+  color: #ddd;
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+
+.close-popup {
+  padding: 12px 25px;
+  background: linear-gradient(135deg, #ff3b3b, #ff9b2f);
+  border: none;
+  border-radius: 14px;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  transition: .3s;
+}
+
+.close-popup:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px #ff5b3b;
+}
+
+/* ===== CONTACT DEV BUTTON ===== */
+.contact-dev {
+  margin-top: 25px;
+  padding: 12px 28px;
+  background: linear-gradient(to right, #feca21, #ff3b3b);
+  color: black;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  animation: fadeUp 1.7s ease forwards 0.5s;
+}
+  </style>
+
 </head>
 
 <body>
@@ -17,7 +132,6 @@
       <a href="#about">About</a>
       <a href="#features">Features</a>
       <a href="#pipeline">Pipelines</a>
-      <a href="#contactdev">Dev</a>
       <a href="#footer">Contact</a>
     </nav>
   </header>
@@ -28,6 +142,8 @@
       <h1 class="title">Ultra-Low-Latency Edge AI Engine</h1>
       <p class="subtitle">Built for next-gen mobile & IoT devices. Local processing. Zero cloud. Pure speed.</p>
       <a href="#" class="btn">Download SDK</a>
+      <a href="https://discord.com/users/1433020695561896006" 
+         class="contact-dev">Contact Dev</a>
     </div>
     <div class="hero-bg"></div>
   </section>
@@ -91,26 +207,13 @@
     </div>
   </section>
 
-  <!-- CONTACT DEV -->
-  <section id="contactdev" class="contactdev section">
-    <h2 class="section-title">Contact Developer</h2>
-    <p class="section-subtitle">
-      Need support, collaboration, or reporting issues?
-      Contact the Developer directly on Discord.
-    </p>
-
-    <a href="https://discord.com/users/1433020695561896006" class="contact-btn" target="_blank">
-      <i class="fa-brands fa-discord"></i> Contact Dev
-    </a>
-  </section>
-
   <!-- FOOTER -->
   <footer id="footer">
     <h3>NovaHoyaAI © 2025</h3>
     <p>Repo by itzloot</p>
   </footer>
 
-  <!-- TRY NOW FLOAT BUTTON -->
+  <!-- ===== TRY NOW FLOATING BUTTON ===== -->
   <div id="tryNowBtn" class="try-now-btn">
     <svg width="22" height="22" fill="#fff" viewBox="0 0 24 24">
       <path d="M12 2L3 6v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V6l-9-4zm0 2.18l7 3.11v4.94c0 4.49-3.1 8.79-7 9.95-3.9-1.16-7-5.46-7-9.95V7.29l7-3.11zM11 10h2v5h-2v-5zm0 6h2v2h-2v-2z"/>
@@ -118,7 +221,7 @@
     Try Now
   </div>
 
-  <!-- POPUP -->
+  <!-- ===== POPUP ===== -->
   <div id="tryPopup" class="try-popup">
     <div class="try-popup-box">
       <h2>🚧 Under Development</h2>
@@ -127,34 +230,35 @@
     </div>
   </div>
 
-  <!-- SCRIPT -->
+  <!-- ===== JAVASCRIPT ===== -->
   <script>
     const tryBtn = document.getElementById("tryNowBtn");
     const popup = document.getElementById("tryPopup");
     const closePopup = document.getElementById("closePopup");
     const footer = document.getElementById("footer");
 
-    // Show button when reaching last section
+    // Show Try Now button when at last section
     window.addEventListener("scroll", () => {
       const footerPos = footer.getBoundingClientRect().top;
       const screenHeight = window.innerHeight;
 
-      if (footerPos < screenHeight - 100) {
+      if (footerPos < screenHeight - 120) {
         tryBtn.style.opacity = "1";
         tryBtn.style.pointerEvents = "auto";
         tryBtn.style.transform = "translateY(0)";
       }
     });
 
-    // Popup open
+    // Open popup
     tryBtn.addEventListener("click", () => {
       popup.style.display = "flex";
     });
 
-    // Popup close
+    // Close popup
     closePopup.addEventListener("click", () => {
       popup.style.display = "none";
     });
+
   </script>
 
 </body>
