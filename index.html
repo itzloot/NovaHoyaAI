@@ -3,135 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NovaHoyaAI – Edge Intelligence Engine</title>
+    <title>NovaHoyaAI — Edge Intelligence Engine</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<header class="navbar">
+<!-- Loading Overlay -->
+<div class="loader">
+    <div class="loader-glow"></div>
+    <p>Initializing NovaHoyaAI...</p>
+</div>
+
+<!-- Navigation -->
+<nav class="navbar">
     <div class="logo">NovaHoyaAI</div>
-
-    <div class="hamburger" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
+    <div class="menu-icon" onclick="toggleMenu()">
+        <div></div><div></div><div></div>
     </div>
+    <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pipeline">Pipeline</a></li>
+        <li><a href="#tech">Tech Stack</a></li>
+        <li><a href="#vision">Vision</a></li>
+        <li>
+            <a href="https://discord.gg/eAj9WdTGcc" target="_blank" class="discord-link">
+                <!-- Discord SVG Icon -->
+                <svg viewBox="0 0 127.14 96.36" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M107.7 8.07A105.15 105.15 0 0081.5 0l-2.5 4.8a97.35 97.35 0 00-30 0L46.5 0A105.15 105.15 0 0020.3 8.07 110.3 110.3 0 000 80.2a105.15 105.15 0 0033.6 16.16l5-10.6a68.1 68.1 0 01-12.3-6.2l2-8.3a90.35 90.35 0 0078.5 0l2 8.3a68.1 68.1 0 01-12.3 6.2l5 10.6A105.15 105.15 0 00127 80.2a110.3 110.3 0 00-19.3-72.13zM42.4 65c-6.3 0-11.4-5.9-11.4-13.2s5-13.2 11.4-13.2S53.8 44.5 53.8 51.8 48.8 65 42.4 65zm42.3 0c-6.3 0-11.4-5.9-11.4-13.2S78.4 38.6 84.7 38.6 96.1 44.5 96.1 51.8 91.1 65 84.7 65z"/>
+                </svg>
+            </a>
+        </li>
+    </ul>
+</nav>
 
-    <nav class="nav-links" id="navLinks">
-        <a href="#about">About</a>
-        <a href="#features">Features</a>
-        <a href="#pipeline">Pipeline</a>
-        <a href="#contact">Contact</a>
-    </nav>
+<!-- Hero -->
+<header class="hero">
+    <h1 class="title">Edge-Optimized Intelligence Engine</h1>
+    <p class="subtitle">Ultra-low latency • Local inference • Adaptive compute</p>
 </header>
 
-
-<section class="hero">
-    <h1 class="title">Omni-Hybrid Edge Intelligence Engine</h1>
-    <p class="subtitle">Ultra-low latency • Local inference • Adaptive compute • Particle-aware AI</p>
-    <button class="cta-btn">Download SDK</button>
+<!-- Features -->
+<section id="features" class="section">
+    <h2 class="section-title">Core Features</h2>
+    <div class="grid">
+        <div class="card">Ultra-low latency inference</div>
+        <div class="card">Offline local intelligence</div>
+        <div class="card">Modular JSON pipelines</div>
+        <div class="card">Adaptive compute engine</div>
+        <div class="card">Mobile + IoT optimization</div>
+    </div>
 </section>
 
+<!-- Animated Pipeline -->
+<section id="pipeline" class="section">
+    <h2 class="section-title">Pipeline Architecture</h2>
+    <div class="pipeline">
+        <div class="node">Input Layer</div>
+        <div class="line"></div>
+        <div class="node">Vector Embedding</div>
+        <div class="line"></div>
+        <div class="node">Inference Engine</div>
+        <div class="line"></div>
+        <div class="node">Optimizer</div>
+        <div class="line"></div>
+        <div class="node">Output Layer</div>
+    </div>
+</section>
 
-<section id="about" class="section fade">
-    <h2>What is NovaHoyaAI?</h2>
-    <p class="desc">
-        NovaHoyaAI is an adaptive holographic-intelligence engine engineered for real-time,
-        particle-aware inference on edge devices. It merges autonomous compute-shifting,
-        modular JSON pipelines, and real-time vector reasoning to deliver next-generation
-        hybrid cognition directly on-device — no cloud required.
+<!-- Tech Stack -->
+<section id="tech" class="section">
+    <h2 class="section-title">Tech Stack</h2>
+    <div class="grid">
+        <div class="card">Edge-Optimized Modules</div>
+        <div class="card">JSON Configuration</div>
+        <div class="card">Lightweight Runtime</div>
+        <div class="card">Mobile-First Architecture</div>
+    </div>
+</section>
+
+<!-- Vision -->
+<section id="vision" class="section">
+    <h2 class="section-title">Vision</h2>
+    <p class="vision-text">
+        To redefine edge intelligence with an advanced engine that empowers  
+        developers, innovators, and future AI creators worldwide.
     </p>
 </section>
 
-
-<section id="features" class="section fade">
-    <h2>Core Features</h2>
-
-    <div class="features-grid">
-
-        <div class="feature-card">
-            <!-- Lightning -->
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4dc9ff" stroke-width="1.8">
-                <path d="M12 2l-4 8h5l-3 12 8-14h-5l4-6z"/>
-            </svg>
-            <h3>Ultra-Low Latency</h3>
-            <p>Local inference with micro-second execution speed.</p>
-        </div>
-
-        <div class="feature-card">
-            <!-- Pipeline -->
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4dc9ff" stroke-width="1.5">
-                <path d="M3 12h18M7 7l5-5 5 5M7 17l5 5 5-5"/>
-            </svg>
-            <h3>Modular AI Pipelines</h3>
-            <p>Customizable JSON-based multi-stage AI pipelines.</p>
-        </div>
-
-        <div class="feature-card">
-            <!-- Shield -->
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4dc9ff" stroke-width="2">
-                <path d="M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z"/>
-            </svg>
-            <h3>Local Privacy</h3>
-            <p>Zero cloud dependency. All data processed on-device.</p>
-        </div>
-
-        <div class="feature-card">
-            <!-- Chip -->
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4dc9ff" stroke-width="1.8">
-                <rect x="7" y="7" width="10" height="10" rx="2"/>
-                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
-            </svg>
-            <h3>Edge-Optimized</h3>
-            <p>Built for low-power hardware & offline deployment.</p>
-        </div>
-
-    </div>
-</section>
-
-
-<section id="pipeline" class="section fade">
-    <h2>Pipeline Architecture</h2>
-
-    <div class="pipeline-box">
-<pre>
-{
-  "pipeline": {
-    "capture": "sensor",
-    "preprocess": "normalize",
-    "model": "edge-transformer-v3",
-    "postprocess": "classify"
-  }
-}
-</pre>
-    </div>
-</section>
-
-
-<section id="contact" class="section fade">
-    <h2>Support & Contact</h2>
-
-    <p>Join the NovaHoyaAI Discord for updates, help, and developer tools.</p>
-
-    <!-- Discord Button -->
-    <a href="https://discord.gg/eAj9WdTGcc" class="discord-btn" target="_blank">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-            <path fill="#4dc9ff" d="M20 0H4C1.8 0 0 1.8 0 4v16c0 2.2 1.8 4 4 4h14l-1-3 2 2 2 2V4c0-2.2-1.8-4-4-4z"/>
-        </svg>
-        Join Discord
-    </a>
-</section>
-
-
-<footer class="footer">
-    NovaHoyaAI © 2025 • Repo by itzloot
+<footer>
+    © 2025 NovaHoyaAI. All rights reserved.
 </footer>
 
 <script>
-function toggleMenu() {
-    document.getElementById('navLinks').classList.toggle('open');
-}
+    // Loader fade-out
+    window.onload = () => {
+        document.querySelector(".loader").classList.add("hide");
+    };
+
+    function toggleMenu() {
+        document.querySelector(".nav-links").classList.toggle("active");
+    }
 </script>
 
 </body>
