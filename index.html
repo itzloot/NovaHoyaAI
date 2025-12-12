@@ -1,257 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NovaHoyaAI</title>
-  <style>
-    :root {
-      { --bg: #0d001a; --card: rgba(30, 15, 70, 0.55); --accent: #a78bff; --text: #e0e0ff; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      background: linear-gradient(135deg, #0f0f1e 0%, #1a0033 100%);
-      color: var(--text);
-      min-height: 100vh;
-      line-height: 100%;
-      overflow-x: hidden;
-    }
-
-    /* Header */
-    header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      backdrop-filter: blur(16px);
-      background: rgba(0, 0, 0, 0.4);
-      border-bottom: 1px solid rgba(167, 139, 255, 0.2);
-      z-index: 1000;
-    }
-    nav {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1.5rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .logo {
-      font-size: 1.8rem;
-      font-weight: 800;
-      background: linear-gradient(to right, #a78bff, #ff6bcb);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    nav ul {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-    }
-    nav a {
-      color: #bbb;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-    nav a:hover { color: white; }
-
-    /* Sections */
-    section {
-      padding: 140px 20px 100px;
-      text-align: center;
-    }
-    .container { max-width: 1100px; margin: 0 auto; }
-
-    h2 {
-      font-size: 4rem;
-      font-weight: 800;
-      margin-bottom: 2rem;
-      background: linear-gradient(to right, #c084fc, #f472b6, #fb7185);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    /* Animations */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(60px);
-      animation: fadeUp 1s ease forwards;
-    }
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .delay-1 { animation-delay: 0.2s; }
-    .delay-2 { animation-delay: 0.4s; }
-    .delay-3 { animation-delay: 0.6s; }
-    .delay-4 { animation-delay: 0.8s; }
-
-    /* Cards */
-    .card {
-      background: var(--card);
-      backdrop-filter: blur(12px);
-      border-radius: 20px;
-      padding: 2rem;
-      border: 1px solid rgba(167, 139, 255, 0.3);
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .card:hover {
-      transform: translateY(-15px);
-      box-shadow: 0 25px 50px rgba(167, 139, 255, 0.25);
-      border-color: var(--accent);
-    }
-
-    /* Features Grid */
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
-      margin-top: 4rem;
-    }
-    .feature-icon {
-      font-size: 4.5rem;
-      margin-bottom: 1rem;
-    }
-
-    /* Pipeline Code Block */
-    .code-block {
-      background: rgba(20, 10, 50, 0.7);
-      border-radius: 16px;
-      padding: 2.5rem;
-      text-align: left;
-      font-family: 'Consolas', monospace;
-      font-size: 1.1rem;
-      color: #c084fc;
-      overflow-x: auto;
-      border: 1px solid rgba(167, 139, 255, 0.2);
-    }
-
-    /* Contact Section */
-    #contact {
-      background: rgba(0, 0, 0, 0.35);
-    }
-    .discord-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 1rem;
-      font-size: 1.8rem;
-      color: white;
-      text-decoration: none;
-      padding: 1.5rem 3rem;
-      border-radius: 20px;
-      background: rgba(114, 137, 218, 0.2);
-      border: 1px solid #7289da;
-      transition: all 0.4s;
-    }
-    .discord-link:hover {
-      background: #7289da;
-      transform: scale(1.05);
-      box-shadow: 0 0 30px rgba(114, 137, 218, 0.6);
-    }
-    .discord-link svg {
-      width: 60px;
-      height: 60px;
-      transition: transform 0.4s;
-    }
-    .discord-link:hover svg {
-      transform: scale(1.2) rotate(8deg);
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 3rem;
-      color: #666;
-      border-top: 1px solid rgba(167, 139, 255, 0.15);
-      font-size: 400 1rem;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
+
 <body>
 
-  <header>
+  <!-- NAVBAR -->
+  <header class="nav">
+    <div class="logo">NovaHoya<span>AI</span></div>
     <nav>
-      <div class="logo">NovaHoyaAI</div>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#pipelines">Pipelines</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+      <a href="#about">About</a>
+      <a href="#features">Features</a>
+      <a href="#pipeline">Pipelines</a>
+      <a href="#footer">Contact</a>
     </nav>
   </header>
 
-  <section id="about">
-    <div class="container fade-up">
-      <h2>What is NovaHoyaAI?</h2>
-      <p style="font-size:1.4rem; max-width:900px; margin:0 auto; line-height:1.8; color:#ccc;">
-        NovaHoyaAI is an advanced edge-computing intelligence engine designed for real-time inference,<br>
-        modular JSON pipelines, on-device deep learning execution, and ultra-secure local data processing.
-      </p>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="title">Ultra-Low-Latency Edge AI Engine</h1>
+      <p class="subtitle">Built for next-gen mobile & IoT devices. Local processing. Zero cloud. Pure speed.</p>
+      <a href="#" class="btn">Download SDK</a>
     </div>
+    <div class="hero-bg"></div>
   </section>
 
-  <section id="features">
-    <div class="container">
-      <h2 class="fade-up">Core Features</h2>
-      <div class="features">
-        <div class="card fade-up delay-1">
-          <div class="feature-icon">Lightning</div>
-          <h3>Ultra Low Latency</h3>
-          <p>Runs inference locally with micro-second response time.</p>
-        </div>
-        <div class="card fade-up delay-2">
-          <div class="feature-icon">Gear</div>
-          <h3>Modular AI Pipelines</h3>
-          <p>Supports customizable JSON-based AI task pipelines.</p>
-        </div>
-        <div class="card fade-up delay-3">
-          <div class="feature-icon">Lock</div>
-          <h3>Local Data Privacy</h3>
-          <p>Nothing sent to cloud. All processing happens on-device.</p>
-        </div>
-        <div class="card fade-up delay-4">
-          <div class="feature-icon">Phone</div>
-          <h3>Edge-Optimized</h3>
-          <p>Built for low-power mobile and IoT systems.</p>
-        </div>
+  <!-- ABOUT -->
+  <section id="about" class="about section">
+    <h2 class="section-title">What is NovaHoyaAI?</h2>
+    <p class="section-subtitle">
+      NovaHoyaAI is an advanced edge-computing intelligence engine designed for
+      real-time inference, modular JSON pipelines, on-device deep learning
+      execution, and ultra-secure local data processing.
+    </p>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="features section">
+    <h2 class="section-title">Core Features</h2>
+
+    <div class="grid">
+      <div class="card">
+        <i class="fa-solid fa-bolt"></i>
+        <h3>Ultra Low Latency</h3>
+        <p>Runs inference locally with micro-second response time.</p>
+      </div>
+
+      <div class="card">
+        <i class="fa-solid fa-robot"></i>
+        <h3>Modular AI Pipelines</h3>
+        <p>Supports customizable JSON-based AI task pipelines.</p>
+      </div>
+
+      <div class="card">
+        <i class="fa-solid fa-shield-halved"></i>
+        <h3>Local Data Privacy</h3>
+        <p>Nothing sent to cloud. All processing happens on-device.</p>
+      </div>
+
+      <div class="card">
+        <i class="fa-solid fa-mobile-screen"></i>
+        <h3>Edge-Optimized</h3>
+        <p>Built for low-power mobile and IoT systems.</p>
       </div>
     </div>
   </section>
 
-  <section id="pipelines">
-    <div class="container">
-      <h2 class="fade-up">Pipeline Architecture</h2>
-      <div class="code-block card fade-up delay-1">
-        {<br>
-          "pipeline": {<br>
-            "source": "sensor",<br>
-            "preprocess": "normalize",<br>
-            "model": "edge-transformer-v3",<br>
-            "postprocess": "classify"<br>
-          }<br>
-        }
-      </div>
+  <!-- PIPELINE -->
+  <section id="pipeline" class="pipelines section">
+    <h2 class="section-title">Pipeline Architecture</h2>
+
+    <div class="pipeline-box">
+      <pre>
+{
+  "pipeline": {
+    "capture": "sensor",
+    "preprocess": "normalize",
+    "model": "edge-transformer-v3",
+    "postprocess": "classify"
+  }
+}
+      </pre>
     </div>
   </section>
 
-  <section id="contact">
-    <div class="container">
-      <h2 class="fade-up" style="background: linear-gradient(to right, #67e8f9, #a78bff); -webkit-background-clip: text; color:transparent;">
-        Contact The Dev
-      </h2>
-      <a href="https://discord.com/users/1433020695561896006" target="_blank" class="card discord-link fade-up delay-1">
-        <svg viewBox="0 0 127.14 96.36" fill="currentColor">
-          <path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0 72.37 72.37 0 0 0-3.36-6.83A105.15 105.15 0 0 0 19.47 0a105.15 105.15 0 0 0-26.23 8.07C.77 57.63 9.3 105.36 54.42 107.1a76.13 76.13 0 0 0 6.56 4.14 78.72 78.72 0 0 0 19.6 0 76.13 76.13 0 0 0 6.56-4.14c45.12-1.74 53.65-49.47 54.42-99.03zM54.42 94.35c-8.46 0-15.36-6.93-15.36-15.43 0-8.5 6.9-15.43 15.36-15.43 8.47 0 15.37 6.93 15.37 15.43 0 8.5-6.9 15.43-15.37 15.43zm36.21-26.07c-6.3 4.64-12.42 7.83-18.3 9.76a43.24 43.24 0 0 1-6.51 1.92 62.2 62.2 0 0 1-13.33 1.38 62.2 62.2 0 0 1-13.33-1.38 43.24 43.24 0 0 1-6.51-1.92c-5.88-1.93-12-5.12-18.3-9.76-8.63-6.36-13.74-15.92-13.74-25.9 0-10 5.1-19.56 13.74-25.9 6.3-4.64 12.42-7.83 18.3-9.76a62.2 62.2 0 0 1 13.33-1.38c4.65 0 9.3.46 13.77 1.38 5.88 1.93 12 5.12 18.3 9.76 8.63 6.36 13.74 15.92 13.74 25.9 0 9.98-5.11 19.54-13.74 25.9z"/>
-        </svg>
-        <span>Add me on Discord</span>
-      </a>
-      <p style="margin-top:1.5rem; color:#aaa;">User ID: 1433020695561896006</p>
-    </div>
-  </section>
-
-  <footer>
-    NovaHoyaAI © 2025<br>Repo by itzlool
+  <!-- FOOTER -->
+  <footer id="footer">
+    <h3>NovaHoyaAI © 2025</h3>
+    <p>Repo by itzloot</p>
   </footer>
 
 </body>
