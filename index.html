@@ -2,23 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nova AI</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<div class="app">
+<div id="auth">
+  <h2>Login to Nova AI</h2>
+  <input id="email" placeholder="Email" />
+  <input id="password" type="password" placeholder="Password" />
+  <button onclick="login()">Login</button>
+</div>
+
+<div id="chat" class="hidden">
   <header>Nova AI</header>
-
-  <div id="chat" class="chat"></div>
-
-  <div class="input-box">
-    <input id="input" placeholder="Ask Nova AI…" />
-    <button id="send">Send</button>
+  <div id="messages"></div>
+  <div class="input">
+    <input id="prompt" placeholder="Ask Nova..." />
+    <button onclick="send()">Send</button>
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
