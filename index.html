@@ -1,48 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nova AI – Edge Intelligence</title>
-
+  <meta charset="UTF-8">
+  <title>Nova AI</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- BACKGROUND EFFECT -->
-  <div class="bg-glow"></div>
+<div class="chat-box">
+  <h2>Nova AI</h2>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h1>Nova AI</h1>
-    <p>Edge Computing • Ultra-Low Latency • Local Intelligence</p>
+  <select id="mode">
+    <option value="normal">Normal</option>
+    <option value="expert">Expert</option>
+    <option value="chill">Chill</option>
+    <option value="inferno">Inferno</option>
+  </select>
 
-    <button id="tryNowBtn" class="try-btn">
-      ⚡ Try Now
-    </button>
-  </section>
+  <div id="chat"></div>
 
-  <!-- AI PANEL -->
-  <section id="nova-ai" class="ai-panel">
-    <div class="ai-header">
-      <span>Nova AI</span>
-    </div>
+  <div class="input-box">
+    <input id="userInput" placeholder="Ask anything..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
 
-    <div id="chat" class="chat"></div>
-
-    <div class="input-area">
-      <input
-        id="userInput"
-        type="text"
-        placeholder="Ask about edge computing..."
-      />
-      <button id="sendBtn">Send</button>
-    </div>
-  </section>
-
-  <!-- SCRIPTS -->
-  <script src="clickspark.js"></script>
-  <script src="script.js"></script>
-
+<script src="script.js"></script>
 </body>
 </html>
