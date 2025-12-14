@@ -34,6 +34,22 @@ async function sendMessage() {
   addMessage("Nova AI", data.reply);
 }
 
+(
+  addMsg(`<b>You:</b> ${text}`, "user");
+  input.value = "";
+
+  const wait = document.createElement("div");
+  wait.className = "msg bot";
+  wait.textContent = "Nova AI is thinking…";
+  chat.appendChild(wait);
+
+  setTimeout(() => {
+    wait.remove();
+    addMsg(`<b>Nova AI:</b> ${think(text)}`, "bot");
+  }, 400);
+}
+
+
   
 sendBtn.onclick = send;
 input.addEventListener("keydown", e => {
