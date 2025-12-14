@@ -1,42 +1,45 @@
 const chat = document.getElementById("chat");
-const sessionId = crypto.randomUUID();
+const input = document.getElementById("input");
+const send = document.getElementById("send");
 
-function addMessage(sender, text, cls) {
+const userId =
+  localStorage.getItem("nova_uid") ||
+  (() => {
+    const id = crypto.randomUUID();
+    localStorage.setItem("nova_uid", id);
+    return id;
+  })();
+
+function add(role, text) {
   const div = document.createElement("div");
-  div.className = "msg " + cls;
-  div.innerHTML = `<b>${sender}:</b> <span></span>`;
+  div.className = `msg ${role}`;
+  div.textContent = text;
   chat.appendChild(div);
-
-  // --- TYPING ANIMATION (Feature 2 & 3)
-  let i = 0;
-  const span = div.querySelector("span");
-  const interval = setInterval(() => {
-    span.textContent += text[i];
-    i++;
-    if (i >= text.length) clearInterval(interval);
-    chat.scrollTop = chat.scrollHeight;
-  }, 20);
+  chat.scrollTop = chat.scrollHeight;
+  return div;
 }
 
-async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const mode = document.getElementById("mode").value;
-  const msg = input.value.trim();
-  if (!msg) return;
+send.onclick = async () => {
+  const message = input.value.trim();
+  if (!message) return;
 
-  addMessage("You", msg, "you");
   input.value = "";
+  add("user", message);
+  const aiDiv = add("ai", "");
 
   const res = await fetch("/api/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      message: msg,
-      sessionId,
-      mode
-    })
+    body: JSON.stringify({ message, userId })
   });
 
-  const data = await res.json();
-  addMessage("Nova AI", data.reply, "ai");
-}
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    aiDiv.textContent += decoder.decode(value);
+    chat.scrollTop = chat.scrollHeight;
+  }
+};
