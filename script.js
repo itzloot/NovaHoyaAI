@@ -11,6 +11,7 @@ tryNowBtn.onclick = () => {
   panel.scrollIntoView({ behavior: "smooth" });
 };
 
+/* AI */
 async function sendMessage() {
   const input = document.getElementById("userInput");
   const message = input.value.trim();
