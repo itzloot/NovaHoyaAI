@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nova AI Chat</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<iframe class="bg" src="/floating-lines/index.html"></iframe>
+
+<header class="chat-header">
+  <span>Nova AI</span>
+  <button id="logout">Logout</button>
+</header>
+
+<div id="messages"></div>
+
+<div class="input-bar">
+  <input id="input" placeholder="Ask Nova about Edge AI..." />
+  <button id="send">Send</button>
+</div>
+
+<script type="module" src="/lib/auth-guard.js"></script>
+<script type="module" src="/lib/chat.js"></script>
+<script src="clickspark.js"></script>
+
+</body>
+</html>
