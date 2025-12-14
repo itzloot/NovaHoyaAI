@@ -1,91 +1,86 @@
-* { box-sizing: border-box; font-family: system-ui; }
-
-body {
+* {
   margin: 0;
-  background: #000;
-  color: #fff;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-iframe.bg {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  border: none;
-}
-
-.center {
-  height: 100vh;
+body, html {
+  height: 100%;
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.logo { font-size: 3rem; }
-.tag { opacity: .7; }
-
-.btn {
-  margin-top: 20px;
-  padding: 14px 28px;
-  border-radius: 12px;
-  background: #0ff;
-  color: #000;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.card {
-  max-width: 360px;
-  margin: 15vh auto;
-  padding: 24px;
-  background: rgba(0,0,0,.6);
-  backdrop-filter: blur(20px);
-  border-radius: 18px;
-}
-
-.card input, .card button {
+.login-container {
   width: 100%;
-  margin-top: 12px;
-  padding: 14px;
-  border-radius: 10px;
+  max-width: 400px;
+  padding: 20px;
+}
+
+.login-box {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  border-radius: 15px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(0,0,0,0.5);
+}
+
+.login-box h2 {
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
   border: none;
+  outline: none;
 }
 
-.ghost {
-  background: transparent;
-  border: 1px solid #0ff;
-  color: #0ff;
+.login-box button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  background: #00f0ff;
+  color: #000;
+  transition: 0.3s;
 }
 
-.chat-header {
+.login-box button:hover {
+  background: #00d4e0;
+}
+
+.login-box .divider {
+  margin: 15px 0;
+  color: #fff;
+}
+
+.login-box #googleBtn {
   display: flex;
-  justify-content: space-between;
-  padding: 14px;
-  border-bottom: 1px solid #222;
+  justify-content: center;
+  align-items: center;
 }
 
-#messages {
-  padding: 14px;
-  height: calc(100vh - 120px);
-  overflow-y: auto;
+.login-box #googleBtn .icon {
+  width: 20px;
+  margin-right: 10px;
 }
 
-.msg {
-  margin-bottom: 10px;
+.login-box p {
+  color: #fff;
+  margin-top: 15px;
 }
-.user { color: #0ff; }
-.ai { color: #fff; }
 
-.input-bar {
-  display: flex;
-  gap: 10px;
-  padding: 10px;
-}
-.input-bar input {
-  flex: 1;
-  padding: 14px;
-  border-radius: 12px;
-}
-.input-bar button {
-  padding: 14px 18px;
+.login-box p span {
+  color: #00f0ff;
+  cursor: pointer;
 }
