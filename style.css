@@ -1,133 +1,51 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Inter, system-ui, sans-serif;
-}
-
 body {
-  background: #05070d;
-  color: #fff;
-  overflow-x: hidden;
-}
-
-/* BACKGROUND GLOW */
-.bg-glow {
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(0,240,255,0.15), transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(91,124,255,0.15), transparent 40%);
-  z-index: -1;
-}
-
-/* HERO */
-.hero {
-  min-height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #0a2a2f, #000);
+  height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
 }
 
-.hero h1 {
-  font-size: 3.2rem;
-  margin-bottom: 12px;
+.chat-box {
+  width: 360px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 16px;
+  padding: 16px;
+  color: #fff;
+  backdrop-filter: blur(10px);
 }
 
-.hero p {
-  opacity: 0.8;
-  margin-bottom: 30px;
-}
-
-/* BUTTON */
-.try-btn {
-  background: linear-gradient(135deg, #00f0ff, #5b7cff);
-  color: #000;
-  border: none;
-  padding: 14px 34px;
-  border-radius: 40px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: 0.25s ease;
-}
-
-.try-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(0,240,255,0.4);
-}
-
-/* AI PANEL */
-.ai-panel {
-  width: 90%;
-  max-width: 900px;
-  margin: 0 auto 80px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 20px;
-  backdrop-filter: blur(14px);
-  overflow: hidden;
-
-  opacity: 0;
-  transform: translateY(60px);
-  pointer-events: none;
-  transition: 0.6s ease;
-}
-
-.ai-panel.active {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-.ai-header {
-  padding: 18px;
-  font-weight: bold;
-  background: rgba(0,0,0,0.3);
-}
-
-/* CHAT */
-.chat {
-  height: 320px;
-  padding: 18px;
+#chat {
+  height: 300px;
   overflow-y: auto;
+  margin: 10px 0;
 }
 
 .msg {
-  margin-bottom: 12px;
-  line-height: 1.5;
+  margin-bottom: 10px;
 }
 
-.user {
-  color: #9fefff;
-}
+.you { color: #4fd1ff; }
+.ai { color: #fff; }
 
-.bot {
-  color: #fff;
-  opacity: 0.9;
-}
-
-/* INPUT */
-.input-area {
+.input-box {
   display: flex;
-  gap: 10px;
-  padding: 16px;
-  background: rgba(0,0,0,0.3);
 }
 
-.input-area input {
+input {
   flex: 1;
-  padding: 12px;
+  padding: 10px;
   border-radius: 10px;
   border: none;
-  outline: none;
 }
 
-.input-area button {
-  padding: 12px 22px;
+button {
+  margin-left: 8px;
+  padding: 10px;
   border-radius: 10px;
   border: none;
+  background: #00eaff;
   cursor: pointer;
-  background: #00f0ff;
-  color: #000;
 }
