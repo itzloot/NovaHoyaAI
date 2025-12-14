@@ -1,9 +1,3 @@
-const tryNowBtn = document.getElementById("tryNowBtn");
-const panel = document.getElementById("nova-ai");
-
-const chat = document.getElementById("chat");
-const input = document.getElementById("userInput");
-const sendBtn = document.getElementById("sendBtn");
 async function sendMessage() {
   const input = document.getElementById("userInput");
   const message = input.value.trim();
@@ -25,7 +19,3 @@ async function sendMessage() {
   removeLastMessage();
   addMessage("Nova AI", data.reply);
 }
-sendBtn.onclick = send;
-input.addEventListener("keydown", e => {
-  if (e.key === "Enter") send();
-});
