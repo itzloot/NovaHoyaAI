@@ -1,27 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nova AI</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-<div class="chat-box">
-  <h2>Nova AI</h2>
+<div class="app">
+  <header>Nova AI</header>
 
-  <select id="mode">
-    <option value="normal">Normal</option>
-    <option value="expert">Expert</option>
-    <option value="chill">Chill</option>
-    <option value="inferno">Inferno</option>
-  </select>
-
-  <div id="chat"></div>
+  <div id="chat" class="chat"></div>
 
   <div class="input-box">
-    <input id="userInput" placeholder="Ask anything..." />
-    <button onclick="sendMessage()">Send</button>
+    <input id="input" placeholder="Ask Nova AI…" />
+    <button id="send">Send</button>
   </div>
 </div>
 
