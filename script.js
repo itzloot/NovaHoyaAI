@@ -11,21 +11,29 @@ tryNowBtn.onclick = () => {
   panel.scrollIntoView({ behavior: "smooth" });
 };
 
-  (
-  addMsg(`<b>You:</b> ${text}`, "user");
+async function sendMessage() {
+  const input = document.getElementById("userInput");
+  const message = input.value.trim();
+  if (!message) return;
+
+  addMessage("You", message);
   input.value = "";
 
-  const wait = document.createElement("div");
-  wait.className = "msg bot";
-  wait.textContent = "Nova AI is thinking…";
-  chat.appendChild(wait);
+  addMessage("Nova AI", "Thinking...");
 
-  setTimeout(() => {
-    wait.remove();
-    addMsg(`<b>Nova AI:</b> ${think(text)}`, "bot");
-  }, 400);
+  const res = await fetch("/api/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message })
+  });
+
+  const data = await res.json();
+
+  removeLastMessage();
+  addMessage("Nova AI", data.reply);
 }
 
+  
 sendBtn.onclick = send;
 input.addEventListener("keydown", e => {
   if (e.key === "Enter") send();
