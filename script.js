@@ -34,6 +34,7 @@ async function sendMessage() {
   addMessage("Nova AI", data.reply);
 }
 
+/* CHAT box */
 (
   addMsg(`<b>You:</b> ${text}`, "user");
   input.value = "";
