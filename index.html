@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nova AI</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nova AI Login</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="center">
-  <h1 class="logo">Nova AI</h1>
-  <p class="tag">Next-gen AI assistant</p>
-  <a class="btn" href="login.html">Get Started</a>
+<body>
+  <div class="login-container">
+    <div class="login-box">
+      <h2>Login to Nova AI</h2>
+      <input type="email" id="email" placeholder="Email">
+      <input type="password" id="password" placeholder="Password">
+      <button id="loginBtn">Login</button>
+      <p class="divider">or</p>
+      <button id="googleBtn">
+        <img src="google.svg" alt="Google" class="icon"> Continue with Google
+      </button>
+      <p>Don't have an account? <span id="signup">Sign Up</span></p>
+    </div>
+  </div>
+
+  <script src="login.js"></script>
 </body>
 </html>
