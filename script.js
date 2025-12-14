@@ -1,45 +1,49 @@
-const chat = document.getElementById("chat");
-const input = document.getElementById("input");
-const send = document.getElementById("send");
+let user = null;
 
-const userId =
-  localStorage.getItem("nova_uid") ||
-  (() => {
-    const id = crypto.randomUUID();
-    localStorage.setItem("nova_uid", id);
-    return id;
-  })();
+supabase.auth.onAuthStateChange((_, session) => {
+  if (session) {
+    user = session.user;
+    document.getElementById("auth").classList.add("hidden");
+    document.getElementById("chat").classList.remove("hidden");
+  }
+});
 
-function add(role, text) {
-  const div = document.createElement("div");
-  div.className = `msg ${role}`;
-  div.textContent = text;
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
-  return div;
+async function login() {
+  const email = email.value;
+  const password = password.value;
+  await supabase.auth.signInWithPassword({ email, password });
 }
 
-send.onclick = async () => {
-  const message = input.value.trim();
-  if (!message) return;
-
-  input.value = "";
-  add("user", message);
-  const aiDiv = add("ai", "");
+async function send() {
+  const input = prompt.value;
+  prompt.value = "";
+  addMsg("You", input);
 
   const res = await fetch("/api/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message, userId })
+    body: JSON.stringify({ message: input })
   });
 
   const reader = res.body.getReader();
-  const decoder = new TextDecoder();
+  let aiMsg = "";
+  addMsg("Nova", "");
 
   while (true) {
-    const { value, done } = await reader.read();
+    const { done, value } = await reader.read();
     if (done) break;
-    aiDiv.textContent += decoder.decode(value);
-    chat.scrollTop = chat.scrollHeight;
+    aiMsg += new TextDecoder().decode(value);
+    updateLast(aiMsg);
   }
-};
+}
+
+function addMsg(who, text) {
+  const div = document.createElement("div");
+  div.className = `msg ${who === "You" ? "user" : "ai"}`;
+  div.innerText = `${who}: ${text}`;
+  messages.appendChild(div);
+}
+
+function updateLast(text) {
+  messages.lastChild.innerText = "Nova: " + text;
+}
