@@ -22,7 +22,7 @@ async function sendMessage() {
 
   addMessage("Nova AI", "Thinking...");
 
-  const res = await fetch("/api/chat", {
+  const res = await fetch("/api/chat.js", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ message })
