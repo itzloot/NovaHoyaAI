@@ -2,85 +2,99 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont;
 }
 
-body, html {
+html, body {
   height: 100%;
-  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  width: 100%;
+}
+
+/* BACKGROUND */
+.bg {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, #7f5cff, #0b0b0f 70%);
+  z-index: -1;
+}
+
+/* CENTER EVERYTHING */
+.auth-wrapper {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.login-container {
-  width: 100%;
-  max-width: 400px;
   padding: 20px;
 }
 
-.login-box {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(15px);
-  border-radius: 15px;
-  padding: 30px;
-  text-align: center;
-  box-shadow: 0 0 40px rgba(0,0,0,0.5);
-}
-
-.login-box h2 {
-  margin-bottom: 20px;
-  color: #fff;
-}
-
-.login-box input {
+/* CARD */
+.auth-card {
   width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border-radius: 8px;
+  max-width: 360px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(18px);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+  color: white;
+  text-align: center;
+}
+
+.auth-card h1 {
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  opacity: 0.7;
+  margin-bottom: 20px;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border-radius: 10px;
   border: none;
   outline: none;
+  font-size: 15px;
 }
 
-.login-box button {
+.auth-card button {
   width: 100%;
   padding: 12px;
-  margin-top: 10px;
-  border-radius: 8px;
+  border-radius: 10px;
   border: none;
+  font-weight: 600;
   cursor: pointer;
-  font-weight: bold;
-  background: #00f0ff;
+  margin-top: 10px;
+}
+
+#loginBtn {
+  background: #7f5cff;
+  color: white;
+}
+
+.google-btn {
+  background: #fff;
   color: #000;
-  transition: 0.3s;
-}
-
-.login-box button:hover {
-  background: #00d4e0;
-}
-
-.login-box .divider {
-  margin: 15px 0;
-  color: #fff;
-}
-
-.login-box #googleBtn {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
-.login-box #googleBtn .icon {
-  width: 20px;
-  margin-right: 10px;
+.google-btn svg {
+  width: 18px;
+  height: 18px;
 }
 
-.login-box p {
-  color: #fff;
-  margin-top: 15px;
+.switch {
+  margin-top: 16px;
+  font-size: 14px;
 }
 
-.login-box p span {
-  color: #00f0ff;
+.switch span {
+  color: #7f5cff;
   cursor: pointer;
 }
