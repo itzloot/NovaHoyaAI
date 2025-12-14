@@ -1,4 +1,20 @@
+const tryNowBtn = document.getElementById("tryNowBtn");
+const panel = document.getElementById("nova-ai");
+
+const chat = document.getElementById("chat");
+const input = document.getElementById("userInput");
+const sendBtn = document.getElementById("sendBtn");
 async function sendMessage() {
+  const input = document.getElementById("userInput");
+  const message = input.value.trim();
+  if (!message) return;
+
+  addMessage("You", message);
+  input.value = "";
+
+  addMessage("Nova AI", "Thinking...");
+
+  async function sendMessage() {
   const input = document.getElementById("userInput");
   const message = input.value.trim();
   if (!message) return;
