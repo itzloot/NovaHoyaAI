@@ -1,49 +1,23 @@
-let user = null;
+const input = document.getElementById("userInput");
+const sendBtn = document.getElementById("sendBtn");
+const chatArea = document.getElementById("chatArea");
 
-supabase.auth.onAuthStateChange((_, session) => {
-  if (session) {
-    user = session.user;
-    document.getElementById("auth").classList.add("hidden");
-    document.getElementById("chat").classList.remove("hidden");
-  }
-});
-
-async function login() {
-  const email = email.value;
-  const password = password.value;
-  await supabase.auth.signInWithPassword({ email, password });
+function addMessage(text, type) {
+  const msg = document.createElement("div");
+  msg.className = `message ${type}`;
+  msg.innerText = text;
+  chatArea.appendChild(msg);
+  chatArea.scrollTop = chatArea.scrollHeight;
 }
 
-async function send() {
-  const input = prompt.value;
-  prompt.value = "";
-  addMsg("You", input);
+sendBtn.onclick = () => {
+  const text = input.value.trim();
+  if (!text) return;
 
-  const res = await fetch("/api/chat", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: input })
-  });
+  addMessage(text, "user");
+  input.value = "";
 
-  const reader = res.body.getReader();
-  let aiMsg = "";
-  addMsg("Nova", "");
-
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    aiMsg += new TextDecoder().decode(value);
-    updateLast(aiMsg);
-  }
-}
-
-function addMsg(who, text) {
-  const div = document.createElement("div");
-  div.className = `msg ${who === "You" ? "user" : "ai"}`;
-  div.innerText = `${who}: ${text}`;
-  messages.appendChild(div);
-}
-
-function updateLast(text) {
-  messages.lastChild.innerText = "Nova: " + text;
-}
+  setTimeout(() => {
+    addMessage("I am Nova AI. Streaming & memory coming next.", "bot");
+  }, 600);
+};
