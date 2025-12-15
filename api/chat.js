@@ -1,33 +1,63 @@
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
+const input = document.getElementById("userInput");
+const sendBtn = document.getElementById("sendBtn");
+const chatArea = document.getElementById("chatArea");
 
-  const { messages } = req.body;
+let messages = [
+  {
+    role: "system",
+    content: `
+You are Nova AI.
+Created and owned by itzlootdev.
+
+You are NOT ChatGPT.
+You are NOT developed by OpenAI.
+
+OpenAI only provides the underlying language model.
+
+You specialize in:
+- Edge Computing
+- Ultra-low latency systems
+- AI & distributed systems
+
+Always introduce yourself as Nova AI.
+`
+  }
+];
+
+function addMessage(text, type) {
+  const div = document.createElement("div");
+  div.className = `message ${type}`;
+  div.innerText = text;
+  chatArea.appendChild(div);
+  chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+sendBtn.onclick = sendMessage;
+input.addEventListener("keydown", e => {
+  if (e.key === "Enter") sendMessage();
+});
+
+async function sendMessage() {
+  const text = input.value.trim();
+  if (!text) return;
+
+  addMessage(text, "user");
+  input.value = "";
+
+  messages.push({ role: "user", content: text });
 
   try {
-    const response = await fetch(
-      "https://api.openai.com/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
-        },
-        body: JSON.stringify({
-          model: "gpt-4o-mini",
-          messages,
-          temperature: 0.7
-        })
-      }
-    );
-
-    const data = await response.json();
-    res.status(200).json({
-      reply: data.choices[0].message.content
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages })
     });
 
-  } catch (error) {
-    res.status(500).json({ error: "AI error" });
+    const data = await res.json();
+    addMessage(data.reply, "bot");
+    messages.push({ role: "assistant", content: data.reply });
+
+  } catch {
+    addMessage("Error connecting to Nova AI.", "bot");
   }
 }
