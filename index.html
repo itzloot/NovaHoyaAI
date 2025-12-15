@@ -3,33 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NovaHoyaAI</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Nova AI</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<div class="app">
-  <header class="header">
-    <h1>NovaHoyaAI</h1>
-    <span>Created by itzlootdev</span>
-  </header>
+  <div class="app">
+    <header>
+      <h1>Nova AI</h1>
+      <p class="subtitle">Created by itzlootdev</p>
+    </header>
 
-  <div id="chatArea" class="chat"></div>
+    <main id="chatArea"></main>
 
-  <!-- Typing indicator -->
-  <div id="typingIndicator" class="typing hidden">
-    <span>NovaHoyaAI is responding</span>
-    <div class="dots">
-      <i></i><i></i><i></i>
-    </div>
+    <footer>
+      <input
+        id="userInput"
+        type="text"
+        placeholder="Ask Nova AI anything..."
+        autocomplete="off"
+      />
+      <button id="sendBtn">Send</button>
+    </footer>
   </div>
 
-  <div class="input-area">
-    <input id="userInput" placeholder="Ask NovaHoyaAI anything..." />
-    <button id="sendBtn">Send</button>
-  </div>
-</div>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
