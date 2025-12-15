@@ -1,96 +1,96 @@
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  box-sizing: border-box;
+  font-family: Inter, system-ui, sans-serif;
 }
 
 body {
+  background: #000;
+  color: #fff;
   height: 100vh;
-  background: #fff;
-  color: #000;
+}
+
+.app {
+  max-width: 800px;
+  margin: auto;
+  height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* HEADER */
-.top-bar {
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 14px;
-  border-bottom: 1px solid #e5e5e5;
+header {
+  padding: 20px;
+  border-bottom: 1px solid #222;
 }
 
-.title {
-  font-weight: 600;
+h1 {
+  font-size: 24px;
 }
 
-.icon {
-  background: none;
-  border: none;
-  font-size: 20px;
+.subtitle {
+  font-size: 12px;
+  color: #aaa;
 }
 
-/* CHAT */
-.chat-area {
+main {
   flex: 1;
-  padding: 16px;
+  padding: 20px;
   overflow-y: auto;
-}
-
-.welcome {
-  text-align: center;
-  margin-top: 60px;
-}
-
-.logo {
-  font-size: 40px;
-  margin-bottom: 12px;
 }
 
 .message {
   max-width: 80%;
+  padding: 12px 16px;
   margin-bottom: 12px;
-  padding: 10px 14px;
   border-radius: 12px;
   line-height: 1.4;
 }
 
 .user {
-  background: #000;
-  color: #fff;
+  background: #fff;
+  color: #000;
   margin-left: auto;
 }
 
 .bot {
-  background: #f3f3f3;
-  color: #000;
-  margin-right: auto;
+  background: #111;
+  border: 1px solid #222;
 }
 
-/* INPUT */
-.input-bar {
+footer {
   display: flex;
-  gap: 10px;
   padding: 12px;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid #222;
 }
 
-.input-bar input {
+footer input {
   flex: 1;
+  background: #000;
+  color: #fff;
+  border: 1px solid #222;
   padding: 12px;
-  border-radius: 12px;
-  border: 1px solid #ccc;
+  border-radius: 8px;
   outline: none;
 }
 
-.input-bar button {
-  width: 44px;
-  border-radius: 12px;
+footer button {
+  margin-left: 10px;
+  padding: 12px 20px;
+  background: #fff;
+  color: #000;
   border: none;
-  background: #000;
-  color: #fff;
-  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+footer button:hover {
+  opacity: 0.85;
+}
+
+@media (max-width: 600px) {
+  .message {
+    max-width: 95%;
+  }
 }
