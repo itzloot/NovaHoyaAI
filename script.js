@@ -1,51 +1,63 @@
-let conversationMemory = [
+const input = document.getElementById("userInput");
+const sendBtn = document.getElementById("sendBtn");
+const chatArea = document.getElementById("chatArea");
+
+let messages = [
   {
     role: "system",
-    content: "You are NovaHoyaAI, a professional AI assistant created by itzlootdev."
+    content: `
+You are Nova AI.
+Created and owned by itzlootdev.
+
+You are NOT ChatGPT.
+You are NOT developed by OpenAI.
+
+OpenAI only provides the underlying language model.
+
+You specialize in:
+- Edge Computing
+- Ultra-low latency systems
+- AI & distributed systems
+
+Always introduce yourself as Nova AI.
+`
   }
 ];
-const chatArea = document.getElementById("chatArea");
-const userInput = document.getElementById("userInput");
-const sendBtn = document.getElementById("sendBtn");
-const typingIndicator = document.getElementById("typingIndicator");
 
-sendBtn.onclick = sendMessage;
-userInput.addEventListener("keydown", e => {
-  if (e.key === "Enter") sendMessage();
-});
-
-function addMessage(text, className) {
+function addMessage(text, type) {
   const div = document.createElement("div");
-  div.className = `msg ${className}`;
+  div.className = `message ${type}`;
   div.innerText = text;
   chatArea.appendChild(div);
   chatArea.scrollTop = chatArea.scrollHeight;
-  return div;
 }
 
-function sendMessage() {
-  const text = userInput.value.trim();
+sendBtn.onclick = sendMessage;
+input.addEventListener("keydown", e => {
+  if (e.key === "Enter") sendMessage();
+});
+
+async function sendMessage() {
+  const text = input.value.trim();
   if (!text) return;
 
-  userInput.value = "";
   addMessage(text, "user");
+  input.value = "";
 
-  typingIndicator.classList.remove("hidden");
+  messages.push({ role: "user", content: text });
 
-  // Fake AI delay (replace later with OpenAI streaming)
-  setTimeout(() => {
-    typingIndicator.classList.add("hidden");
+  try {
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages })
+    });
 
-    const reply = generateAIResponse(text);
-    addMessage(reply, "bot");
-  }, 1200);
-}
+    const data = await res.json();
+    addMessage(data.reply, "bot");
+    messages.push({ role: "assistant", content: data.reply });
 
-function generateAIResponse(input) {
-  return `I’m NovaHoyaAI 🧠  
-I specialize in edge computing, ultra-low latency systems, and modern web AI.
-
-You asked: "${input}"
-
-Real AI streaming will be connected next 🚀`;
+  } catch {
+    addMessage("Error connecting to Nova AI.", "bot");
+  }
 }
