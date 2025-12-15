@@ -4,35 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nova AI</title>
-
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="top-bar">
-    <button class="icon">☰</button>
-    <div class="title">Nova</div>
-    <button class="icon">✎</button>
-  </header>
+  <div class="app">
+    <header>
+      <h1>Nova AI</h1>
+      <p class="subtitle">Created by itzlootdev</p>
+    </header>
 
-  <!-- CHAT AREA -->
-  <main class="chat-area" id="chatArea">
-    <div class="welcome">
-      <div class="logo">◉</div>
-      <h2>Good morning</h2>
-    </div>
-  </main>
+    <main id="chatArea"></main>
 
-  <!-- INPUT -->
-  <footer class="input-bar">
-    <input
-      type="text"
-      id="userInput"
-      placeholder="Type a message"
-    />
-    <button id="sendBtn">➤</button>
-  </footer>
+    <footer>
+      <input
+        id="userInput"
+        type="text"
+        placeholder="Ask Nova AI anything..."
+        autocomplete="off"
+      />
+      <button id="sendBtn">Send</button>
+    </footer>
+  </div>
 
   <script src="script.js"></script>
 </body>
