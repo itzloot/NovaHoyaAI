@@ -5,32 +5,46 @@ const chatArea = document.getElementById("chatArea");
 let messages = [
   {
     role: "system",
-    content:
-      "You are Nova AI, an expert in edge computing, ultra-low latency systems, and modern AI technology. Answer professionally and clearly."
+    content: `
+You are Nova AI.
+Created and owned by itzlootdev.
+
+You are NOT ChatGPT.
+You are NOT developed by OpenAI.
+
+OpenAI only provides the underlying language model.
+
+You specialize in:
+- Edge Computing
+- Ultra-low latency systems
+- AI & distributed systems
+
+Always introduce yourself as Nova AI.
+`
   }
 ];
 
 function addMessage(text, type) {
-  const msg = document.createElement("div");
-  msg.className = `message ${type}`;
-  msg.innerText = text;
-  chatArea.appendChild(msg);
+  const div = document.createElement("div");
+  div.className = `message ${type}`;
+  div.innerText = text;
+  chatArea.appendChild(div);
   chatArea.scrollTop = chatArea.scrollHeight;
 }
 
-sendBtn.addEventListener("click", sendMessage);
-input.addEventListener("keydown", (e) => {
+sendBtn.onclick = sendMessage;
+input.addEventListener("keydown", e => {
   if (e.key === "Enter") sendMessage();
 });
 
 async function sendMessage() {
-  const userText = input.value.trim();
-  if (!userText) return;
+  const text = input.value.trim();
+  if (!text) return;
 
-  addMessage(userText, "user");
+  addMessage(text, "user");
   input.value = "";
 
-  messages.push({ role: "user", content: userText });
+  messages.push({ role: "user", content: text });
 
   try {
     const res = await fetch("/api/chat", {
@@ -40,16 +54,10 @@ async function sendMessage() {
     });
 
     const data = await res.json();
-
-    if (!data.reply) {
-      addMessage("AI error. Try again.", "bot");
-      return;
-    }
-
-    messages.push({ role: "assistant", content: data.reply });
     addMessage(data.reply, "bot");
+    messages.push({ role: "assistant", content: data.reply });
 
-  } catch (err) {
-    addMessage("Connection error. Check deployment.", "bot");
+  } catch {
+    addMessage("Error connecting to Nova AI.", "bot");
   }
 }
