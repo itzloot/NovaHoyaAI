@@ -1,3 +1,9 @@
+let conversationMemory = [
+  {
+    role: "system",
+    content: "You are NovaHoyaAI, a professional AI assistant created by itzlootdev."
+  }
+];
 const chatArea = document.getElementById("chatArea");
 const userInput = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
