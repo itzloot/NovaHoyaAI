@@ -6,81 +6,91 @@
 }
 
 body {
-  min-height: 100vh;
-  background: radial-gradient(circle at top, #2b2b40, #0b0b12);
+  height: 100vh;
+  background: #fff;
+  color: #000;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+}
+
+/* HEADER */
+.top-bar {
+  height: 56px;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  border-bottom: 1px solid #e5e5e5;
 }
 
-/* CENTER EVERYTHING */
-.login-wrapper {
-  width: 100%;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.login-card {
-  width: 100%;
-  max-width: 360px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 0 40px rgba(0,0,0,0.4);
-  text-align: center;
-}
-
-/* LOGO */
-.logo-box {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 16px;
-}
-
-.logo-box img {
-  width: 120px;
-  border-radius: 10px;
-}
-
-/* TEXT */
-.login-card h2 {
-  color: white;
-  margin-bottom: 16px;
-}
-
-/* INPUTS */
-.login-card input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 12px;
-  border-radius: 8px;
-  border: none;
-  outline: none;
-  font-size: 14px;
-}
-
-/* BUTTONS */
-.login-card button {
-  width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
+.title {
   font-weight: 600;
-  margin-top: 10px;
 }
 
-.login-card button[type="submit"] {
-  background: linear-gradient(135deg, #8f00ff, #ff00d4);
-  color: white;
+.icon {
+  background: none;
+  border: none;
+  font-size: 20px;
 }
 
-#signupBtn {
-  background: transparent;
-  color: #ccc;
-  border: 1px solid #555;
+/* CHAT */
+.chat-area {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.welcome {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.logo {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.message {
+  max-width: 80%;
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  line-height: 1.4;
+}
+
+.user {
+  background: #000;
+  color: #fff;
+  margin-left: auto;
+}
+
+.bot {
+  background: #f3f3f3;
+  color: #000;
+  margin-right: auto;
+}
+
+/* INPUT */
+.input-bar {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.input-bar input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.input-bar button {
+  width: 44px;
+  border-radius: 12px;
+  border: none;
+  background: #000;
+  color: #fff;
+  font-size: 18px;
 }
