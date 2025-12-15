@@ -2,46 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login • Nova AI</title>
-
-  <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nova AI</title>
 
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- BACKGROUND -->
-  <div class="bg"></div>
+  <!-- HEADER -->
+  <header class="top-bar">
+    <button class="icon">☰</button>
+    <div class="title">Nova</div>
+    <button class="icon">✎</button>
+  </header>
 
-  <!-- LOGIN CARD -->
-  <div class="auth-wrapper">
-    <div class="auth-card">
-      <h1>Nova AI</h1>
-      <p class="subtitle">Sign in to continue</p>
-
-      <input id="email" type="email" placeholder="Email" />
-      <input id="password" type="password" placeholder="Password" />
-
-      <button id="loginBtn">Login</button>
-
-      <button id="googleBtn" class="google-btn">
-        <svg viewBox="0 0 48 48">
-          <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.4l6.8-6.8C35.5 2.3 30.1 0 24 0 14.6 0 6.4 5.4 2.6 13.3l7.9 6.1C12.5 13.2 17.8 9.5 24 9.5z"/>
-          <path fill="#34A853" d="M46.5 24.5c0-1.6-.1-2.8-.4-4.1H24v7.8h12.9c-.5 3-2.2 5.5-4.9 7.1l7.5 5.8c4.4-4.1 7-10.2 7-16.6z"/>
-          <path fill="#4A90E2" d="M10.5 28.6c-1-2.8-1-5.8 0-8.6l-7.9-6.1C-1 19.7-1 28.3 2.6 34.1l7.9-5.5z"/>
-          <path fill="#FBBC05" d="M24 48c6.1 0 11.2-2 14.9-5.4l-7.5-5.8c-2.1 1.4-4.8 2.3-7.4 2.3-6.2 0-11.5-3.7-13.5-9l-7.9 5.5C6.4 42.6 14.6 48 24 48z"/>
-        </svg>
-        Continue with Google
-      </button>
-
-      <p class="switch">
-        New here? <span id="signupBtn">Create account</span>
-      </p>
+  <!-- CHAT AREA -->
+  <main class="chat-area" id="chatArea">
+    <div class="welcome">
+      <div class="logo">◉</div>
+      <h2>Good morning</h2>
     </div>
-  </div>
+  </main>
 
-  <script src="login.js"></script>
+  <!-- INPUT -->
+  <footer class="input-bar">
+    <input
+      type="text"
+      id="userInput"
+      placeholder="Type a message"
+    />
+    <button id="sendBtn">➤</button>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
