@@ -5,19 +5,19 @@
   font-family: Inter, system-ui, sans-serif;
 }
 
-/* 🌤 Soft light-blue background */
+/* 🔵 CLEAR blue gradient background */
 body {
   height: 100vh;
   background: linear-gradient(
     135deg,
-    #f6f9ff,
+    #dbe7ff,
     #eef4ff,
     #ffffff
   );
   color: #111;
 }
 
-/* App container */
+/* App container (white card look) */
 .app {
   max-width: 800px;
   margin: auto;
@@ -25,27 +25,33 @@ body {
   display: flex;
   flex-direction: column;
   background: #ffffff;
-  border-left: 1px solid #e6eeff;
-  border-right: 1px solid #e6eeff;
+  box-shadow: 0 20px 60px rgba(0, 60, 255, 0.12);
 }
 
 /* Header */
 header {
   padding: 20px;
-  border-bottom: 1px solid #e6eeff;
+  border-bottom: 1px solid #dbe7ff;
 }
 
 h1 {
   font-size: 24px;
-  color: #1f3fff;
+  font-weight: 700;
+  background: linear-gradient(
+    90deg,
+    #2f5bff,
+    #6f8dff
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .subtitle {
   font-size: 12px;
-  color: #6b7fb8;
+  color: #5c6fb5;
 }
 
-/* Main chat */
+/* Chat area */
 main {
   flex: 1;
   padding: 20px;
@@ -55,77 +61,78 @@ main {
 /* Messages */
 .message {
   max-width: 80%;
-  padding: 12px 16px;
-  margin-bottom: 12px;
-  border-radius: 14px;
-  line-height: 1.4;
+  padding: 14px 18px;
+  margin-bottom: 14px;
+  border-radius: 16px;
+  line-height: 1.45;
 }
 
-/* 🔹 User message — SPECIAL (moving gradient) */
+/* 🚀 USER — animated gradient (VERY visible) */
 .user {
   margin-left: auto;
   color: #ffffff;
   background: linear-gradient(
     270deg,
-    #5f8cff,
-    #7aa7ff,
-    #5f8cff
+    #2f5bff,
+    #6f8dff,
+    #2f5bff
   );
   background-size: 400% 400%;
-  animation: gradientMove 6s ease infinite;
+  animation: gradientMove 4s ease infinite;
 }
 
-/* 🔹 Bot message — normal soft blue */
+/* 🤖 BOT — white card */
 .bot {
-  background: #f3f7ff;
+  background: #ffffff;
   color: #111;
-  border: 1px solid #e1e9ff;
+  border: 1px solid #dbe7ff;
+  box-shadow: 0 6px 18px rgba(0, 60, 255, 0.08);
 }
 
 /* Footer */
 footer {
   display: flex;
-  padding: 12px;
-  border-top: 1px solid #e6eeff;
+  padding: 14px;
+  border-top: 1px solid #dbe7ff;
   background: #ffffff;
 }
 
-/* Input — pure white */
+/* Input */
 footer input {
   flex: 1;
   background: #ffffff;
   color: #000;
-  border: 1px solid #dbe6ff;
+  border: 1px solid #cbd9ff;
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 10px;
   outline: none;
 }
 
 footer input::placeholder {
-  color: #8a9bcf;
+  color: #6f82c9;
 }
 
-/* 🔹 Button — soft blue gradient (NOT animated) */
+/* 🔵 Button — strong gradient */
 footer button {
   margin-left: 10px;
-  padding: 12px 20px;
+  padding: 12px 22px;
   background: linear-gradient(
     135deg,
-    #6f95ff,
-    #8fb0ff
+    #2f5bff,
+    #6f8dff
   );
   color: #ffffff;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
 }
 
 footer button:hover {
-  opacity: 0.92;
+  opacity: 0.9;
 }
 
-/* 🎞 Moving gradient animation (special only) */
+/* 🎞 Animation */
 @keyframes gradientMove {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
