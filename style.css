@@ -5,90 +5,130 @@
   font-family: Inter, system-ui, sans-serif;
 }
 
+/* 🌈 Background: soft blur gradient */
 body {
-  background: #000;
-  color: #fff;
   height: 100vh;
+  background: linear-gradient(
+    135deg,
+    #f8f9ff,
+    #eef1ff,
+    #ffffff
+  );
+  background-attachment: fixed;
+  color: #111;
 }
 
+/* App container with glass effect */
 .app {
   max-width: 800px;
   margin: auto;
   height: 100vh;
   display: flex;
   flex-direction: column;
+
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border-left: 1px solid rgba(0, 0, 0, 0.05);
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+/* Header */
 header {
   padding: 20px;
-  border-bottom: 1px solid #222;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 h1 {
   font-size: 24px;
+  color: #000;
 }
 
 .subtitle {
   font-size: 12px;
-  color: #aaa;
+  color: #666;
 }
 
+/* Main chat area */
 main {
   flex: 1;
   padding: 20px;
   overflow-y: auto;
 }
 
+/* Messages */
 .message {
   max-width: 80%;
   padding: 12px 16px;
   margin-bottom: 12px;
-  border-radius: 12px;
+  border-radius: 14px;
   line-height: 1.4;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
 
+/* User message (clean white) */
 .user {
-  background: #fff;
+  background: #ffffff;
   color: #000;
   margin-left: auto;
 }
 
+/* Bot message (glass card) */
 .bot {
-  background: #111;
-  border: 1px solid #222;
+  background: rgba(255, 255, 255, 0.75);
+  color: #111;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(10px);
 }
 
+/* Footer input area */
 footer {
   display: flex;
   padding: 12px;
-  border-top: 1px solid #222;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(16px);
 }
 
+/* Input */
 footer input {
   flex: 1;
-  background: #000;
-  color: #fff;
-  border: 1px solid #222;
+  background: rgba(255, 255, 255, 0.85);
+  color: #000;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 10px;
   outline: none;
 }
 
+footer input::placeholder {
+  color: #777;
+}
+
+/* Button */
 footer button {
   margin-left: 10px;
   padding: 12px 20px;
-  background: #fff;
+  background: linear-gradient(
+    135deg,
+    #ffffff,
+    #f0f0f0
+  );
   color: #000;
-  border: none;
-  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
+  transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
 footer button:hover {
-  opacity: 0.85;
+  opacity: 0.9;
+  transform: translateY(-1px);
 }
 
+/* Mobile */
 @media (max-width: 600px) {
   .message {
     max-width: 95%;
