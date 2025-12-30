@@ -5,52 +5,47 @@
   font-family: Inter, system-ui, sans-serif;
 }
 
-/* 🌈 Background: soft blur gradient */
+/* 🌤 Blue + white background */
 body {
-  height: 100vh;
   background: linear-gradient(
     135deg,
-    #f8f9ff,
-    #eef1ff,
+    #f5f9ff,
+    #e8f0ff,
     #ffffff
   );
-  background-attachment: fixed;
-  color: #111;
+  color: #0a0a0a;
+  height: 100vh;
 }
 
-/* App container with glass effect */
+/* App container */
 .app {
   max-width: 800px;
   margin: auto;
   height: 100vh;
   display: flex;
   flex-direction: column;
-
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-
-  border-left: 1px solid rgba(0, 0, 0, 0.05);
-  border-right: 1px solid rgba(0, 0, 0, 0.05);
+  background: #ffffff;
+  border-left: 1px solid #e5ecff;
+  border-right: 1px solid #e5ecff;
 }
 
 /* Header */
 header {
   padding: 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid #e5ecff;
 }
 
 h1 {
   font-size: 24px;
-  color: #000;
+  color: #0b3cff;
 }
 
 .subtitle {
   font-size: 12px;
-  color: #666;
+  color: #5a6b9a;
 }
 
-/* Main chat area */
+/* Chat area */
 main {
   flex: 1;
   padding: 20px;
@@ -64,46 +59,43 @@ main {
   margin-bottom: 12px;
   border-radius: 14px;
   line-height: 1.4;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
 
-/* User message (clean white) */
+/* User message */
 .user {
-  background: #ffffff;
-  color: #000;
+  background: #0b3cff;
+  color: #ffffff;
   margin-left: auto;
 }
 
-/* Bot message (glass card) */
+/* Bot message */
 .bot {
-  background: rgba(255, 255, 255, 0.75);
-  color: #111;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  backdrop-filter: blur(10px);
+  background: #f3f7ff;
+  color: #0a0a0a;
+  border: 1px solid #e1e9ff;
 }
 
-/* Footer input area */
+/* Footer */
 footer {
   display: flex;
   padding: 12px;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(16px);
+  border-top: 1px solid #e5ecff;
+  background: #ffffff;
 }
 
 /* Input */
 footer input {
   flex: 1;
-  background: rgba(255, 255, 255, 0.85);
+  background: #f7faff;
   color: #000;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid #dbe6ff;
   padding: 12px;
-  border-radius: 10px;
+  border-radius: 8px;
   outline: none;
 }
 
 footer input::placeholder {
-  color: #777;
+  color: #7a8bbd;
 }
 
 /* Button */
@@ -112,20 +104,18 @@ footer button {
   padding: 12px 20px;
   background: linear-gradient(
     135deg,
-    #ffffff,
-    #f0f0f0
+    #0b3cff,
+    #4f7dff
   );
-  color: #000;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
-  transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
 footer button:hover {
   opacity: 0.9;
-  transform: translateY(-1px);
 }
 
 /* Mobile */
