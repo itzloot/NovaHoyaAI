@@ -5,16 +5,16 @@
   font-family: Inter, system-ui, sans-serif;
 }
 
-/* 🌤 Blue + white background */
+/* 🌤 Soft light-blue background */
 body {
+  height: 100vh;
   background: linear-gradient(
     135deg,
-    #f5f9ff,
-    #e8f0ff,
+    #f6f9ff,
+    #eef4ff,
     #ffffff
   );
-  color: #0a0a0a;
-  height: 100vh;
+  color: #111;
 }
 
 /* App container */
@@ -25,27 +25,27 @@ body {
   display: flex;
   flex-direction: column;
   background: #ffffff;
-  border-left: 1px solid #e5ecff;
-  border-right: 1px solid #e5ecff;
+  border-left: 1px solid #e6eeff;
+  border-right: 1px solid #e6eeff;
 }
 
 /* Header */
 header {
   padding: 20px;
-  border-bottom: 1px solid #e5ecff;
+  border-bottom: 1px solid #e6eeff;
 }
 
 h1 {
   font-size: 24px;
-  color: #0b3cff;
+  color: #1f3fff;
 }
 
 .subtitle {
   font-size: 12px;
-  color: #5a6b9a;
+  color: #6b7fb8;
 }
 
-/* Chat area */
+/* Main chat */
 main {
   flex: 1;
   padding: 20px;
@@ -61,17 +61,24 @@ main {
   line-height: 1.4;
 }
 
-/* User message */
+/* 🔹 User message — SPECIAL (moving gradient) */
 .user {
-  background: #0b3cff;
-  color: #ffffff;
   margin-left: auto;
+  color: #ffffff;
+  background: linear-gradient(
+    270deg,
+    #5f8cff,
+    #7aa7ff,
+    #5f8cff
+  );
+  background-size: 400% 400%;
+  animation: gradientMove 6s ease infinite;
 }
 
-/* Bot message */
+/* 🔹 Bot message — normal soft blue */
 .bot {
   background: #f3f7ff;
-  color: #0a0a0a;
+  color: #111;
   border: 1px solid #e1e9ff;
 }
 
@@ -79,14 +86,14 @@ main {
 footer {
   display: flex;
   padding: 12px;
-  border-top: 1px solid #e5ecff;
+  border-top: 1px solid #e6eeff;
   background: #ffffff;
 }
 
-/* Input */
+/* Input — pure white */
 footer input {
   flex: 1;
-  background: #f7faff;
+  background: #ffffff;
   color: #000;
   border: 1px solid #dbe6ff;
   padding: 12px;
@@ -95,17 +102,17 @@ footer input {
 }
 
 footer input::placeholder {
-  color: #7a8bbd;
+  color: #8a9bcf;
 }
 
-/* Button */
+/* 🔹 Button — soft blue gradient (NOT animated) */
 footer button {
   margin-left: 10px;
   padding: 12px 20px;
   background: linear-gradient(
     135deg,
-    #0b3cff,
-    #4f7dff
+    #6f95ff,
+    #8fb0ff
   );
   color: #ffffff;
   border: none;
@@ -115,7 +122,14 @@ footer button {
 }
 
 footer button:hover {
-  opacity: 0.9;
+  opacity: 0.92;
+}
+
+/* 🎞 Moving gradient animation (special only) */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* Mobile */
