@@ -1,4 +1,4 @@
-// api/chat.js (or app/api/chat/route.js - adjust for your Next.js version)
+// /api/chat.js  (or app/api/chat/route.js — see note at bottom)
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -7,60 +7,59 @@ export default async function handler(req, res) {
 
   const { messages } = req.body;
 
-  const lastUserMessage = messages[messages.length - 1]?.content || "";
-  const lowerMsg = lastUserMessage.toLowerCase();
+  if (!messages || messages.length === 0) {
+    return res.status(400).json({ reply: "No messages bro" });
+  }
 
-  // Detect image generation request
-  const isImageRequest = lowerMsg.includes("generate") || 
-                         lowerMsg.includes("genrate") || 
-                         lowerMsg.includes("create") || 
-                         lowerMsg.includes("draw") || 
-                         lowerMsg.includes("image") || 
-                         lowerMsg.includes("picture") || 
-                         lowerMsg.includes("dragon") || // for your test
-                         lowerMsg.includes("kingdom");
+  const lastMessage = messages[messages.length - 1].content.toLowerCase();
+
+  const isImageRequest = /generate|genrate|create|draw|image|picture|photo|dragon|city|kingdom|futuristic|cyberpunk/i.test(lastMessage);
 
   if (isImageRequest) {
     try {
-      // Free FLUX.1-schnell via Together AI (fast, high quality, unlimited free tier)
-      const response = await fetch("https://api.together.xyz/v1/images/generations", {
+      // Call fal.ai FLUX.1 [schnell] — super fast & high quality
+      const falRes = await fetch("https://queue.fal.ai/fal-ai/flux/schnell", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          // No key needed for free endpoint, but signup for higher limits: get free key at together.ai
-          // "Authorization": "Bearer YOUR_TOGETHER_KEY"  // optional
+          "Authorization": `Key ${process.env.FAL_KEY}`,  // your Vercel env var
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          model: "black-forest-labs/FLUX.1-schnell-Free",
-          prompt: lastUserMessage,
-          width: 1024,
-          height: 1024,
-          steps: 4,
-          n: 1,
-          response_format: "url"
+          prompt: messages[messages.length - 1].content,
+          num_inference_steps: 4,     // fast mode (1-4 steps)
+          guidance_scale: 3.5,
+          num_images: 1,
+          image_size: "square_hd",    // 1024x1024, or "landscape_16_9" etc.
+          enable_safety_checker: true
         })
       });
 
-      if (!response.ok) throw new Error("FLUX API error");
+      if (!falRes.ok) {
+        const errText = await falRes.text();
+        console.error("Fal error:", errText);
+        return res.status(200).json({ reply: "Image gen failed — check fal credits or prompt!" });
+      }
 
-      const data = await response.json();
-      const imageUrl = data.data[0]?.url;
+      const falData = await falRes.json();
+
+      // fal returns { images: [{ url: "https://..." }] }
+      const imageUrl = falData.images?.[0]?.url;
 
       if (imageUrl) {
-        return res.status(200).json({ reply: imageUrl });  // Direct real image URL
+        return res.status(200).json({ reply: imageUrl });  // direct real image URL
       } else {
-        return res.status(200).json({ reply: "Sorry bro, no image generated — try again!" });
+        return res.status(200).json({ reply: "No image returned — try again bro!" });
       }
 
     } catch (error) {
-      console.error(error);
-      return res.status(200).json({ reply: "Image generation failed — try a different prompt!" });
+      console.error("Fal exception:", error);
+      return res.status(200).json({ reply: "Image generation error — try simpler prompt!" });
     }
   }
 
-  // Normal chat with GPT-4o-mini
+  // Normal text chat with GPT-4o-mini
   try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -73,15 +72,19 @@ export default async function handler(req, res) {
       })
     });
 
-    if (!response.ok) throw new Error("OpenAI error");
+    if (!openaiRes.ok) {
+      const errText = await openaiRes.text();
+      console.error("OpenAI error:", errText);
+      return res.status(500).json({ reply: "Chat error — check your OpenAI key!" });
+    }
 
-    const data = await response.json();
-    res.status(200).json({
-      reply: data.choices[0].message.content
-    });
+    const openaiData = await openaiRes.json();
+    const reply = openaiData.choices[0].message.content;
+
+    res.status(200).json({ reply });
 
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "AI error" });
+    console.error("OpenAI exception:", error);
+    res.status(500).json({ reply: "Server error bro" });
   }
 }
