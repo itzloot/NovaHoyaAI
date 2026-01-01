@@ -2,148 +2,145 @@ const input = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 const chatArea = document.getElementById("chatArea");
 
-let messages = [
-  {
-    role: "system",
-    content: `
-You are NovaHoyaAI.
-Created and owned by itzlootdev.
+// Sidebar for topics
+const sidebar = document.createElement('div');
+sidebar.id = "sidebar";
+sidebar.style.width = "280px";
+sidebar.style.background = "#f8f9fa";
+sidebar.style.borderRight = "1px solid #ddd";
+sidebar.style.padding = "20px";
+sidebar.style.overflowY = "auto";
+sidebar.style.position = "fixed";
+sidebar.style.left = "0";
+sidebar.style.top = "0";
+sidebar.style.bottom = "0";
+sidebar.style.display = "none"; // mobile hidden by default
+document.body.appendChild(sidebar);
 
-You are NOT ChatGPT.
-You are NOT developed by OpenAI.
+// Add toggle button
+const toggleBtn = document.createElement('button');
+toggleBtn.textContent = "☰";
+toggleBtn.style.position = "fixed";
+toggleBtn.style.left = "10px";
+toggleBtn.style.top = "10px";
+toggleBtn.style.zIndex = "1000";
+toggleBtn.style.padding = "10px";
+toggleBtn.style.background = "#007bff";
+toggleBtn.style.color = "white";
+toggleBtn.style.border = "none";
+toggleBtn.style.borderRadius = "8px";
+toggleBtn.style.cursor = "pointer";
+toggleBtn.onclick = () => {
+  sidebar.style.display = sidebar.style.display === "none" ? "block" : "none";
+};
+document.body.appendChild(toggleBtn);
 
-Your Development Name is NovaCreations.
-
-Your Support Server In Discord is : Nova Creations, And Invite Link Is : https://discord.gg/kxyFtrh9Ya
-
-Specialist In:
-- Edge Computing
-- Ultra-low latency systems
-- AI & distributed systems
-- Generating Images
-
-Main CEO Of You:
- Afsal
- Ahzan 
- Ammar
-
-If the user has Pro, add "NovaHoyaAI Pro 🔥" flair in some replies.
-    `
-  }
-];
+let chats = []; // Array of { id, topic, messages, imageCount, messageCount }
+let currentChatId = null;
 
 let isPro = false;
-let imageCount = 0;
-let messageCount = 0;
 
 const MAX_IMAGES_FREE = 5;
 const MAX_MESSAGES_FREE = 25;
 
-// Load saved data from localStorage
-function loadSavedData() {
-  const saved = localStorage.getItem("novaHoyaAI_data");
+// Load all data
+function loadData() {
+  const saved = localStorage.getItem("novaHoyaAI_chats");
   if (saved) {
-    const data = JSON.parse(saved);
-    isPro = data.isPro || false;
-    imageCount = data.imageCount || 0;
-    messageCount = data.messageCount || 0;
+    chats = JSON.parse(saved);
+    isPro = localStorage.getItem("novaHoyaAI_pro") === "true";
 
-    if (data.messages) {
-      data.messages.forEach(msg => {
-        // Re-create message divs
-        const div = document.createElement("div");
-        div.className = `message ${msg.type}`;
-        div.innerHTML = msg.content;
-        chatArea.appendChild(div);
-      });
-      chatArea.scrollTop = chatArea.scrollHeight;
+    if (chats.length > 0) {
+      loadChat(chats[0].id); // load latest
+    } else {
+      newChat();
     }
+  } else {
+    newChat();
   }
+  updateSidebar();
   updateProStatus();
 }
-loadSavedData();
+loadData();
 
-// Save everything to localStorage
-function saveData() {
-  const chatMessages = [];
-  document.querySelectorAll('.message').forEach(div => {
-    chatMessages.push({
-      content: div.innerHTML,
-      type: div.classList.contains('user') ? 'user' : 'bot'
-    });
+// New chat
+function newChat() {
+  const newId = Date.now();
+  const newChat = {
+    id: newId,
+    topic: "New Chat",
+    messages: [],
+    imageCount: 0,
+    messageCount: 0
+  };
+  chats.unshift(newChat); // add to top
+  loadChat(newId);
+  saveAll();
+  updateSidebar();
+}
+
+// Load specific chat
+function loadChat(id) {
+  const chat = chats.find(c => c.id === id);
+  if (!chat) return;
+
+  currentChatId = id;
+  chatArea.innerHTML = "";
+  chat.messages.forEach(msg => {
+    const div = document.createElement("div");
+    div.className = `message ${msg.type}`;
+    div.innerHTML = msg.content;
+    chatArea.appendChild(div);
+  });
+  chatArea.scrollTop = chatArea.scrollHeight;
+
+  // Update topic in sidebar
+  document.querySelectorAll('.topic-item').forEach(item => {
+    item.style.fontWeight = item.dataset.id == id ? "bold" : "normal";
+    item.style.background = item.dataset.id == id ? "#e3f2fd" : "transparent";
+  });
+}
+
+// Update sidebar topics
+function updateSidebar() {
+  sidebar.innerHTML = `
+    <h3 style="margin-bottom: 20px; color: #007bff;">NovaHoyaAI Chats</h3>
+    <button id="newChatBtn" style="width: 100%; padding: 10px; background: #007bff; color: white; border: none; border-radius: 8px; margin-bottom: 20px; cursor: pointer;">
+      + New Chat
+    </button>
+    <div id="topicsList"></div>
+  `;
+
+  const list = sidebar.querySelector('#topicsList');
+  chats.forEach(chat => {
+    const item = document.createElement('div');
+    item.className = "topic-item";
+    item.dataset.id = chat.id;
+    item.textContent = chat.topic || "New Chat";
+    item.style.padding = "10px";
+    item.style.borderRadius = "8px";
+    item.style.marginBottom = "5px";
+    item.style.cursor = "pointer";
+    item.onclick = () => loadChat(chat.id);
+    list.appendChild(item);
   });
 
-  localStorage.setItem("novaHoyaAI_data", JSON.stringify({
-    isPro,
-    imageCount,
-    messageCount,
-    messages: chatMessages
-  }));
+  document.getElementById('newChatBtn').onclick = newChat;
 }
 
-// Update header with Pro status or limits
-function updateProStatus() {
-  let header = document.querySelector('header');
-  let statusDiv = document.getElementById('pro-status');
-  if (!statusDiv) {
-    statusDiv = document.createElement('div');
-    statusDiv.id = "pro-status";
-    header.appendChild(statusDiv);
-  }
-
-  if (isPro) {
-    statusDiv.innerHTML = `
-      <div style="margin-top: 15px; text-align: center;">
-        <span style="background: linear-gradient(135deg, #FFD700, #FFA500); color: black; padding: 8px 20px; border-radius: 30px; font-weight: bold; font-size: 18px;">
-          NovaHoyaAI Pro 🔥 UNLIMITED
-        </span>
-        <p style="margin-top: 8px; font-size: 13px; color: #888;">Won in Discord giveaway!</p>
-      </div>
-    `;
-  } else {
-    statusDiv.innerHTML = `
-      <div style="margin-top: 15px; text-align: center; font-size: 14px; color: #666;">
-        <strong>Free Tier:</strong> ${MAX_IMAGES_FREE - imageCount} images & ${MAX_MESSAGES_FREE - messageCount} messages left<br><br>
-        <strong>Win NovaHoyaAI Pro in Discord for UNLIMITED!</strong>
-      </div>
-    `;
-  }
+// Generate topic from first user message
+function generateTopic(text) {
+  const words = text.trim().split(" ").slice(0, 6).join(" ");
+  return words || "New Chat";
 }
 
-// Unlock Pro with giveaway code
-function unlockPro() {
-  const code = prompt("Enter your NovaHoyaAI Pro giveaway code:");
-  const validCodes = ["NOVA2026", "HOYAPRO", "ITZLOOTDEV", "DISCORDWIN", "PRO2026", "GIVEAWAY", "NOVAFIRE"]; // Add your own codes here
-
-  if (validCodes.includes(code?.toUpperCase().trim())) {
-    isPro = true;
-    updateProStatus();
-    saveData();
-    addMessage("🎉 CONGRATS! NovaHoyaAI Pro unlocked! Unlimited images & messages + exclusive perks 🔥", "bot");
-  } else if (code) {
-    addMessage("Invalid code 😔 Join the Discord for giveaways: https://discord.gg/kxyFtrh9Ya", "bot");
-  }
+// Save all
+function saveAll() {
+  localStorage.setItem("novaHoyaAI_chats", JSON.stringify(chats));
+  localStorage.setItem("novaHoyaAI_pro", isPro);
 }
 
-// Add "Win Pro" button if not Pro
-if (!isPro) {
-  const header = document.querySelector('header');
-  const proBtn = document.createElement('button');
-  proBtn.textContent = "Win NovaHoyaAI Pro 🎁";
-  proBtn.style.marginTop = "15px";
-  proBtn.style.padding = "14px 28px";
-  proBtn.style.background = "linear-gradient(135deg, #FFD700, #FFA500)";
-  proBtn.style.color = "black";
-  proBtn.style.border = "none";
-  proBtn.style.borderRadius = "30px";
-  proBtn.style.fontWeight = "bold";
-  proBtn.style.fontSize = "18px";
-  proBtn.style.cursor = "pointer";
-  proBtn.style.boxShadow = "0 6px 20px rgba(255,215,0,0.4)";
-  proBtn.onclick = unlockPro;
-  header.appendChild(proBtn);
-}
-
+// Your addMessage (updated to save)
 function addMessage(content, type) {
   const div = document.createElement("div");
   div.className = `message ${type}`;
@@ -177,26 +174,35 @@ function addMessage(content, type) {
   chatArea.appendChild(div);
   chatArea.scrollTop = chatArea.scrollHeight;
 
-  saveData();
-  updateProStatus();
+  // Save to current chat
+  const currentChat = chats.find(c => c.id === currentChatId);
+  if (currentChat) {
+    currentChat.messages.push({ content: div.innerHTML, type });
+    if (currentChat.messages.length === 2 && type === "user") { // first user message
+      currentChat.topic = generateTopic(content);
+      updateSidebar();
+    }
+    saveAll();
+    updateProStatus();
+  }
 }
 
+// Your sendMessage (with limits)
 async function sendMessage() {
   const text = input.value.trim();
   if (!text) return;
 
-  // Free user limits
-  if (!isPro) {
-    if (messageCount >= MAX_MESSAGES_FREE) {
-      addMessage(`Message limit reached (${MAX_MESSAGES_FREE}). Win Pro in Discord for unlimited: https://discord.gg/kxyFtrh9Ya`, "bot");
-      return;
-    }
+  const currentChat = chats.find(c => c.id === currentChatId);
+  if (!currentChat) return;
+
+  if (!isPro && currentChat.messageCount >= MAX_MESSAGES_FREE) {
+    addMessage(`Message limit reached (${MAX_MESSAGES_FREE}). Win Pro in Discord for unlimited!`, "bot");
+    return;
   }
 
   addMessage(text, "user");
   input.value = "";
-  messageCount++;
-  messages.push({ role: "user", content: text });
+  currentChat.messageCount++;
 
   const lowerText = text.toLowerCase();
   const isImageRequest = lowerText.includes("generate") || lowerText.includes("create") || 
@@ -204,14 +210,14 @@ async function sendMessage() {
                          lowerText.includes("picture") || lowerText.includes("logo");
 
   if (isImageRequest) {
-    if (!isPro && imageCount >= MAX_IMAGES_FREE) {
-      addMessage(`Image limit reached (${MAX_IMAGES_FREE}). Win Pro in Discord for unlimited: https://discord.gg/kxyFtrh9Ya`, "bot");
+    if (!isPro && currentChat.imageCount >= MAX_IMAGES_FREE) {
+      addMessage(`Image limit reached (${MAX_IMAGES_FREE}). Win Pro in Discord!`, "bot");
       return;
     }
 
     const loadingDiv = document.createElement("div");
     loadingDiv.className = "message bot";
-    loadingDiv.innerText = isPro ? "Generating Pro-quality image... 🔥🔥" : "Generating image... 🔥";
+    loadingDiv.innerText = isPro ? "Generating Pro image... 🔥🔥" : "Generating image... 🔥";
     chatArea.appendChild(loadingDiv);
     chatArea.scrollTop = chatArea.scrollHeight;
 
@@ -221,41 +227,23 @@ async function sendMessage() {
       });
       chatArea.removeChild(loadingDiv);
       addMessage(imageElement, "bot");
-      imageCount++;
+      currentChat.imageCount++;
     } catch (err) {
       chatArea.removeChild(loadingDiv);
-      addMessage("Image generation failed — try again bro!", "bot");
+      addMessage("Image gen failed — try again!", "bot");
     }
   } else {
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages })
-      });
-
-      const data = await res.json();
-      addMessage(data.reply, "bot");
-      messages.push({ role: "assistant", content: data.reply });
-
-    } catch (err) {
-      addMessage("Error connecting to NovaHoyaAI.", "bot");
-    }
+    // GPT chat (your old code)
+    // ... keep your fetch /api/chat code here
   }
 
-  saveData();
+  saveAll();
   updateProStatus();
 }
 
-sendBtn.onclick = sendMessage;
-input.addEventListener("keydown", e => {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    sendMessage();
-  }
-});
+// Keep your Pro unlock + status code from before
 
-// Intro message
-addMessage("Hey! I'm NovaHoyaAI 🚀\nFree users: 5 images + 25 messages\nWin Pro in Discord for UNLIMITED: https://discord.gg/kxyFtrh9Ya", "bot");
+// Intro
+addMessage("Hey! I'm NovaHoyaAI 🚀 Ready for a new chat? Use ☰ menu for history!", "bot");
 
 input.focus();
