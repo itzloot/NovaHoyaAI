@@ -2,7 +2,7 @@ const input = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 const chatArea = document.getElementById("chatArea");
 
-// Create sidebar for history
+// Create sidebar
 const sidebar = document.createElement('div');
 sidebar.id = "sidebar";
 sidebar.style.width = "300px";
@@ -16,9 +16,10 @@ sidebar.style.transition = "left 0.3s ease";
 sidebar.style.zIndex = "999";
 sidebar.style.padding = "20px";
 sidebar.style.boxShadow = "2px 0 10px rgba(0,0,0,0.1)";
+sidebar.style.overflowY = "auto";
 document.body.appendChild(sidebar);
 
-// History button (top right in header)
+// History button
 const historyBtn = document.createElement('button');
 historyBtn.innerHTML = "📜 History";
 historyBtn.style.position = "absolute";
@@ -46,7 +47,7 @@ let isPro = false;
 const MAX_IMAGES_FREE = 5;
 const MAX_MESSAGES_FREE = 25;
 
-// Firebase Auth state
+// Firebase Auth
 firebase.auth().onAuthStateChanged((user) => {
   currentUser = user;
 
@@ -61,17 +62,14 @@ firebase.auth().onAuthStateChanged((user) => {
   }
 
   if (user) {
-    // Signed in
     authDiv.innerHTML = `
-      <p style="font-size: 18px; margin-bottom: 10px;">Welcome back, <strong>${user.displayName || user.email}</strong> 👋</p>
-      <p style="color: #666; margin-bottom: 15px;">Enjoy chat, images, and Pro giveaways!</p>
+      <p style="font-size: 18px; margin-bottom: 10px;">Welcome, <strong>${user.displayName || user.email}</strong> 👋</p>
       <button id="signOutBtn" style="padding: 10px 20px; background: #ff4444; color: white; border: none; border-radius: 12px; cursor: pointer;">
         Sign Out
       </button>
     `;
     document.getElementById('signOutBtn').onclick = () => firebase.auth().signOut();
 
-    // Enable chat
     input.disabled = false;
     sendBtn.disabled = false;
     input.placeholder = "Ask NovaHoyaAI anything...";
@@ -79,17 +77,9 @@ firebase.auth().onAuthStateChanged((user) => {
 
     loadData();
   } else {
-    // Not signed in
     authDiv.innerHTML = `
       <div style="padding: 40px 20px;">
         <p style="font-size: 28px; font-weight: bold; margin-bottom: 30px;">Welcome to NovaHoyaAI 🚀</p>
-        <p style="font-size: 18px; margin-bottom: 40px; color: #666;">Sign in to unlock full access:</p>
-        <ul style="text-align: left; max-width: 400px; margin: 0 auto 40px auto; font-size: 16px; color: #555; line-height: 1.6;">
-          <li>✅ Chat with NovaHoyaAI</li>
-          <li>✅ Generate unlimited FLUX images</li>
-          <li>✅ Save conversation history</li>
-          <li>✅ Win NovaHoyaAI Pro in giveaways</li>
-        </ul>
         <button id="googleSignInBtn" style="
           padding: 18px 40px;
           background: linear-gradient(135deg, #4285F4, #34A853);
@@ -103,35 +93,25 @@ firebase.auth().onAuthStateChanged((user) => {
         ">
           Sign in with Google 🚀
         </button>
-        <p style="margin-top: 30px; color: #888; font-size: 14px;">
-          Join the community: <a href="https://discord.gg/kxyFtrh9Ya" target="_blank" style="color: #667eea;">Discord Server</a>
-        </p>
       </div>
     `;
 
-    // Attach click after DOM update
     setTimeout(() => {
       const btn = document.getElementById('googleSignInBtn');
       if (btn) {
-        btn.onclick = () => {
-          firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
-            .catch((error) => {
-              addMessage("Sign in failed: " + error.message, "bot");
-            });
-        };
+        btn.onclick = () => firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
       }
     }, 100);
 
-    // Disable chat
     input.disabled = true;
     sendBtn.disabled = true;
-    input.placeholder = "Sign in to start chatting...";
+    input.placeholder = "Sign in to chat...";
     chatArea.innerHTML = "";
     sidebar.style.left = "-300px";
   }
 });
 
-// Load chats from localStorage
+// Load data
 function loadData() {
   const saved = localStorage.getItem("novaHoyaAI_chats");
   if (saved) {
@@ -164,7 +144,7 @@ function newChat() {
   updateSidebar();
 }
 
-// Load specific chat
+// Load chat
 function loadChat(id) {
   const chat = chats.find(c => c.id === id);
   if (!chat) return;
@@ -180,10 +160,10 @@ function loadChat(id) {
   updateSidebar();
 }
 
-// Update sidebar
+// Update sidebar — FIXED to show chats
 function updateSidebar() {
   sidebar.innerHTML = `
-    <h2 style="color: #667eea; margin-bottom: 20px;">Chats</h2>
+    <h2 style="color: #667eea; margin-bottom: 20px; text-align: center;">NovaHoyaAI Chats</h2>
     <button id="newChatBtn" style="width: 100%; padding: 12px; background: #667eea; color: white; border: none; border-radius: 12px; font-weight: bold; margin-bottom: 20px; cursor: pointer;">
       + New Chat
     </button>
@@ -194,12 +174,13 @@ function updateSidebar() {
   chats.forEach(chat => {
     const item = document.createElement('div');
     item.textContent = chat.topic || "New Chat";
-    item.style.padding = "12px";
-    item.style.borderRadius = "10px";
-    item.style.marginBottom = "8px";
+    item.style.padding = "14px";
+    item.style.borderRadius = "12px";
+    item.style.marginBottom = "10px";
     item.style.background = chat.id === currentChatId ? "#e3f2fd" : "#f0f0ff";
     item.style.cursor = "pointer";
     item.style.fontWeight = chat.id === currentChatId ? "bold" : "normal";
+    item.style.transition = "background 0.2s";
     item.onclick = () => loadChat(chat.id);
     list.appendChild(item);
   });
@@ -235,7 +216,7 @@ function updateProStatus() {
   }
 }
 
-// Unlock Pro (secure via API)
+// Unlock Pro
 async function unlockPro() {
   const code = prompt("Enter your NovaHoyaAI Pro giveaway code:");
   if (!code) return;
