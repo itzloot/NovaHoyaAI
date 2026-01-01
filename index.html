@@ -3,18 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NovaHoya AI</title>
+  <title>NovaHoyaAI</title>
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Puter.js FIRST -->
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
+  <!-- Puter.js for FLUX image gen -->
   <script src="https://js.puter.com/v2/"></script>
+
+  <script>
+    // Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCZc59vetBGrrlVmzh3chHiwSr_gQ34GQw",
+      authDomain: "novahoyaai.firebaseapp.com",
+      projectId: "novahoyaai",
+      storageBucket: "novahoyaai.firebasestorage.app",
+      messagingSenderId: "368864130252",
+      appId: "1:368864130252:web:2d799f25ffff84540f3e69",
+      measurementId: "G-06WFR8LKJM"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
 </head>
 <body>
 
   <div class="app">
     <header>
-      <h1>Nova AI</h1>
+      <h1>NovaHoyaAI</h1>
       <p class="subtitle">Created by itzlootdev</p>
+      <!-- Google Sign In button will appear here -->
     </header>
 
     <main id="chatArea"></main>
