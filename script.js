@@ -1,5 +1,5 @@
 <script src="https://js.puter.com/v2/"></script>
- // Elements
+// Elements
   const input = document.getElementById("userInput");
   const sendBtn = document.getElementById("sendBtn");
   const chatArea = document.getElementById("chatArea");
