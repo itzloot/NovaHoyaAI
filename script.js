@@ -56,16 +56,16 @@ firebase.auth().onAuthStateChanged((user) => {
     authDiv = document.createElement('div');
     authDiv.id = "auth-container";
     authDiv.style.textAlign = "center";
-    authDiv.style.margin = "20px 0";
+    authDiv.style.margin = "30px 0";
     header.appendChild(authDiv);
   }
 
   if (user) {
     // Signed in
     authDiv.innerHTML = `
-      <p style="font-size: 18px; margin-bottom: 10px;">Welcome, <strong>${user.displayName || user.email}</strong> 👋</p>
-      <p style="color: #666;">NovaHoyaAI Pro giveaways & unlimited features await!</p>
-      <button id="signOutBtn" style="margin-top: 10px; padding: 10px 20px; background: #ff4444; color: white; border: none; border-radius: 12px; cursor: pointer;">
+      <p style="font-size: 18px; margin-bottom: 10px;">Welcome back, <strong>${user.displayName || user.email}</strong> 👋</p>
+      <p style="color: #666; margin-bottom: 15px;">Enjoy chat, images, and Pro giveaways!</p>
+      <button id="signOutBtn" style="padding: 10px 20px; background: #ff4444; color: white; border: none; border-radius: 12px; cursor: pointer;">
         Sign Out
       </button>
     `;
@@ -75,19 +75,20 @@ firebase.auth().onAuthStateChanged((user) => {
     input.disabled = false;
     sendBtn.disabled = false;
     input.placeholder = "Ask NovaHoyaAI anything...";
+    input.focus();
 
-    loadData(); // load chats after sign in
+    loadData();
   } else {
-    // Not signed in — show big sign in screen
+    // Not signed in
     authDiv.innerHTML = `
-      <div style="padding: 40px;">
-        <p style="font-size: 28px; font-weight: bold; margin-bottom: 30px; color: #333;">Welcome to NovaHoyaAI 🚀</p>
-        <p style="font-size: 18px; margin-bottom: 40px; color: #666;">Sign in with Google to unlock:</p>
-        <ul style="text-align: left; max-width: 400px; margin: 0 auto 40px; font-size: 16px; color: #555;">
-          <li>Unlimited chat history</li>
-          <li>Real FLUX image generation</li>
-          <li>NovaHoyaAI Pro giveaways</li>
-          <li>Exclusive features</li>
+      <div style="padding: 40px 20px;">
+        <p style="font-size: 28px; font-weight: bold; margin-bottom: 30px;">Welcome to NovaHoyaAI 🚀</p>
+        <p style="font-size: 18px; margin-bottom: 40px; color: #666;">Sign in to unlock full access:</p>
+        <ul style="text-align: left; max-width: 400px; margin: 0 auto 40px auto; font-size: 16px; color: #555; line-height: 1.6;">
+          <li>✅ Chat with NovaHoyaAI</li>
+          <li>✅ Generate unlimited FLUX images</li>
+          <li>✅ Save conversation history</li>
+          <li>✅ Win NovaHoyaAI Pro in giveaways</li>
         </ul>
         <button id="googleSignInBtn" style="
           padding: 18px 40px;
@@ -103,12 +104,12 @@ firebase.auth().onAuthStateChanged((user) => {
           Sign in with Google 🚀
         </button>
         <p style="margin-top: 30px; color: #888; font-size: 14px;">
-          Join the community: <a href="https://discord.gg/kxyFtrh9Ya" target="_blank">Discord Server</a>
+          Join the community: <a href="https://discord.gg/kxyFtrh9Ya" target="_blank" style="color: #667eea;">Discord Server</a>
         </p>
       </div>
     `;
 
-    // Attach click event after innerHTML
+    // Attach click after DOM update
     setTimeout(() => {
       const btn = document.getElementById('googleSignInBtn');
       if (btn) {
@@ -126,23 +127,278 @@ firebase.auth().onAuthStateChanged((user) => {
     sendBtn.disabled = true;
     input.placeholder = "Sign in to start chatting...";
     chatArea.innerHTML = "";
+    sidebar.style.left = "-300px";
   }
 });
 
-// The rest of your code (loadData, newChat, addMessage, sendMessage, Pro system, etc.) stays the same as before
-
-// Intro when signed in
-function showIntroIfSignedIn() {
-  if (currentUser && chats.length === 0) {
+// Load chats from localStorage
+function loadData() {
+  const saved = localStorage.getItem("novaHoyaAI_chats");
+  if (saved) {
+    chats = JSON.parse(saved);
+    isPro = localStorage.getItem("novaHoyaAI_pro") === "true";
+    if (chats.length > 0) {
+      loadChat(chats[0].id);
+    } else {
+      newChat();
+    }
+  } else {
     newChat();
-    addMessage("Hey! I'm NovaHoyaAI 🚀 Ready to chat and generate real FLUX images. Try 'generate a futuristic kingdom'!", "bot");
+  }
+  updateSidebar();
+  updateProStatus();
+}
+
+// New chat
+function newChat() {
+  const id = Date.now();
+  chats.unshift({
+    id,
+    topic: "New Chat",
+    messages: [],
+    imageCount: 0,
+    messageCount: 0
+  });
+  loadChat(id);
+  saveAll();
+  updateSidebar();
+}
+
+// Load specific chat
+function loadChat(id) {
+  const chat = chats.find(c => c.id === id);
+  if (!chat) return;
+  currentChatId = id;
+  chatArea.innerHTML = "";
+  chat.messages.forEach(m => {
+    const div = document.createElement("div");
+    div.className = `message ${m.type}`;
+    div.innerHTML = m.content;
+    chatArea.appendChild(div);
+  });
+  chatArea.scrollTop = chatArea.scrollHeight;
+  updateSidebar();
+}
+
+// Update sidebar
+function updateSidebar() {
+  sidebar.innerHTML = `
+    <h2 style="color: #667eea; margin-bottom: 20px;">Chats</h2>
+    <button id="newChatBtn" style="width: 100%; padding: 12px; background: #667eea; color: white; border: none; border-radius: 12px; font-weight: bold; margin-bottom: 20px; cursor: pointer;">
+      + New Chat
+    </button>
+    <div id="chatList"></div>
+  `;
+
+  const list = sidebar.querySelector('#chatList');
+  chats.forEach(chat => {
+    const item = document.createElement('div');
+    item.textContent = chat.topic || "New Chat";
+    item.style.padding = "12px";
+    item.style.borderRadius = "10px";
+    item.style.marginBottom = "8px";
+    item.style.background = chat.id === currentChatId ? "#e3f2fd" : "#f0f0ff";
+    item.style.cursor = "pointer";
+    item.style.fontWeight = chat.id === currentChatId ? "bold" : "normal";
+    item.onclick = () => loadChat(chat.id);
+    list.appendChild(item);
+  });
+
+  document.getElementById('newChatBtn').onclick = newChat;
+}
+
+// Save all
+function saveAll() {
+  localStorage.setItem("novaHoyaAI_chats", JSON.stringify(chats));
+  localStorage.setItem("novaHoyaAI_pro", isPro);
+}
+
+// Pro status
+function updateProStatus() {
+  let header = document.querySelector('header');
+  let proDiv = document.getElementById('pro-status');
+  if (!proDiv) {
+    proDiv = document.createElement('div');
+    proDiv.id = "pro-status";
+    proDiv.style.textAlign = "center";
+    proDiv.style.marginTop = "10px";
+    header.appendChild(proDiv);
+  }
+
+  if (isPro) {
+    proDiv.innerHTML = `<span style="background: linear-gradient(135deg, #FFD700, #FFA500); color: black; padding: 8px 20px; border-radius: 30px; font-weight: bold; font-size: 18px;">NovaHoyaAI Pro 🔥 UNLIMITED</span>`;
+  } else {
+    const current = chats.find(c => c.id === currentChatId);
+    const imgLeft = MAX_IMAGES_FREE - (current?.imageCount || 0);
+    const msgLeft = MAX_MESSAGES_FREE - (current?.messageCount || 0);
+    proDiv.innerHTML = `<p style="font-size: 14px; color: #666;">Free: ${imgLeft} images & ${msgLeft} messages left<br><strong>Win Pro in Discord!</strong></p>`;
   }
 }
 
-// Call after auth check
-firebase.auth().onAuthStateChanged((user) => {
-  // ... your auth code above
-  showIntroIfSignedIn();
+// Unlock Pro (secure via API)
+async function unlockPro() {
+  const code = prompt("Enter your NovaHoyaAI Pro giveaway code:");
+  if (!code) return;
+
+  try {
+    const res = await fetch("/api/pro", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ code })
+    });
+
+    const data = await res.json();
+
+    if (data.valid) {
+      isPro = true;
+      updateProStatus();
+      saveAll();
+      addMessage("🎉 PRO UNLOCKED! Unlimited everything 🔥", "bot");
+    } else {
+      addMessage("Invalid code 😔 Join Discord for giveaways: https://discord.gg/kxyFtrh9Ya", "bot");
+    }
+  } catch {
+    addMessage("Error checking code — try again!", "bot");
+  }
+}
+
+// Pro button
+if (!isPro) {
+  const header = document.querySelector('header');
+  const btn = document.createElement('button');
+  btn.textContent = "Win Pro 🎁";
+  btn.style.margin = "15px auto";
+  btn.style.display = "block";
+  btn.style.padding = "14px 28px";
+  btn.style.background = "linear-gradient(135deg, #FFD700, #FFA500)";
+  btn.style.color = "black";
+  btn.style.border = "none";
+  btn.style.borderRadius = "30px";
+  btn.style.fontWeight = "bold";
+  btn.style.fontSize = "18px";
+  btn.style.cursor = "pointer";
+  btn.onclick = unlockPro;
+  header.appendChild(btn);
+}
+
+function addMessage(content, type) {
+  const div = document.createElement("div");
+  div.className = `message ${type}`;
+
+  if (content instanceof HTMLImageElement) {
+    content.alt = "Generated by NovaHoyaAI" + (isPro ? " Pro 🔥" : "");
+    content.loading = "lazy";
+    content.style.maxWidth = "100%";
+    content.style.borderRadius = "12px";
+    content.style.marginTop = "10px";
+    content.style.boxShadow = "0 4px 12px rgba(0,0,0,0.5)";
+    div.appendChild(content);
+  } else if (typeof content === "string") {
+    if (content.startsWith("http") || content.startsWith("data:image")) {
+      const img = document.createElement("img");
+      img.src = content;
+      img.alt = "Generated by NovaHoyaAI" + (isPro ? " Pro 🔥" : "");
+      img.loading = "lazy";
+      img.style.maxWidth = "100%";
+      img.style.borderRadius = "12px";
+      img.style.marginTop = "10px";
+      div.appendChild(img);
+    } else {
+      if (isPro && type === "bot" && Math.random() < 0.4) {
+        content += " (NovaHoyaAI Pro 🔥)";
+      }
+      div.innerText = content;
+    }
+  }
+
+  chatArea.appendChild(div);
+  chatArea.scrollTop = chatArea.scrollHeight;
+
+  const current = chats.find(c => c.id === currentChatId);
+  if (current) {
+    current.messages.push({ content: div.innerHTML, type });
+    if (current.messages.length === 2 && type === "user") {
+      current.topic = content.substring(0, 40) + (content.length > 40 ? "..." : "");
+      updateSidebar();
+    }
+    saveAll();
+    updateProStatus();
+  }
+}
+
+async function sendMessage() {
+  if (!currentUser) {
+    addMessage("Sign in with Google to chat and generate images!", "bot");
+    return;
+  }
+
+  const text = input.value.trim();
+  if (!text) return;
+
+  const current = chats.find(c => c.id === currentChatId);
+  if (!current) return;
+
+  if (!isPro && current.messageCount >= MAX_MESSAGES_FREE) {
+    addMessage(`Message limit reached. Win Pro in Discord!`, "bot");
+    return;
+  }
+
+  addMessage(text, "user");
+  input.value = "";
+  current.messageCount++;
+
+  const lowerText = text.toLowerCase();
+  const isImageRequest = /generate|create|draw|image|picture|logo/i.test(lowerText);
+
+  if (isImageRequest) {
+    if (!isPro && current.imageCount >= MAX_IMAGES_FREE) {
+      addMessage(`Image limit reached. Win Pro in Discord!`, "bot");
+      return;
+    }
+
+    const loading = document.createElement("div");
+    loading.className = "message bot";
+    loading.innerText = "Generating image... 🔥";
+    chatArea.appendChild(loading);
+    chatArea.scrollTop = chatArea.scrollHeight;
+
+    try {
+      const img = await puter.ai.txt2img(text, { model: "black-forest-labs/FLUX.1-schnell" });
+      chatArea.removeChild(loading);
+      addMessage(img, "bot");
+      current.imageCount++;
+    } catch {
+      chatArea.removeChild(loading);
+      addMessage("Image generation failed — try again!", "bot");
+    }
+  } else {
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: messages.concat({ role: "user", content: text }) })
+      });
+
+      if (!res.ok) throw new Error("API error");
+
+      const data = await res.json();
+      addMessage(data.reply, "bot");
+
+    } catch {
+      addMessage("Error connecting to NovaHoyaAI — check OpenAI key in Vercel!", "bot");
+    }
+  }
+
+  saveAll();
+  updateProStatus();
+}
+
+sendBtn.onclick = sendMessage;
+input.addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    sendMessage();
+  }
 });
 
 input.focus();
