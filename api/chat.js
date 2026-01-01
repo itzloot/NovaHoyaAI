@@ -1,4 +1,4 @@
-// /api/chat.js  (or app/api/chat/route.js — see note at bottom)
+// api/chat.js (pages/api/chat.js or app/api/chat/route.js — adjust res/NextResponse if needed)
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -11,49 +11,49 @@ export default async function handler(req, res) {
     return res.status(400).json({ reply: "No messages bro" });
   }
 
-  const lastMessage = messages[messages.length - 1].content.toLowerCase();
+  const lastMessage = messages[messages.length - 1].content;
+  const lowerMsg = lastMessage.toLowerCase();
 
-  const isImageRequest = /generate|genrate|create|draw|image|picture|photo|dragon|city|kingdom|futuristic|cyberpunk/i.test(lastMessage);
+  const isImageRequest = /generate|create|draw|image|picture|photo|logo|kingdom|city|futuristic|cyberpunk|dragon/i.test(lowerMsg);
 
   if (isImageRequest) {
     try {
-      // Call fal.ai FLUX.1 [schnell] — super fast & high quality
-      const falRes = await fetch("https://queue.fal.ai/fal-ai/flux/schnell", {
+      const falRes = await fetch("https://fal.run/fal-ai/flux/schnell", {
         method: "POST",
         headers: {
-          "Authorization": `Key ${process.env.FAL_KEY}`,  // your Vercel env var
+          "Authorization": `Key ${process.env.FAL_API}`,  // your env var name
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          prompt: messages[messages.length - 1].content,
-          num_inference_steps: 4,     // fast mode (1-4 steps)
-          guidance_scale: 3.5,
-          num_images: 1,
-          image_size: "square_hd",    // 1024x1024, or "landscape_16_9" etc.
-          enable_safety_checker: true
+          input: {
+            prompt: lastMessage,
+            num_inference_steps: 4,       // fast & good quality
+            guidance_scale: 3.5,
+            num_images: 1,
+            image_size: "square_hd"       // 1024x1024, or "landscape_16_9" etc.
+          }
         })
       });
 
       if (!falRes.ok) {
         const errText = await falRes.text();
-        console.error("Fal error:", errText);
-        return res.status(200).json({ reply: "Image gen failed — check fal credits or prompt!" });
+        console.error("fal.ai error:", errText);
+        return res.status(200).json({ reply: "Image gen failed — check your FAL_API key/credits or prompt!" });
       }
 
       const falData = await falRes.json();
 
-      // fal returns { images: [{ url: "https://..." }] }
       const imageUrl = falData.images?.[0]?.url;
 
       if (imageUrl) {
-        return res.status(200).json({ reply: imageUrl });  // direct real image URL
+        return res.status(200).json({ reply: imageUrl });  // real direct image URL
       } else {
         return res.status(200).json({ reply: "No image returned — try again bro!" });
       }
 
     } catch (error) {
-      console.error("Fal exception:", error);
-      return res.status(200).json({ reply: "Image generation error — try simpler prompt!" });
+      console.error("fal.ai exception:", error);
+      return res.status(200).json({ reply: "Image generation error — try later!" });
     }
   }
 
@@ -79,12 +79,10 @@ export default async function handler(req, res) {
     }
 
     const openaiData = await openaiRes.json();
-    const reply = openaiData.choices[0].message.content;
-
-    res.status(200).json({ reply });
+    res.status(200).json({ reply: openaiData.choices[0].message.content });
 
   } catch (error) {
-    console.error("OpenAI exception:", error);
+    console.error(error);
     res.status(500).json({ reply: "Server error bro" });
   }
 }
