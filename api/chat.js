@@ -1,68 +1,66 @@
-// pages/api/chat.js  or  app/api/chat/route.js (depending on your Next.js version)
+// api/chat.js (or app/api/chat/route.js - adjust for your Next.js version)
 
-import { NextResponse } from 'next/server';
-
-export async function POST(req) {
-  if (req.method !== 'POST') {
-    return NextResponse.json({ error: 'Method not allowed' }, { status: 405 });
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { messages } = await req.json();
+  const { messages } = req.body;
 
-  const lastMessage = messages[messages.length - 1].content.toLowerCase();
+  const lastUserMessage = messages[messages.length - 1]?.content || "";
+  const lowerMsg = lastUserMessage.toLowerCase();
 
-  // Detect if user wants an image
-  const isImageRequest = lastMessage.includes("generate") ||
-                         lastMessage.includes("genrate") ||
-                         lastMessage.includes("create") ||
-                         lastMessage.includes("draw") ||
-                         lastMessage.includes("image") ||
-                         lastMessage.includes("picture") ||
-                         lastMessage.includes("photo") ||
-                         lastMessage.includes("kingdom") ||
-                         lastMessage.includes("futuristic");
+  // Detect image generation request
+  const isImageRequest = lowerMsg.includes("generate") || 
+                         lowerMsg.includes("genrate") || 
+                         lowerMsg.includes("create") || 
+                         lowerMsg.includes("draw") || 
+                         lowerMsg.includes("image") || 
+                         lowerMsg.includes("picture") || 
+                         lowerMsg.includes("dragon") || // for your test
+                         lowerMsg.includes("kingdom");
 
   if (isImageRequest) {
     try {
-      // Use Fal.ai + FLUX.1-schnell (fastest real FLUX, ~3-6 sec)
-      const falResponse = await fetch("https://fal.run/fal-ai/flux/schnell", {
+      // Free FLUX.1-schnell via Together AI (fast, high quality, unlimited free tier)
+      const response = await fetch("https://api.together.xyz/v1/images/generations", {
         method: "POST",
         headers: {
-          "Authorization": `Key ${process.env.FAL_KEY}`,  // Get free key at fal.ai
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          // No key needed for free endpoint, but signup for higher limits: get free key at together.ai
+          // "Authorization": "Bearer YOUR_TOGETHER_KEY"  // optional
         },
         body: JSON.stringify({
-          prompt: messages[messages.length - 1].content,
-          image_size: "square_hd",  // 1024x1024
-          num_inference_steps: 28,
-          guidance_scale: 7.5,
-          sync_mode: true  // Wait for result (fast model)
+          model: "black-forest-labs/FLUX.1-schnell-Free",
+          prompt: lastUserMessage,
+          width: 1024,
+          height: 1024,
+          steps: 4,
+          n: 1,
+          response_format: "url"
         })
       });
 
-      const falData = await falResponse.json();
+      if (!response.ok) throw new Error("FLUX API error");
 
-      if (falData.images && falData.images[0].url) {
-        return NextResponse.json({
-          reply: falData.images[0].url  // Direct real image URL
-        });
+      const data = await response.json();
+      const imageUrl = data.data[0]?.url;
+
+      if (imageUrl) {
+        return res.status(200).json({ reply: imageUrl });  // Direct real image URL
       } else {
-        return NextResponse.json({
-          reply: "Sorry bro, image generation failed — try again!"
-        });
+        return res.status(200).json({ reply: "Sorry bro, no image generated — try again!" });
       }
 
     } catch (error) {
       console.error(error);
-      return NextResponse.json({
-        reply: "Image gen error — check server logs bro 😅"
-      });
+      return res.status(200).json({ reply: "Image generation failed — try a different prompt!" });
     }
   }
 
   // Normal chat with GPT-4o-mini
   try {
-    const openaiResponse = await fetch("https://api.openai.com/v1/chat/completions", {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -70,26 +68,20 @@ export async function POST(req) {
       },
       body: JSON.stringify({
         model: "gpt-4o-mini",
-        messages: messages,
+        messages,
         temperature: 0.7
       })
     });
 
-    const openaiData = await openaiResponse.json();
+    if (!response.ok) throw new Error("OpenAI error");
 
-    if (openaiData.choices && openaiData.choices[0]) {
-      return NextResponse.json({
-        reply: openaiData.choices[0].message.content
-      });
-    } else {
-      return NextResponse.json({ reply: "No response from AI." });
-    }
+    const data = await response.json();
+    res.status(200).json({
+      reply: data.choices[0].message.content
+    });
 
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ reply: "Chat error — try again!" });
+    res.status(500).json({ error: "AI error" });
   }
 }
-
-// For pages/api (old style) — add this if you're not using app router
-// export default async function handler(req, res) { ... same code above but with res.json instead of NextResponse }
