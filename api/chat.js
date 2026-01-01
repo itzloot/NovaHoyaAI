@@ -1,4 +1,4 @@
-// api/chat.js (pages/api/chat.js or app/api/chat/route.js — adjust res/NextResponse if needed)
+// api/chat.js
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -21,16 +21,16 @@ export default async function handler(req, res) {
       const falRes = await fetch("https://fal.run/fal-ai/flux/schnell", {
         method: "POST",
         headers: {
-          "Authorization": `Key ${process.env.FAL_API}`,  // your env var name
+          "Authorization": `Key ${process.env.FAL_API}`,  // your env var
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          input: {
+          input: {  // THIS IS THE KEY FIX — wrap in "input"
             prompt: lastMessage,
-            num_inference_steps: 4,       // fast & good quality
+            num_inference_steps: 4,
             guidance_scale: 3.5,
             num_images: 1,
-            image_size: "square_hd"       // 1024x1024, or "landscape_16_9" etc.
+            image_size: "square_hd"
           }
         })
       });
@@ -38,7 +38,7 @@ export default async function handler(req, res) {
       if (!falRes.ok) {
         const errText = await falRes.text();
         console.error("fal.ai error:", errText);
-        return res.status(200).json({ reply: "Image gen failed — check your FAL_API key/credits or prompt!" });
+        return res.status(200).json({ reply: `Image gen failed: ${errText.substring(0, 200)} — check Vercel logs for full error!` });
       }
 
       const falData = await falRes.json();
@@ -46,18 +46,18 @@ export default async function handler(req, res) {
       const imageUrl = falData.images?.[0]?.url;
 
       if (imageUrl) {
-        return res.status(200).json({ reply: imageUrl });  // real direct image URL
+        return res.status(200).json({ reply: imageUrl });
       } else {
-        return res.status(200).json({ reply: "No image returned — try again bro!" });
+        return res.status(200).json({ reply: "No image URL returned — check logs!" });
       }
 
     } catch (error) {
       console.error("fal.ai exception:", error);
-      return res.status(200).json({ reply: "Image generation error — try later!" });
+      return res.status(200).json({ reply: "Image generation crashed — check Vercel logs!" });
     }
   }
 
-  // Normal text chat with GPT-4o-mini
+  // Normal chat
   try {
     const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
@@ -75,7 +75,7 @@ export default async function handler(req, res) {
     if (!openaiRes.ok) {
       const errText = await openaiRes.text();
       console.error("OpenAI error:", errText);
-      return res.status(500).json({ reply: "Chat error — check your OpenAI key!" });
+      return res.status(500).json({ reply: "Chat error — check OpenAI key!" });
     }
 
     const openaiData = await openaiRes.json();
