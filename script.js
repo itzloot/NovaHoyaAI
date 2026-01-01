@@ -2,7 +2,7 @@ const input = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 const chatArea = document.getElementById("chatArea");
 
-// Create sidebar for history
+// Sidebar for history
 const sidebar = document.createElement('div');
 sidebar.id = "sidebar";
 sidebar.style.width = "300px";
@@ -18,7 +18,7 @@ sidebar.style.padding = "20px";
 sidebar.style.boxShadow = "2px 0 10px rgba(0,0,0,0.1)";
 document.body.appendChild(sidebar);
 
-// History button in header (right side)
+// History button (top right in header)
 const historyBtn = document.createElement('button');
 historyBtn.innerHTML = "📜 History";
 historyBtn.style.position = "absolute";
@@ -38,6 +38,7 @@ historyBtn.onclick = () => {
 document.querySelector('header').style.position = "relative";
 document.querySelector('header').appendChild(historyBtn);
 
+let currentUser = null;
 let chats = [];
 let currentChatId = null;
 let isPro = false;
@@ -45,7 +46,77 @@ let isPro = false;
 const MAX_IMAGES_FREE = 5;
 const MAX_MESSAGES_FREE = 25;
 
-// Load data
+// Firebase Auth state
+firebase.auth().onAuthStateChanged((user) => {
+  currentUser = user;
+
+  const header = document.querySelector('header');
+  let authDiv = document.getElementById('auth-container');
+  if (!authDiv) {
+    authDiv = document.createElement('div');
+    authDiv.id = "auth-container";
+    authDiv.style.textAlign = "center";
+    authDiv.style.margin = "20px 0";
+    header.appendChild(authDiv);
+  }
+
+  if (user) {
+    // Signed in
+    authDiv.innerHTML = `
+      <p style="font-size: 18px; margin-bottom: 10px;">Welcome, <strong>${user.displayName || user.email}</strong> 👋</p>
+      <button id="signOutBtn" style="padding: 10px 20px; background: #ff4444; color: white; border: none; border-radius: 12px; cursor: pointer;">
+        Sign Out
+      </button>
+    `;
+    document.getElementById('signOutBtn').onclick = () => firebase.auth().signOut();
+
+    // Enable chat
+    input.disabled = false;
+    sendBtn.disabled = false;
+    input.placeholder = "Ask NovaHoyaAI anything...";
+
+    loadData(); // load chats after sign in
+  } else {
+    // Not signed in — block chat
+    authDiv.innerHTML = `
+      <p style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">Sign in to use NovaHoyaAI 🚀</p>
+      <button id="googleSignInBtn" style="
+        padding: 16px 32px;
+        background: linear-gradient(135deg, #4285F4, #34A853);
+        color: white;
+        border: none;
+        border-radius: 20px;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 8px 25px rgba(66,133,244,0.4);
+      ">
+        Sign in with Google
+      </button>
+      <p style="margin-top: 20px; color: #666; font-size: 14px;">
+        Unlock chat, unlimited images, Pro giveaways & more!
+      </p>
+    `;
+
+    document.getElementById('googleSignInBtn').onclick = () => {
+      firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    };
+
+    // Disable chat
+    input.disabled = true;
+    sendBtn.disabled = true;
+    input.placeholder = "Sign in to chat...";
+    chatArea.innerHTML = `
+      <div class="message bot" style="text-align: center; margin-top: 100px; padding: 30px;">
+        <p style="font-size: 20px;">Please sign in with Google to start using NovaHoyaAI 🚀</p>
+        <p style="margin-top: 20px; color: #666;">Chat, generate unlimited images, win Pro — all waiting for you!</p>
+      </div>
+    `;
+    sidebar.style.left = "-300px";
+  }
+});
+
+// Load chats from localStorage (per device, for now)
 function loadData() {
   const saved = localStorage.getItem("novaHoyaAI_chats");
   if (saved) {
@@ -62,7 +133,6 @@ function loadData() {
   updateSidebar();
   updateProStatus();
 }
-loadData();
 
 // New chat
 function newChat() {
@@ -98,7 +168,7 @@ function loadChat(id) {
 // Update sidebar
 function updateSidebar() {
   sidebar.innerHTML = `
-    <h2 style="color: #667eea; margin-bottom: 20px;">NovaHoyaAI Chats</h2>
+    <h2 style="color: #667eea; margin-bottom: 20px;">Your Chats</h2>
     <button id="newChatBtn" style="width: 100%; padding: 12px; background: #667eea; color: white; border: none; border-radius: 12px; font-weight: bold; margin-bottom: 20px; cursor: pointer;">
       + New Chat
     </button>
@@ -128,27 +198,29 @@ function saveAll() {
   localStorage.setItem("novaHoyaAI_pro", isPro);
 }
 
-// Pro status in header
+// Pro status
 function updateProStatus() {
   let header = document.querySelector('header');
-  let proDiv = document.getElementById('pro-header');
+  let proDiv = document.getElementById('pro-status');
   if (!proDiv) {
     proDiv = document.createElement('div');
-    proDiv.id = "pro-header";
+    proDiv.id = "pro-status";
+    proDiv.style.textAlign = "center";
+    proDiv.style.marginTop = "10px";
     header.appendChild(proDiv);
   }
 
   if (isPro) {
-    proDiv.innerHTML = `<span style="background: linear-gradient(135deg, #FFD700, #FFA500); color: black; padding: 8px 16px; border-radius: 30px; font-weight: bold; font-size: 16px; margin-top: 10px; display: inline-block;">NovaHoyaAI Pro 🔥 UNLIMITED</span>`;
+    proDiv.innerHTML = `<span style="background: linear-gradient(135deg, #FFD700, #FFA500); color: black; padding: 8px 20px; border-radius: 30px; font-weight: bold; font-size: 18px;">NovaHoyaAI Pro 🔥 UNLIMITED</span>`;
   } else {
     const current = chats.find(c => c.id === currentChatId);
     const imgLeft = MAX_IMAGES_FREE - (current?.imageCount || 0);
     const msgLeft = MAX_MESSAGES_FREE - (current?.messageCount || 0);
-    proDiv.innerHTML = `<p style="margin-top: 10px; font-size: 14px; color: #666;">Free: ${imgLeft} images & ${msgLeft} messages left<br><strong>Win Pro in Discord!</strong></p>`;
+    proDiv.innerHTML = `<p style="font-size: 14px; color: #666;">Free: ${imgLeft} images & ${msgLeft} messages left<br><strong>Win Pro in Discord!</strong></p>`;
   }
 }
 
-// Unlock Pro (secure via API)
+// Unlock Pro (secure)
 async function unlockPro() {
   const code = prompt("Enter your NovaHoyaAI Pro giveaway code:");
   if (!code) return;
@@ -166,27 +238,29 @@ async function unlockPro() {
       isPro = true;
       updateProStatus();
       saveAll();
-      addMessage("🎉 PRO UNLOCKED! Unlimited images, messages, and exclusive perks 🔥", "bot");
+      addMessage("🎉 PRO UNLOCKED! Unlimited everything 🔥", "bot");
     } else {
-      addMessage("Invalid code 😔 Real codes only from Discord giveaways: https://discord.gg/kxyFtrh9Ya", "bot");
+      addMessage("Invalid code 😔 Real codes from Discord giveaways only!", "bot");
     }
   } catch {
-    addMessage("Error checking code — try again!", "bot");
+    addMessage("Error — try again!", "bot");
   }
 }
 
-// Add Pro button if not Pro
+// Pro button
 if (!isPro) {
   const header = document.querySelector('header');
   const btn = document.createElement('button');
   btn.textContent = "Win Pro 🎁";
-  btn.style.marginTop = "15px";
-  btn.style.padding = "12px 24px";
+  btn.style.margin = "15px auto";
+  btn.style.display = "block";
+  btn.style.padding = "14px 28px";
   btn.style.background = "linear-gradient(135deg, #FFD700, #FFA500)";
   btn.style.color = "black";
   btn.style.border = "none";
   btn.style.borderRadius = "30px";
   btn.style.fontWeight = "bold";
+  btn.style.fontSize = "18px";
   btn.style.cursor = "pointer";
   btn.onclick = unlockPro;
   header.appendChild(btn);
@@ -238,6 +312,8 @@ function addMessage(content, type) {
 }
 
 async function sendMessage() {
+  if (!currentUser) return; // safety
+
   const text = input.value.trim();
   if (!text) return;
 
@@ -245,7 +321,7 @@ async function sendMessage() {
   if (!current) return;
 
   if (!isPro && current.messageCount >= MAX_MESSAGES_FREE) {
-    addMessage(`Message limit reached. Win Pro for unlimited!`, "bot");
+    addMessage(`Message limit reached. Win Pro in Discord!`, "bot");
     return;
   }
 
@@ -258,7 +334,7 @@ async function sendMessage() {
 
   if (isImageRequest) {
     if (!isPro && current.imageCount >= MAX_IMAGES_FREE) {
-      addMessage(`Image limit reached. Win Pro for unlimited!`, "bot");
+      addMessage(`Image limit reached. Win Pro in Discord!`, "bot");
       return;
     }
 
@@ -304,7 +380,5 @@ input.addEventListener("keydown", e => {
     sendMessage();
   }
 });
-
-addMessage("Hey! I'm NovaHoyaAI 🚀 Click 📜 History to switch chats. Win Pro for unlimited!", "bot");
 
 input.focus();
