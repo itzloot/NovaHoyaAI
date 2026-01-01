@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nova AI</title>
+  <title>NovaHoya AI</title>
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Load Puter.js FIRST (required for AI image gen) -->
+  <script src="https://js.puter.com/v2/"></script>
 </head>
 <body>
 
@@ -20,13 +23,14 @@
       <input
         id="userInput"
         type="text"
-        placeholder="Ask Nova AI anything..."
+        placeholder="Ask Nova AI anything... (try 'generate a kingdom in the clouds')"
         autocomplete="off"
       />
       <button id="sendBtn">Send</button>
     </footer>
   </div>
 
+  <!-- Load your script LAST -->
   <script src="script.js"></script>
 </body>
 </html>
