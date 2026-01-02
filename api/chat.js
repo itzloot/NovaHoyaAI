@@ -1,4 +1,4 @@
-// api/chat.js — FULL FREE with Groq (Llama 3.1 70B)
+// api/chat.js — FULL FREE with Groq (Llama 3.1 70B Versatile)
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -15,7 +15,7 @@ export default async function handler(req, res) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "llama-3.1-70b-versatile",
+        model: "llama-3.1-70b-versatile",  // confirmed correct model name
         messages: messages,
         temperature: 0.7,
         max_tokens: 1024
@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     if (!response.ok) {
       const err = await response.text();
       console.error("Groq error:", err);
-      return res.status(200).json({ reply: "Chat busy — try again soon! Images always work 🔥" });
+      return res.status(200).json({ reply: "Chat busy — try again! Images always work 🔥" });
     }
 
     const data = await response.json();
