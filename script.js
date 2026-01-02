@@ -2,7 +2,7 @@ const input = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 const chatArea = document.getElementById("chatArea");
 
-// Create sidebar
+// Sidebar
 const sidebar = document.createElement('div');
 sidebar.id = "sidebar";
 sidebar.style.width = "300px";
@@ -47,7 +47,6 @@ let isPro = false;
 const MAX_IMAGES_FREE = 5;
 const MAX_MESSAGES_FREE = 25;
 
-// Firebase Auth
 firebase.auth().onAuthStateChanged((user) => {
   currentUser = user;
 
@@ -111,7 +110,6 @@ firebase.auth().onAuthStateChanged((user) => {
   }
 });
 
-// Load data
 function loadData() {
   const saved = localStorage.getItem("novaHoyaAI_chats");
   if (saved) {
@@ -129,7 +127,6 @@ function loadData() {
   updateProStatus();
 }
 
-// New chat
 function newChat() {
   const id = Date.now();
   chats.unshift({
@@ -144,7 +141,6 @@ function newChat() {
   updateSidebar();
 }
 
-// Load chat
 function loadChat(id) {
   const chat = chats.find(c => c.id === id);
   if (!chat) return;
@@ -160,10 +156,9 @@ function loadChat(id) {
   updateSidebar();
 }
 
-// Update sidebar — FIXED to show chats
 function updateSidebar() {
   sidebar.innerHTML = `
-    <h2 style="color: #667eea; margin-bottom: 20px; text-align: center;">NovaHoyaAI Chats</h2>
+    <h2 style="color: #667eea; margin-bottom: 20px;">NovaHoyaAI Chats</h2>
     <button id="newChatBtn" style="width: 100%; padding: 12px; background: #667eea; color: white; border: none; border-radius: 12px; font-weight: bold; margin-bottom: 20px; cursor: pointer;">
       + New Chat
     </button>
@@ -180,7 +175,6 @@ function updateSidebar() {
     item.style.background = chat.id === currentChatId ? "#e3f2fd" : "#f0f0ff";
     item.style.cursor = "pointer";
     item.style.fontWeight = chat.id === currentChatId ? "bold" : "normal";
-    item.style.transition = "background 0.2s";
     item.onclick = () => loadChat(chat.id);
     list.appendChild(item);
   });
@@ -188,13 +182,11 @@ function updateSidebar() {
   document.getElementById('newChatBtn').onclick = newChat;
 }
 
-// Save all
 function saveAll() {
   localStorage.setItem("novaHoyaAI_chats", JSON.stringify(chats));
   localStorage.setItem("novaHoyaAI_pro", isPro);
 }
 
-// Pro status
 function updateProStatus() {
   let header = document.querySelector('header');
   let proDiv = document.getElementById('pro-status');
@@ -216,7 +208,6 @@ function updateProStatus() {
   }
 }
 
-// Unlock Pro
 async function unlockPro() {
   const code = prompt("Enter your NovaHoyaAI Pro giveaway code:");
   if (!code) return;
@@ -243,7 +234,6 @@ async function unlockPro() {
   }
 }
 
-// Pro button
 if (!isPro) {
   const header = document.querySelector('header');
   const btn = document.createElement('button');
