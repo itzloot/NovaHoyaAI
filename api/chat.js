@@ -1,4 +1,4 @@
-// api/chat.js
+// api/chat.js — FULL FREE with Groq (Llama 3.1 70B)
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -8,14 +8,14 @@ export default async function handler(req, res) {
   const { messages } = req.body;
 
   try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
+        "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "gpt-4o-mini",
+        model: "llama-3.1-70b-versatile",
         messages: messages,
         temperature: 0.7,
         max_tokens: 1024
@@ -24,8 +24,8 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       const err = await response.text();
-      console.error("OpenAI error:", err);
-      return res.status(200).json({ reply: "Chat error — check OpenAI key in Vercel!" });
+      console.error("Groq error:", err);
+      return res.status(200).json({ reply: "Chat busy — try again soon! Images always work 🔥" });
     }
 
     const data = await response.json();
@@ -35,6 +35,6 @@ export default async function handler(req, res) {
 
   } catch (error) {
     console.error(error);
-    res.status(200).json({ reply: "Error connecting to NovaHoyaAI — check OpenAI key!" });
+    res.status(200).json({ reply: "Chat temporarily down — images still work! 🔥" });
   }
 }
